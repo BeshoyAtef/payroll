@@ -8,6 +8,8 @@ using the terminal (You can open the terminal Using ctrl + alt + t)
 and paste this code
 
 sudo apt-get install python-django
+or for django 1,5 (but install pip first , check below for how to install pip)
+pip install Django==1.5.1
 
 ______________
 #Secand you need to Install GIT
