@@ -35,9 +35,6 @@ class CompanyDowntime(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
-    REQUIRED_FIELDS = ['start_time','end_time']  
-
-
 #Item: ID, name ,value
 ''' "identifier" has been used for the naming of the id , as django by default have an id for each model 
 and using and id again will be confusing  and a value has been added which represent the money the employee should get from this model'''
@@ -47,7 +44,7 @@ class Item(models.Model):
 	value = models.IntegerField(default=0)
 
 #Batches: ID, Employee ID, Date, item ID, Piece price, Size
-class Batches(models.Model):
+class Batch(models.Model):
 	employee = models.ForeignKey(Employee)
 	date = models.DateTimeField(default=datetime.datetime.now())
 	item = models.ForeignKey(Item)
