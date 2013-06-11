@@ -51,7 +51,7 @@ class Migration(SchemaMigration):
         db.create_table(u'www_item', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('identifier', self.gf('django.db.models.fields.CharField')(unique=True, max_length=100)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('description', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('value', self.gf('django.db.models.fields.IntegerField')(default=0)),
         ))
         db.send_create_signal(u'www', ['Item'])
@@ -155,9 +155,9 @@ class Migration(SchemaMigration):
         },
         u'www.item': {
             'Meta': {'object_name': 'Item'},
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'identifier': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'value': ('django.db.models.fields.IntegerField', [], {'default': '0'})
         },
         u'www.loan': {
