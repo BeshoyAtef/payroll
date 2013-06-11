@@ -39,9 +39,11 @@ class CompanyDowntime(models.Model):
 ''' "identifier" has been used for the naming of the id , as django by default have an id for each model 
 and using and id again will be confusing  and a value has been added which represent the money the employee should get from this model'''
 class Item(models.Model):
-	identifier = models.CharField(max_length=100,unique=True)  
-	name = models.CharField(max_length=100)  
-	value = models.IntegerField(default=0)
+    identifier = models.CharField(max_length=100,unique=True)  
+    description = models.CharField(max_length=100)  
+    value = models.IntegerField(default=0)
+
+    REQUIRED_FIELDS = ['identifier']  
 
 #Batches: ID, Employee ID, Date, item ID, Piece price, Size
 class Batch(models.Model):
