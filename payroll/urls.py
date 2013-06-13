@@ -3,7 +3,11 @@ from www.views import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+# from adminplus.sites import AdminSitePlus
+
+# admin.site = AdminSitePlus()
 admin.autodiscover()
+
 
 urlpatterns = patterns('',
     # Examples:
