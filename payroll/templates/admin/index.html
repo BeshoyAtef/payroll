@@ -23,25 +23,44 @@
         <table summary="{% blocktrans with name=app.name %}Models available in the {{ name }} application.{% endblocktrans %}">
         <caption><a href="{{ app.app_url }}" class="section">{% blocktrans with name=app.name %}{{ name }}{% endblocktrans %}</a></caption>
         {% for model in app.models %}
-            <tr>
+            <div 
+style="
+width: 120px;
+-webkit-border-radius: 3px 3px 0 0;
+-moz-border-radius: 3px 3px 0 0;
+-ms-border-radius: 3px 3px 0 0;
+-o-border-radius: 3px 3px 0 0;
+overflow: hidden;
+background: rgba(238, 238, 238, 0.38);
+display: inline-block;
+position: relative;
+margin: 10px;
+padding: 5px;
+border-radius: 3px;
+-webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.33);
+-moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.33);
+box-shadow:1px 3px  3px 0 rgba(0,0,0,0.33);
+}">
+
             {% if model.admin_url %}
-                <th scope="row"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
+                <center><a href="{{ model.admin_url }}"><h3>{{ model.name }}</h3></a></center>
             {% else %}
                 <th scope="row">{{ model.name }}</th>
             {% endif %}
 
             {% if model.add_url %}
-                <td><a href="{{ model.add_url }}" class="addlink">{% trans 'Add' %}</a></td>
+                 <span style="float:left;"><a href="{{ model.add_url }}" class="addlink">{% trans 'Add' %}</a></span>
             {% else %}
                 <td>&nbsp;</td>
             {% endif %}
 
             {% if model.admin_url %}
-                <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+                <span style="float:right;"><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></span>
             {% else %}
                 <td>&nbsp;</td>
             {% endif %}
-            </tr>
+
+            </div>
         {% endfor %}
         {% get_admin_views app.name %}
         </table>
