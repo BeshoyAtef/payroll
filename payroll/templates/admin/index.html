@@ -1,0 +1,105 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static admin_views %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block branding %}
+  <h1 style="font-weight: bold;" id="site-name">{% trans 'Innov Payroll' %}</h1>
+{% endblock %}
+
+{% block content %}
+<div id="content-main" style="margin-left: auto;
+    margin-right: auto">
+
+{% if app_list %}
+    {% for app in app_list %}
+        <div class="module">
+        <table summary="{% blocktrans with name=app.name %}Models available in the {{ name }} application.{% endblocktrans %}">
+        <caption><a href="{{ app.app_url }}" class="section">{% blocktrans with name=app.name %}{{ name }}{% endblocktrans %}</a></caption>
+        {% for model in app.models %}
+            <div 
+style="
+width: 120px;
+-webkit-border-radius: 3px 3px 0 0;
+-moz-border-radius: 3px 3px 0 0;
+-ms-border-radius: 3px 3px 0 0;
+-o-border-radius: 3px 3px 0 0;
+overflow: hidden;
+background: rgba(238, 238, 238, 0.38);
+display: inline-block;
+position: relative;
+margin: 10px;
+padding: 5px;
+border-radius: 3px;
+-webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.33);
+-moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,0.33);
+box-shadow:1px 3px  3px 0 rgba(0,0,0,0.33);
+}">
+
+            {% if model.admin_url %}
+                <center><a href="{{ model.admin_url }}"><h3>{{ model.name }}</h3></a></center>
+            {% else %}
+                <th scope="row">{{ model.name }}</th>
+            {% endif %}
+
+            {% if model.add_url %}
+                 <span style="float:left;"><a href="{{ model.add_url }}" class="addlink">{% trans 'Add' %}</a></span>
+            {% else %}
+                <td>&nbsp;</td>
+            {% endif %}
+
+            {% if model.admin_url %}
+                <span style="float:right;"><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></span>
+            {% else %}
+                <td>&nbsp;</td>
+            {% endif %}
+
+            </div>
+        {% endfor %}
+        {% get_admin_views app.name %}
+        </table>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>{% trans "You don't have permission to edit anything." %}</p>
+{% endif %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>{% trans 'Recent Actions' %}</h2>
+        <h3>{% trans 'My Actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+            <p>{% trans 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                {% if entry.is_deletion or not entry.get_admin_url %}
+                    {{ entry.object_repr }}
+                {% else %}
+                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br/>
+                {% if entry.content_type %}
+                    <span class="mini quiet">{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}</span>
+                {% else %}
+                    <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+</div>
+{% endblock %}
