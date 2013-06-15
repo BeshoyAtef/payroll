@@ -6,15 +6,21 @@ from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponseRedirect, HttpResponse
 
 def make_published(modeladmin, request, queryset):
-    current_month = date.today().month
+    current_month = date.today()
     list_of_slips = []
+    list_of_exceptions = []
+    total_payments = 0
     for employee in queryset:
         try:
-            payment = Payment.objects.get(employee = employee)
+            paymentlist = Payment.objects.filter(employee=employee)
+            payment = paymentlist.get(date__month = current_month.month)
             list_of_slips.append(payment)
+            total_payments = total_payments + payment.amount
+
         except:
-            pass
-    return render_to_response('test.html', {'slips_list': list_of_slips})
+            list_of_exceptions.append(employee)
+
+    return render_to_response('paymentslip.html', {'list_of_exceptions':list_of_exceptions,'slips_list': list_of_slips, 'month':current_month})
 make_published.short_description = "Print payment slips"
 
 class EmployeeAdmin(admin.ModelAdmin):
