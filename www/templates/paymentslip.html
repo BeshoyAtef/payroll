@@ -1,0 +1,24 @@
+{% load www_filters %}
+<html>
+<head>
+	<style type="text/css">
+	div{
+		padding-top: 90px;
+	}
+	</style>
+	<title>payment slips for {{ month|month_name }}
+ </title>
+</head>
+
+
+<body>
+	{% for payment in slips_list %}
+	<div>
+		<label>Month: {{payment.date.month|month_name}}</label>
+		<label><br>Pay to: {{payment.employee.name}}</label>
+		<br>
+		<label>Amount to be paid: {{payment.amount}}</label>
+		<br><label>authorized by: </label></div>
+	{% endfor %}
+</body>
+</html>
