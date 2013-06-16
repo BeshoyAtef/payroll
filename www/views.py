@@ -5,6 +5,8 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from www.models import *
 from django.shortcuts import render_to_response, redirect, render
+from django.core.context_processors import csrf
+from django.template import RequestContext        
 
 def index(request):
     return HttpResponse(" <a href='/admin'>Click here to got o the admin page</a>")
@@ -23,7 +25,7 @@ def add_batch(request):
         batches=Batch.objects.all()
         employees=Employee.objects.all()
         items=Item.objects.all()
-        return render_to_response('rapid_batch.html', {'batch_list':batches,'employee_list': employees, 'item_list':items})
+        return render_to_response('rapid_batch.html', {'batch_list':batches,'employee_list': employees, 'item_list':items}, context_instance=RequestContext(request))
     else :
         employee_id = request.POST['employee']
         tmp_date = request.POST['date']

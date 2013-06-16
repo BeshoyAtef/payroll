@@ -1,11 +1,12 @@
 
 {% extends "admin/base_site.html" %}
 
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css" />{% endblock %}
+
 {% block content %}
   <div id="content-main" style="margin-left: auto;
       margin-right: auto">
   {% if batch_list %}
-      {% for batch in batch_list %}
         <table class="table table-hover">
           <thead>
             <tr>
@@ -17,6 +18,7 @@
             </tr>
           </thead>
           <tbody>
+            {% for batch in batch_list %}
             <tr>
               <td>{{batch.employee}}</td>
               <td>{{batch.date}}</td>
@@ -24,9 +26,9 @@
               <td>{{batch.item_price}}</td>
               <td>{{batch.size}}</td>
             </tr>
+            {% endfor %}
           </tbody>
         </table>
-      {% endfor %}
   {% else %}
         <p>"No Batches Avaiable"</p>
   {% endif %}
@@ -65,15 +67,15 @@
                 <tr>
                   <form action="/add_batch/" method="POST">{% csrf_token %}
                   <td>
-                    <select>
+                    <select name="employee">
                       {% for employee in employee_list %}
-                      <option value="{{employee.id}}">{{employee.name}}</option>
+                      <option  value="{{employee.id}}">{{employee.name}}</option>
                       {% endfor %}
                     </select>
                   </td>
                   <td><input class="vDateField" id="datepicker"  name="date" size="10" type="text"></td>
                   <td>
-                    <select>
+                    <select name="identifier" >
                       {% for item in item_list %}
                       <option value="{{item.id}}" price="{{item.value}}">{{item.identifier}}</option>
                       {% endfor %}
