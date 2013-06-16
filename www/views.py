@@ -10,3 +10,13 @@ def import_attendance(request):
 
 def view_reports(request):
     return HttpResponse(" <h1>Welcome to thereports page</h1> ")
+
+def add_batch(request):
+    employee_id = request.POST['employee']
+    date = request.POST['date']
+    item_id = request.POST['identifier']
+    item_price = request.POST['item_price']
+    size = request.POST['size']
+    return HttpResponse(" <h1>i got the info</h1> ")
+
+
