@@ -1,0 +1,60 @@
+{% load www_filters %}
+{% load staticfiles %}
+<html>
+<head>
+<style type="text/css" media="screen">
+
+	.slip{
+	padding-top: 100px;
+	padding-left: 200px;
+	}
+</style>
+<style type="text/css" media="print">
+body {
+		color : #000000;
+		background : #ffffff;
+		font-family : "Times New Roman", Times, serif;
+		font-size : 12pt;
+		}
+		#non-printable {display: none}
+	
+
+	div{
+		min-height: 140px;
+		}
+</style>	
+<title>payment slips for {{ month|month_name }}
+ </title>
+</head>
+
+
+<body>
+	<div id="non-printable">
+	<h3>Number of payment slips generated: {{ slips_list|list_length }}</h3>
+	<h3>Number of emplyees whom there payment slips are not ready are: {{ list_of_exceptions|list_length }}</h3>
+	</div>
+{% if list_of_exceptions %}
+<div id="non-printable">
+	<label>The employees whose payment slips are not ready are:</label>
+<ul>
+
+	{% for employee in list_of_exceptions %}
+	<br>
+	<li>{{employee.name}}</li>
+	{% endfor %}
+</ul>
+</div>
+{% endif %}
+<div id="non-printable"><h4>Slips ready for printing are found below: </h4></div>
+	{% for payment in slips_list %}
+	<div class="">
+		<label>Month: {{payment.date|month_name}}</label>
+		<label><br>Pay to: {{payment.employee.name}}</label>
+		<br>
+		<label>Amount to be paid: {{payment.amount}}</label>
+		<br><br><label>authorized by: </label>
+	</div>
+	{% endfor %}
+	<div id="non-printable"><a href="javascript:window.print()" onClick="print();">print all slips</a></div>
+</body>
+</html>
