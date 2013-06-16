@@ -20,5 +20,5 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     
-    url(r'^$/add_batch/', 'www.views.add_batch'),
+    url(r'^add_batch/', 'www.views.add_batch'),
 )

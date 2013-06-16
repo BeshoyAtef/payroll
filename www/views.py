@@ -1,6 +1,8 @@
 # Create your views here.
 
 from django.http import HttpResponse
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 def index(request):
     return HttpResponse(" <a href='/admin'>Click here to got o the admin page</a>")
@@ -17,6 +19,5 @@ def add_batch(request):
     item_id = request.POST['identifier']
     item_price = request.POST['item_price']
     size = request.POST['size']
-    return HttpResponse(" <h1>i got the info</h1> ")
-
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

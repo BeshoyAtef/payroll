@@ -130,9 +130,9 @@
               </thead>
               <tbody>
                 <tr>
-                  <form action="/add_batch/" method="get">
+                  <form action="/add_batch/" method="post">{% csrf_token %}
                   <td><input class="vTextField" id="id_name" maxlength="100" name="employee" type="text"></td>
-                  <td><input class="vDateField" id="id_date_0" name="date" size="10" type="text"></td>
+                  <td><input class="vDateField" id="datepicker"  name="date" size="10" type="text"></td>
                   <td><input class="vTextField" id="id_identifier" maxlength="100" name="identifier" type="text"></td>
                   <td><input class="vIntegerField" id="id_item_price" name="item_price" type="text" ></td>
                   <td><input class="vIntegerField" id="id_item_price" name="size" type="text" >
