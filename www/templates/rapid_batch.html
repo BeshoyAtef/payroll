@@ -1,0 +1,99 @@
+
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+  <div id="content-main" style="margin-left: auto;
+      margin-right: auto">
+  {% if batch_list %}
+      {% for batch in batch_list %}
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Employee</th>
+              <th>Date</th>
+              <th>Item</th>
+              <th>Price</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{batch.employee}}</td>
+              <td>{{batch.date}}</td>
+              <td>{{batch.item}}</td>
+              <td>{{batch.item_price}}</td>
+              <td>{{batch.size}}</td>
+            </tr>
+          </tbody>
+        </table>
+      {% endfor %}
+  {% else %}
+        <p>"No Batches Avaiable"</p>
+  {% endif %}
+  </div>
+
+    <div class="module" style="float:left;width: 98%">
+    <style type="text/css" media="screen">
+    input{
+      width: auto;
+      vertical-align: middle;
+      margin: 2px 0;
+      font-size: 13px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      -o-border-radius: 4px;
+      -ms-border-radius: 4px;
+      -khtml-border-radius: 4px;
+      border-radius: 4px;
+      border: 1px solid #cccccc;
+      color: #555555;
+      padding: 6px 5px;
+      outline: none;
+    }
+    </style>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Date</th>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Size</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <form action="/add_batch/" method="POST">{% csrf_token %}
+                  <td>
+                    <select>
+                      {% for employee in employee_list %}
+                      <option value="{{employee.id}}">{{employee.name}}</option>
+                      {% endfor %}
+                    </select>
+                  </td>
+                  <td><input class="vDateField" id="datepicker"  name="date" size="10" type="text"></td>
+                  <td>
+                    <select>
+                      {% for item in item_list %}
+                      <option value="{{item.id}}" price="{{item.value}}">{{item.identifier}}</option>
+                      {% endfor %}
+                    </select>
+                  </td>
+                  <td><input class="vIntegerField" id="id_item_price" name="item_price" type="text" ></td>
+                  <td><input class="vIntegerField" id="id_item_price" name="size" type="text" >
+                  <ul class="object-tools" style="margin-top: 0px;">
+                    <li>
+                      <input type="submit" value="Add batch" class="addlink">
+                  </form>
+                        
+
+                    </li>
+                   </ul>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+  </div>
+
+{% endblock %}
