@@ -26,6 +26,17 @@
 	 {% for payment in slips_list %}
 	<div class="main_th">
 	<div class="sliptop">
+	<div class="watermark" style="
+position: absolute;
+opacity: 0.35;
+font-size: 2em;
+width: 100%;
+margin-left: 210px;
+margin-top: 286px;
+z-index: 1000;
+transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+-webkit-transform: rotate(15deg);">Innov Development</div>
 		<label class="name_modification">Employee name: {{payment.employee.name}}</label>
 		<label>Month & Year: {{payment.date|month_name}}</label>
 	</div>

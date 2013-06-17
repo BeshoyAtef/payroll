@@ -42,3 +42,15 @@
 .main_th{
 	height:200px;
 }
+.watermark {
+position: absolute;
+opacity: 0.35;
+font-size: 2em;
+width: 100%;
+margin-left: 210px;
+margin-top: 286px;
+z-index: 1000;
+transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+-webkit-transform: rotate(15deg);
+}
