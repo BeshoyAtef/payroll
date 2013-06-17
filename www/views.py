@@ -19,13 +19,16 @@ def view_reports(request):
 
 
 
-
+flag_done=False
 def add_batch(request):
+    global flag_done
     if request.method == "GET" :
         batches=Batch.objects.all()
         employees=Employee.objects.all()
         items=Item.objects.all()
-        return render_to_response('rapid_batch.html', {'batch_list':batches,'employee_list': employees, 'item_list':items}, context_instance=RequestContext(request))
+        flag=flag_done
+        flag_done=False
+        return render_to_response('rapid_batch.html', {'batch_list':batches,'employee_list': employees, 'item_list':items,'flag_done':flag}, context_instance=RequestContext(request))
     else :
         employee_id = request.POST['employee']
         tmp_date = request.POST['date']
@@ -35,6 +38,7 @@ def add_batch(request):
         tmp_employee = Employee.objects.get(id=employee_id)
         tmp_item = Item.objects.get(id=item_id)
         batch = Batch(employee=tmp_employee,date=tmp_date,item=tmp_item,item_price=tmp_item_price,size=tmp_size)
+        flag_done=True
         batch.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

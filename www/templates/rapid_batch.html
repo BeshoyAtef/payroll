@@ -1,7 +1,11 @@
 
 {% extends "admin/base_site.html" %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css" />{% endblock %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="http://www.eyecon.ro/bootstrap-datepicker/css/datepicker.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
+<script  src="http://www.eyecon.ro/bootstrap-datepicker/js/bootstrap-datepicker.js" /></script>
+{% endblock %}
 
 {% block content %}
   <div id="content-main" style="margin-left: auto;
@@ -33,6 +37,13 @@
         <p>"No Batches Avaiable"</p>
   {% endif %}
   </div>
+  {% if flag_done %}
+  <div class="alert alert-success">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>Well done!</strong> The Batch Has been Added.
+  </div>
+  {% endif %}
+
 
     <div class="module" style="float:left;width: 98%">
     <style type="text/css" media="screen">
@@ -73,7 +84,7 @@
                       {% endfor %}
                     </select>
                   </td>
-                  <td><input class="vDateField" id="datepicker"  name="date" size="10" type="text"></td>
+                  <td><input class="vDateField" id="dp1"  name="date" size="10" type="text"></td>
                   <td>
                     <select name="identifier" >
                       {% for item in item_list %}
@@ -97,5 +108,12 @@
               </tbody>
             </table>
   </div>
+  <script>
+    $(function(){
+      $('#dp1').datepicker({
+        format: 'yyyy-mm-dd'
+      });
+    });
+  </script>
 
 {% endblock %}
