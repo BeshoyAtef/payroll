@@ -2,12 +2,33 @@ from django.contrib import admin
 from www.views import import_attendance
 from django.http import HttpResponse
 from www.models import *
-from django.shortcuts import redirect
+import datetime
+from datetime import date
+from django.shortcuts import render_to_response, redirect, render
+from django.http import HttpResponseRedirect, HttpResponse
 from admin_views.admin import AdminViews
+def make_published(modeladmin, request, queryset):
+    current_month = date.today()
+    list_of_slips = []
+    list_of_exceptions = []
+    total_payments = 0
+    for employee in queryset:
+        try:
+            paymentlist = Payment.objects.filter(employee=employee)
+            payment = paymentlist.get(date__month = current_month.month)
+            list_of_slips.append(payment)
+            total_payments = total_payments + payment.amount
+
+        except:
+            list_of_exceptions.append(employee)
+
+    return render_to_response('paymentslip.html', {'list_of_exceptions':list_of_exceptions,'slips_list': list_of_slips, 'month':current_month})
+make_published.short_description = "Print payment slips"
 
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ['name', 'email','mobile', 'ssn']
     search_fields = ['name', 'email','mobile', 'ssn']
+    actions = [make_published]
 
 def my_view(request, *args, **kwargs):
     return HttpsResponse(" <a href='/admin'>here to do nothing</a>")

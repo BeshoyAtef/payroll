@@ -14,7 +14,8 @@ class Employee(models.Model):
     salary = models.IntegerField(default=0)
     
     REQUIRED_FIELDS = ['name']  
-
+    def __unicode__(self):
+        return self.name
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
@@ -58,11 +59,14 @@ class Payment(models.Model):
 	date = models.DateTimeField(default=datetime.datetime.now())
 	employee = models.ForeignKey(Employee)
 	amount = models.IntegerField()
-
+	
+	def __unicode__(self):
+		return self.employee.name
 #Loans: ID, Date, Employee ID, Amount
 class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
     employee = models.ForeignKey(Employee)
     amount = models.IntegerField()
-
+    def __unicode__(self):
+    	return self.employee.name + str("__") + str(self.amount)
 ##
