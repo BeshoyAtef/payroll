@@ -1,0 +1,44 @@
+#non-printable {display: none}
+.name_modification{
+	display: block;
+	font-family: arial;
+}
+.left_sign{
+		display: inline-block;
+		width: 500px;
+	}
+	.sliptop{
+		font-family: arial;
+		font-size: 16;
+	}
+.wrapper_content{
+	font-family: arial;
+	border-top: 3px solid black;
+	border-left: 3px solid black;
+	border-right: 3px solid black;
+}
+.earnings{
+	padding: 2px;
+	font-family: arial;
+	border-bottom: 3px solid black;
+}
+	.right_label{
+
+		font-family: arial;
+		display: inline-block;
+				}
+	.left_label{
+		font-family: arial;
+		display: inline-block;
+		width: 600px;
+				}
+
+.numtext{
+	font-family: arial;
+}
+.footer{
+	font-family: arial;
+}
+.main_th{
+	height:200px;
+}

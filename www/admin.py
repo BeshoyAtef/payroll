@@ -6,7 +6,7 @@ import datetime
 from datetime import date
 from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponseRedirect, HttpResponse
-
+from admin_views.admin import AdminViews
 def make_published(modeladmin, request, queryset):
     current_month = date.today()
     list_of_slips = []
