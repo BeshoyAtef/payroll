@@ -66,3 +66,19 @@ class Loan(models.Model):
     amount = models.IntegerField()
 
 ##
+
+
+class MyCsvFile(models.Model):
+    Ac_No = models.IntegerField()
+    name = models.CharField(max_length=50)
+    time = models.CharField(max_length=20)
+    finger_Print = models.CharField(max_length=15)
+    machine = models.IntegerField()
+
+
+    def __unicode__(self):
+        return "%s, %s (%s)" % (self.name, self.time )
+    
+     
+    class Meta:
+        ordering = ['Ac_No']
