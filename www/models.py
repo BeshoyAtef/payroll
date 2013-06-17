@@ -15,13 +15,38 @@ class Employee(models.Model):
     
     REQUIRED_FIELDS = ['name']  
 
+    #Mohamed Awad
+    #this def returns the working hours of any employee
+    #given to it a range of integers that represent start and end years, months and days.
+    def working_hours(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day):
+        date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
+        date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
+        attendances = Attendance.objects.filter(date__range = [date_start, date_end], employee = self)
+        working_seconds = 0
+        working_minutes = 0
+        working_hours = 0
+        for attendance in attendances:
+            working_timedelta = attendance.check_out - attendance.check_in
+            working_seconds = working_seconds + working_timedelta.seconds
+        working_hours = working_seconds/60/60
+        working_seconds = working_seconds - working_hours*60*60
+        working_minutes = working_seconds/60/60
+        working_hours = working_hours + working_minutes
+        working_seconds = (working_seconds - working_minutes*60)/60/60
+        working_hours = working_hours + working_seconds
+        return working_hours
+
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
-    date = models.DateTimeField(default=datetime.datetime.now())
+    date = models.DateField(default=datetime.date.today)
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
     employee = models.ForeignKey(Employee)
+
+    class Meta:
+        ordering = ['date', 'employee']
+            
 
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
 class AttendanceException(models.Model):
