@@ -28,11 +28,3 @@ def company_wide_output_monthly_report(request):
 	Dict = company_wide_output_monthly_report(desired_year, desired_month)
 	return render(request, Dict)
 
-# def company_wide_output_monthly_report(request):
-# 	desired_year = request.GET['year']
-# 	desired_month = request.GET['month']
-# 	total_batches = len(Batch.objects.filter(date__year = desired_year, date__month =  desired_month))
-# 	total_items = len(Item.objects.filter(date__year = desired_year, date__month =  desired_month))
-
-# 	return render({'Total Batches': total_batches, 'Total Items': total_items})
-

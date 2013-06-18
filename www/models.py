@@ -53,10 +53,12 @@ class Batch(models.Model):
     item_price = models.IntegerField()
     size = models.IntegerField(default=0)
 
+'''Tharwat --- This method returns the productivity report for a whole year that is chosen by the user. It takes the desired year
+from the user and then generates the list.'''
+
 def company_wide_output_yearly_report(desired_year):
     total_batches = Batch.objects.filter(date__year = desired_year)
     number_of_employees = len(Employee.objects.all())
-
     Jan = Feb = March = April = May = June = July = August = September = October = November = December = 0
 
     for batch in total_batches:
@@ -93,23 +95,24 @@ def company_wide_output_yearly_report(desired_year):
 
     return Dict
 
+'''Tharwat --- This method returns the producivity output report for a specific month for all the employees. It takes in the
+year and month from the user and then lists the productivity for each day of the month.'''
+
 def company_wide_output_monthly_report(desired_year, desired_month):
     total_batches = Batch.objects.filter(date__year = desired_year, date__month = desired_month)
     number_of_employees = len(Employee.objects.all())
-    list_of_output_per_day = []
-    for batches in total_batches:
-        day = batches.date.day
-        print day
-        print list_of_output_per_day[day]
-        list_of_output_per_day[day] = list_of_output_per_day[day] + batches.size 
+    list_of_output_per_day = [0]*31
+    count = 0
+    total = 0 
+    for batch in total_batches:
+        day = batch.date.day - 1 
+        list_of_output_per_day[day] = list_of_output_per_day[day] + batch.size 
 
+    for x in list_of_output_per_day:
+        total = total + x
 
-    number_of_items_in_list = len(list_of_output_per_day)
-    list_of_output_per_day = range(number_of_items_in_list)
-    total = sum(list_of_output_per_day) 
     batch_per_employee = total/number_of_employees
-
-    Dict = {'list_of_output_per_day': list_of_output_per_day, 'batch_per_employee': batch_per_employee}
+    Dict = {'list_of_output_per_day': list_of_output_per_day, 'Total Produced': total, 'batch_per_employee': batch_per_employee}
 
     return Dict
 
@@ -119,6 +122,10 @@ class Payment(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
     employee = models.ForeignKey(Employee)
     amount = models.IntegerField()
+
+
+'''Tharwat--- This method returns the salary report for all employees for a specific year that is chosen by the user. It takes
+the year form the user and then checks for the amount of salaries that are paid each month for the chosen year'''
 
 def company_wide_salary_report(desired_year):
     yearly_payments = Payment.objects.filter(date__year = desired_year)
@@ -161,5 +168,3 @@ class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
     employee = models.ForeignKey(Employee)
     amount = models.IntegerField()
-
-##
