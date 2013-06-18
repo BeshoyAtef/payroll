@@ -13,7 +13,7 @@ class Employee(models.Model):
     ssn = models.IntegerField(default=0)        
     salary = models.IntegerField(default=0)
     
-    REQUIRED_FIELDS = ['name']  
+    REQUIRED_FIELDS = ['name']
 
     #Mohamed Awad
     #this def returns the working hours of any employee
@@ -44,6 +44,8 @@ class Employee(models.Model):
         date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
         return len(Batch.objects.filter(date__range = [date_start, date_end], employee = self))
 
+    def __unicode__(self):
+        return self.name
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
@@ -92,11 +94,14 @@ class Payment(models.Model):
 	date = models.DateTimeField(default=datetime.datetime.now())
 	employee = models.ForeignKey(Employee)
 	amount = models.IntegerField()
-
+	
+	def __unicode__(self):
+		return self.employee.name
 #Loans: ID, Date, Employee ID, Amount
 class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
     employee = models.ForeignKey(Employee)
     amount = models.IntegerField()
-
+    def __unicode__(self):
+    	return self.employee.name + str("__") + str(self.amount)
 ##

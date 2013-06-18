@@ -14,7 +14,7 @@ or for django 1,5 (but install pip first , check below for how to install pip)
 pip install Django==1.5.1
 
 ______________
-#Secand you need to Install GIT
+#then you need to Install GIT
 using the terminal 
 paste this code 
 sudo apt-get install git
