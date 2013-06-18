@@ -15,6 +15,21 @@ class Employee(models.Model):
     
     REQUIRED_FIELDS = ['name']  
 
+    def working_hours(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day, type_query):
+        date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
+        date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
+        attendances = {}
+        if type_query == "fixed":
+            attendances = Attendance.objects.filter(date__range = [date_start, date_end], employee = self).exclude(date = date_end)
+        else:
+            attendances = Attendance.objects.filter(date__range = [date_start, date_end], employee = self)
+        working_seconds = 0
+        working_minutes = 0
+        working_hours = 0
+        for attendance in attendances:
+            working_timedelta = attendance.check_out - attendance.check_in
+            working_seconds = working_seconds + working_timedelta.seconds
+        return working_hours
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
@@ -27,10 +42,11 @@ def company_wide_yearly_attendance_report(desired_year):
     all_employees = Employee.objects.all()
     all_attendances = Attendance.objects.all()
     number_of_employees = len(all_employees)
-    print number_of_employees
+
     Jan = Feb = March = April = May = June = July = August = September = October = November = December = 0
 
-    for employee in all_attendances:
+    for attendance in all_attendances:
+        print attendance.employee
         if attendance.date.month == 1:
             employee = attendance.employee
             working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed") 
@@ -93,22 +109,28 @@ def company_wide_monthly_attendance_report(desired_year, desired_month):
     all_attendances = Attendance.objects.filter(date__year = desired_year, date__month = desired_month)
     number_of_employees = len(Employee.objects.all())
     list_of_attendance_per_day = [0]*31
-    day = 0
+    
     total_hours = 0
 
     for attendance in all_attendances:
+        day = 0
         while day <= 31:
-            hours = (attendance.check_out - attendance.check_in)/60/60
-            list_of_attendance_per_day[day] = list_of_attendance_per_day[day] + hours
-            day = day + 1
-    
+            if attendance.date.day == (day + 1):
+                hours = (attendance.check_out - attendance.check_in).seconds/60/60
+                list_of_attendance_per_day[day] = list_of_attendance_per_day[day] + hours
+                day = day + 1
+            else:
+                day = day + 1
+
     for x in list_of_attendance_per_day:
         total_hours = total_hours + x
 
+    print total_hours
+    print list_of_attendance_per_day
     Dict = {'List of Attendance per Day' : list_of_attendance_per_day, 'Total Hours of Work': total_hours}
 
     return Dict
-    
+
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
 class AttendanceException(models.Model):
     attendance = models.ForeignKey(Attendance)
