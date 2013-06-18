@@ -35,9 +35,11 @@ def add_batch(request):
         item_id = request.POST['identifier']
         tmp_item_price = request.POST['item_price']
         tmp_size = request.POST['size']
+        tmp_reason = request.POST['reason']
         tmp_employee = Employee.objects.get(id=employee_id)
         tmp_item = Item.objects.get(id=item_id)
-        batch = Batch(employee=tmp_employee,date=tmp_date,item=tmp_item,item_price=tmp_item_price,size=tmp_size)
+        batch = Batch(employee=tmp_employee,date=tmp_date,item=tmp_item,item_price=tmp_item_price,size=tmp_size,
+            reason=tmp_reason)
         flag_done=True
         batch.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

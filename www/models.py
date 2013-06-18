@@ -53,6 +53,7 @@ class Batch(models.Model):
 	item = models.ForeignKey(Item)
 	item_price = models.IntegerField()
 	size = models.IntegerField(default=0)
+    reason = models.CharField(max_length=100)  
 
 #Payment: ID, Date, Employee ID, amount
 class Payment(models.Model):
