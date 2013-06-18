@@ -18,32 +18,34 @@ class Employee(models.Model):
     #Mohamed Awad
     #this def returns the working hours of any employee
     #given to it a range of integers that represent start and end years, months and days.
-    def working_hours(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day):
+    def working_hours(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day, type_query):
         date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
         date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
-        attendances = Attendance.objects.filter(date__range = [date_start, date_end], employee = self)
+        attendances = {}
+        if type_query == "fixed":
+            attendances = Attendance.objects.filter(date__range = [date_start, date_end], employee = self).exclude(date = date_end)
+        else:
+            attendances = Attendance.objects.filter(date__range = [date_start, date_end], employee = self)
         working_seconds = 0
         working_minutes = 0
         working_hours = 0
         for attendance in attendances:
             working_timedelta = attendance.check_out - attendance.check_in
             working_seconds = working_seconds + working_timedelta.seconds
-        working_hours = working_seconds/60/60
-        working_seconds = working_seconds - working_hours*60*60
-        working_minutes = working_seconds/60/60
-        working_hours = working_hours + working_minutes
-        working_seconds = (working_seconds - working_minutes*60)/60/60
-        working_hours = working_hours + working_seconds
         return working_hours
 
     #Mohamed Awad
     #this def returns the number of products of any employee
     #given to it a range of integers that represent start and end years, months and days.
-    def productivity(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day):
+    def productivity(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day, type_query):
         date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
         date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
-        return len(Batch.objects.filter(date__range = [date_start, date_end], employee = self))
-
+        total_products = 0
+        if type_query == "fixed":
+            total_products = len(Batch.objects.filter(date__range = [date_start, date_end], employee = self).exclude(date = date_end))
+        else:
+            total_products = len(Batch.objects.filter(date__range = [date_start, date_end], employee = self))
+        return total_products
     def __unicode__(self):
         return self.name
 

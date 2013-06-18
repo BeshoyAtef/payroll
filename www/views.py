@@ -19,8 +19,8 @@ def employee_productivity_month(request):
 	month = request.GET['month']
 	year = request.GET['year']
 	employee = Employee.objects.get(id = request.GET['employee'])
-	total_hours = employee.working_hours(year, month, 1, year, month+1, 1)
-	productivity = employee.productivity(year, month, 1, year, month+1, 1)
+	total_hours = employee.working_hours(year, month, 1, year, month+1, 1, "fixed")
+	productivity = employee.productivity(year, month, 1, year, month+1, 1, "fixed")
 	average_productivity = productivity/total_hours
 	return render(request, '', {'average_productivity': average_productivity})
 
@@ -31,8 +31,8 @@ def employee_productivity_month(request):
 def employee_productivity_year(request):
 	year = request.GET['year']
 	employee = Employee.objects.get(id = request.GET['employee'])
-	total_hours = employee.working_hours(year, 1, 1, year+1, 1, 1)
-	productivity = employee.productivity(year, 1, 1, year+1, 1, 1)
+	total_hours = employee.working_hours(year, 1, 1, year+1, 1, 1, "fixed")
+	productivity = employee.productivity(year, 1, 1, year+1, 1, 1, "fixed")
 	average_productivity = productivity/total_hours
 	return render(request, '', {'average_productivity': average_productivity})
 
@@ -49,7 +49,7 @@ def employee_productivity_custom(request):
 	year_end = request.GET['year_end']
 	day_end = request.GET['day_end']	
 	employee = Employee.objects.get(id = request.GET['employee'])
-	total_hours = employee.working_hours(year_start, month_start, day_start, year_end, month_end, day_end)
-	productivity = employee.productivity(year_start, month_start, day_start, year_end, month_end, day_end)
+	total_hours = employee.working_hours(year_start, month_start, day_start, year_end, month_end, day_end, "custom")
+	productivity = employee.productivity(year_start, month_start, day_start, year_end, month_end, day_end, "custom")
 	average_productivity = productivity/total_hours
 	return render(request, '', {'average_productivity': average_productivity})
