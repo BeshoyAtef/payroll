@@ -53,3 +53,26 @@ def employee_productivity_custom(request):
 	productivity = employee.productivity(year_start, month_start, day_start, year_end, month_end, day_end, "custom")
 	average_productivity = productivity/total_hours
 	return render(request, '', {'average_productivity': average_productivity})
+
+#Mohamed Awad
+#this def calculates the employee payement in a specific yaer
+#the def takes as request the specific year the admin is wishing to look for
+#and returns total payements the employee received or will receive
+#in that specific year
+def employee_payement_year(request):
+	year = request.GET['year']
+	employee = Employee.objects.get(id = request.GET['employee'])
+	total_hours = employee.payement(year, 1, 1, year+1, 1, 1)
+	return render(request, '', {'average_productivity': average_productivity})
+
+#Mohamed Awad
+#this def calculates the employee payement in a specific month
+#the def takes as request the specific year and month the admin is wishing to look for
+#and returns total payements the employee received or will receive
+#in that specific month
+def employee_payement_month(request):
+	year = request.GET['year']
+	month = request.GET['month']
+	employee = Employee.objects.get(id = request.GET['employee'])
+	total_hours = employee.payement(year, month, 1, year, month+1, 1)
+	return render(request, '', {'average_productivity': average_productivity})

@@ -7,17 +7,17 @@ import datetime
 from datetime import timedelta
 
 class Employee(models.Model):
-    name = models.CharField(max_length=100)     
+    name = models.CharField(max_length=100)
     email = models.EmailField(max_length=254, unique=True)
     mobile = models.IntegerField(default=0)
-    ssn = models.IntegerField(default=0)        
+    ssn = models.IntegerField(default=0)
     salary = models.IntegerField(default=0)
     
     REQUIRED_FIELDS = ['name']
 
     #Mohamed Awad
     #this def returns the working hours of any employee
-    #given to it a range of integers that represent start and end years, months and days.
+    #given to it a range of integers that represent start and end years, months and days
     def working_hours(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day, type_query):
         date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
         date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
@@ -46,6 +46,20 @@ class Employee(models.Model):
         else:
             total_products = len(Batch.objects.filter(date__range = [date_start, date_end], employee = self))
         return total_products
+    
+    #Mohamed Awad
+    #this def returns the total payement of an employee
+    #of a specific start date and end date
+    def payement(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day):
+        salary = self.salary
+        date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
+        date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
+        batches = Batch.objects.filter(employee = self, date__range = [date_start, date_end])
+        for batch in batches:
+            amounts_to_pay = batch.item_price*batch.size
+            salary = salary + amounts_to_pay
+        return salary
+
     def __unicode__(self):
         return self.name
 
@@ -86,7 +100,7 @@ class Item(models.Model):
 #Batches: ID, Employee ID, Date, item ID, Piece price, Size
 class Batch(models.Model):
 	employee = models.ForeignKey(Employee)
-	date = models.DateTimeField(default=datetime.datetime.now())
+	date = models.DateField(default=datetime.date.today)
 	item = models.ForeignKey(Item)
 	item_price = models.IntegerField()
 	size = models.IntegerField(default=0)
@@ -106,4 +120,3 @@ class Loan(models.Model):
     amount = models.IntegerField()
     def __unicode__(self):
     	return self.employee.name + str("__") + str(self.amount)
-##
