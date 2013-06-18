@@ -76,6 +76,7 @@
                   <th>Item</th>
                   <th>Price</th>
                   <th>Size</th>
+                  <th style="display:none;" class="reson_div"><strong>Add a Reason</strong></th>
                 </tr>
               </thead>
               <tbody>
@@ -99,7 +100,11 @@
                   <td><input class="vDateField" id="id_item_price" name="item_price" type="text" >
                    <a href="#"><i class="icon-pencil" id="edit_value" style="display:none;"></i></a> 
                   </td>
-                  <td><input class="vDateField" id="id_item_size" name="size" type="text" >
+                  <td><input class="vDateField" id="id_item_size" name="size" type="text" ></td>
+                    <td>                
+                      <input style="display:none;" class="reson_div" class="vDateField" id="reason" name="reason" type="text">
+                    </td>
+                    <td>
                   <ul class="object-tools" style="margin-top: 0px;">
                     <li>
                       <input type="submit" value="Add batch" class="addlink">
@@ -114,13 +119,7 @@
             </table>
 
             <center>
-              <div id="reson_div" style="display:none;">
-                <div class="alert">
-                  <button type="button" class="close" data-dismiss="alert">×</button>
-                  <strong>Please add a reason !</strong> To Edit the Value you Must add. 
-                </div>
-                Please add a Reson : <input class="vDateField" id="reason" name="reason" type="text" >
-              </div>
+
             </center>
 
 
@@ -140,7 +139,8 @@
       });
       $("#edit_value").on("click", function() {
       $("#id_item_price").removeAttr('disabled');
-      $("#reson_div").fadeIn();
+      $(".reson_div").fadeIn();
+      $(".reson_div").attr('required','true');
       });
 
     });

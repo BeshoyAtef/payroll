@@ -48,21 +48,21 @@ class Item(models.Model):
 
 #Batches: ID, Employee ID, Date, item ID, Piece price, Size
 class Batch(models.Model):
-	employee = models.ForeignKey(Employee)
-	date = models.DateTimeField(default=datetime.datetime.now())
-	item = models.ForeignKey(Item)
-	item_price = models.IntegerField()
-	size = models.IntegerField(default=0)
-    reason = models.CharField(max_length=100)  
+    employee = models.ForeignKey(Employee)
+    date = models.DateTimeField(default=datetime.datetime.now())
+    item = models.ForeignKey(Item)
+    item_price = models.IntegerField()
+    size = models.IntegerField(default=0)
+    reason = models.CharField(max_length=100,default="none")  
 
 #Payment: ID, Date, Employee ID, amount
 class Payment(models.Model):
-	date = models.DateTimeField(default=datetime.datetime.now())
-	employee = models.ForeignKey(Employee)
-	amount = models.IntegerField()
-	
-	def __unicode__(self):
-		return self.employee.name
+    date = models.DateTimeField(default=datetime.datetime.now())
+    employee = models.ForeignKey(Employee)
+    amount = models.IntegerField()
+
+    def __unicode__(self):
+        return self.employee.name
 #Loans: ID, Date, Employee ID, Amount
 class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
