@@ -42,8 +42,8 @@ class Employee(models.Model):
     def productivity(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day):
         date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
         date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
-        products = Batch.objects.filter(date__range = [date_start, date_end], employee = self)
-        return len(products)
+        return len(Batch.objects.filter(date__range = [date_start, date_end], employee = self))
+
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
@@ -54,6 +54,7 @@ class Attendance(models.Model):
 
     class Meta:
         ordering = ['date', 'employee']
+        unique_together = ("date", "employee")
             
 
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
