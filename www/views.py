@@ -28,3 +28,14 @@ def company_wide_output_monthly_report(request):
 	Dict = company_wide_output_monthly_report(desired_year, desired_month)
 	return render(request, Dict)
 
+def company_wide_yearly_attendance_report(request):
+	desired_year = request.GET['year']
+	Dict = company_wide_yearly_attendance_report(desired_year)
+	return render(request, Dict)
+
+def company_wide_monthly_attendance_report(request):
+	desired_year = request.GET['year']
+	desired_month = request.GET['month']
+	Dict = company_wide_monthly_attendance_report(desired_year, desired_month)
+	return render(request, Dict)
+	

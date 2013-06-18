@@ -23,6 +23,92 @@ class Attendance(models.Model):
     check_out = models.DateTimeField()
     employee = models.ForeignKey(Employee)
 
+def company_wide_yearly_attendance_report(desired_year):
+    all_employees = Employee.objects.all()
+    all_attendances = Attendance.objects.all()
+    number_of_employees = len(all_employees)
+    print number_of_employees
+    Jan = Feb = March = April = May = June = July = August = September = October = November = December = 0
+
+    for employee in all_attendances:
+        if attendance.date.month == 1:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed") 
+            Jan = Jan + working_hours
+        if attendance.date.month == 2:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            Feb = Feb + working_hours
+        if attendance.date.month == 3:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            March = March + working_hours
+        if attendance.date.month == 4:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            April = April + working_hours
+        if attendance.date.month == 5:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            May = May + working_hours
+        if attendance.date.month == 6:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            June = June + working_hours
+        if attendance.date.month == 7:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            July = July + working_hours
+        if attendance.date.month == 8:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            August = August + working_hours
+        if attendance.date.month == 9:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            September = September + working_hours
+        if attendance.date.month == 10:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            October = October + working_hours
+        if attendance.date.month == 11:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            November = November + working_hours
+        if attendance.date.month == 12:
+            employee = attendance.employee
+            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+            December = December + working_hours
+
+    total_number_of_working_hours = Jan + Feb + March + April + May + June + July + August + September + October + November + December
+    average = total_number_of_working_hours/number_of_employees
+
+    Dict = {'Jan': Jan, 'Feb': Feb, 'March': March, 'April': April, 'May': May, 'June': June, 'July': July, 'August': August, 
+    ' September': September, 'October': October, 'November': November, 'December': December, 'Total Number of Working Hours': total_number_of_working_hours, 
+    'Average of working hours/Employee': average}
+
+    return Dict
+
+def company_wide_monthly_attendance_report(desired_year, desired_month):
+    all_attendances = Attendance.objects.filter(date__year = desired_year, date__month = desired_month)
+    number_of_employees = len(Employee.objects.all())
+    list_of_attendance_per_day = [0]*31
+    day = 0
+    total_hours = 0
+
+    for attendance in all_attendances:
+        while day <= 31:
+            hours = (attendance.check_out - attendance.check_in)/60/60
+            list_of_attendance_per_day[day] = list_of_attendance_per_day[day] + hours
+            day = day + 1
+    
+    for x in list_of_attendance_per_day:
+        total_hours = total_hours + x
+
+    Dict = {'List of Attendance per Day' : list_of_attendance_per_day, 'Total Hours of Work': total_hours}
+
+    return Dict
+    
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
 class AttendanceException(models.Model):
     attendance = models.ForeignKey(Attendance)
