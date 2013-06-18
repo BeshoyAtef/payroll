@@ -1,0 +1,55 @@
+	.left_sign{
+		display: inline-block;
+		width: 500px;
+	}
+	.footer{
+		margin-left:25px;font-family:arial;
+	}
+	.numtext{
+		margin-left:25px;font-family:arial;
+	}
+	.right_label{
+		display: inline-block;
+				}
+	.left_label{
+		display: inline-block;
+		width: 600px;
+				}
+	.sliptop{
+		margin-left:25px;
+		font-family: arial;
+		font-size: 16;
+	}
+	.name_modification{
+		
+		display: block;
+		padding-bottom: 5px;
+	}
+	.slip{
+		margin-left:25px;
+		padding-top: 100px;
+		padding-left: 200px;
+		}
+	.wrapper_content{
+		border-radius: 3px;
+		border-top: 3px solid black;
+		border-left: 3px solid black;
+		border-right: 3px solid black;
+margin-left:25px;font-family:arial;
+	
+		width: 700px;
+		margin-top: 15px;
+		margin-bottom: 5px;		} 
+	
+	.earnings{
+		border-bottom: 3px solid black;
+		padding: 1px 1px 1px 1px;
+		padding: 5px;
+		}
+		.right_label{
+		display: inline-block;
+				}
+	.left_label{
+		display: inline-block;
+		width: 600px;
+				}

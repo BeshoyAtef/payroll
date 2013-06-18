@@ -30,6 +30,8 @@ class Employee(models.Model):
             working_timedelta = attendance.check_out - attendance.check_in
             working_seconds = working_seconds + working_timedelta.seconds
         return working_hours
+    def __unicode__(self):
+        return self.name
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
@@ -271,8 +273,18 @@ def company_wide_salary_report(desired_year):
     
     return Dict
 
+	date = models.DateTimeField(default=datetime.datetime.now())
+	employee = models.ForeignKey(Employee)
+	amount = models.IntegerField()
+	
+	def __unicode__(self):
+		return self.employee.name
 #Loans: ID, Date, Employee ID, Amount
 class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
     employee = models.ForeignKey(Employee)
     amount = models.IntegerField()
+
+    def __unicode__(self):
+    	return self.employee.name + str("__") + str(self.amount)
+##
