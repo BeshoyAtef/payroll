@@ -36,6 +36,14 @@ class Employee(models.Model):
         working_hours = working_hours + working_seconds
         return working_hours
 
+    #Mohamed Awad
+    #this def returns the number of products of any employee
+    #given to it a range of integers that represent start and end years, months and days.
+    def productivity(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day):
+        date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
+        date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
+        products = Batch.objects.filter(date__range = [date_start, date_end], employee = self)
+        return len(products)
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
