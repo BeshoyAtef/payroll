@@ -16,21 +16,53 @@ setup_environ(settings)
  
 
 
-from www.models import MyCsvFile
+
+
+from www.models import Attendance , Employee
+
 import csv
+import datetime
 
 dataReader = csv.reader(open('www/attendace.csv'), delimiter=',', quotechar='"')
 
+dic = {}
 for row in dataReader:
-	
-
 	if row[0] != 'Ac-No': # Ignore the header row, import everything else
-		mycsv = MyCsvFile()
-		mycsv.Ac_No = row[0]
+	    account_number = row[0]
+	    stime = row[2]
+	    if account_number not in dic:
+	    	dic[account_number] = []
 
-		mycsv.name = row[1]
-		print mycsv.name 
-		mycsv.time = row[2]
-		mycsv.finger_print= row[3]
-		mycsv.machine = row[4]
-		mycsv.save()
+	    dic[account_number].append(stime)
+
+for acc, stimes in dic.iteritems():
+	
+	checkin = stimes.pop(0)
+	print checkin
+	employee = Employee.objects.get(acc_no= acc)
+	
+	
+	d = checkin[:-4].strip()
+	check_in = datetime.datetime.strptime(d, "%m/%d/%Y %H:%M" )
+	
+	check_out = None
+	for stime in stimes:
+		
+		stime = stime[:-4].strip()
+		stime = datetime.datetime.strptime(stime, "%m/%d/%Y %H:%M" )
+        
+		if stime.date() == check_in.date():
+			check_out = stime
+			
+
+		else:
+			attend = Attendance()
+			attend.check_in = check_in
+			attend.check_out = check_out
+			attend.employee = employee
+			attend.save()
+			check_in = stime
+			check_out= None
+
+			
+

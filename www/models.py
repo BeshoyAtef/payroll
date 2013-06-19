@@ -5,6 +5,13 @@ from django.contrib.auth.models import BaseUserManager , AbstractBaseUser
 from django.utils.timezone import utc
 import datetime
 from datetime import timedelta
+from django.db.models import Sum , Avg 
+
+
+EXPIRATION_DAYS = 10
+
+
+
 
 class Employee(models.Model):
     name = models.CharField(max_length=100)     
@@ -12,6 +19,7 @@ class Employee(models.Model):
     mobile = models.IntegerField(default=0)
     ssn = models.IntegerField(default=0)        
     salary = models.IntegerField(default=0)
+    acc_no = models.IntegerField(default=0)
     
     REQUIRED_FIELDS = ['name']  
 
@@ -68,17 +76,5 @@ class Loan(models.Model):
 ##
 
 
-class MyCsvFile(models.Model):
-    Ac_No = models.IntegerField()
-    name = models.CharField(max_length=50)
-    time = models.CharField(max_length=20)
-    finger_Print = models.CharField(max_length=15)
-    machine = models.IntegerField()
 
-
-    def __unicode__(self):
-        return "%s, %s (%s)" % (self.name, self.time )
     
-     
-    class Meta:
-        ordering = ['Ac_No']
