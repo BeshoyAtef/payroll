@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import BaseUserManager , AbstractBaseUser
 from django.utils.timezone import utc
 import datetime
+import calendar
 from datetime import timedelta
 
 class Employee(models.Model):
@@ -44,66 +45,21 @@ def company_wide_yearly_attendance_report(desired_year):
     all_employees = Employee.objects.all()
     all_attendances = Attendance.objects.all()
     number_of_employees = len(all_employees)
-
-    Jan = Feb = March = April = May = June = July = August = September = October = November = December = 0
+    attendance_month_aggregate = {}
+    Dict_array = []
 
     for attendance in all_attendances:
-        print attendance.employee
-        if attendance.date.month == 1:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed") 
-            Jan = Jan + working_hours
-        if attendance.date.month == 2:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            Feb = Feb + working_hours
-        if attendance.date.month == 3:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            March = March + working_hours
-        if attendance.date.month == 4:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            April = April + working_hours
-        if attendance.date.month == 5:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            May = May + working_hours
-        if attendance.date.month == 6:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            June = June + working_hours
-        if attendance.date.month == 7:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            July = July + working_hours
-        if attendance.date.month == 8:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            August = August + working_hours
-        if attendance.date.month == 9:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            September = September + working_hours
-        if attendance.date.month == 10:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            October = October + working_hours
-        if attendance.date.month == 11:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            November = November + working_hours
-        if attendance.date.month == 12:
-            employee = attendance.employee
-            working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-            December = December + working_hours
-
-    total_number_of_working_hours = Jan + Feb + March + April + May + June + July + August + September + October + November + December
+        month = calendar.month_name[batch.date.month]
+        employee = attendance.employee
+        working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
+        if mon not in attendance_month_aggregate: attendance_month_aggregate[month] = working_hours
+        else: attendance_month_aggregate[month] += working_hours
     average = total_number_of_working_hours/number_of_employees
 
-    Dict = {'Jan': Jan, 'Feb': Feb, 'March': March, 'April': April, 'May': May, 'June': June, 'July': July, 'August': August, 
-    ' September': September, 'October': October, 'November': November, 'December': December, 'Total Number of Working Hours': total_number_of_working_hours, 
-    'Average of working hours/Employee': average}
+    for key in attendance_month_aggregate:
+        temp_dict = {key: (attendance_month_aggregate[key])}
+        Dict_array.append(temp_dict)
+        temp_dict = {}
 
     return Dict
 
@@ -127,8 +83,6 @@ def company_wide_monthly_attendance_report(desired_year, desired_month):
     for x in list_of_attendance_per_day:
         total_hours = total_hours + x
 
-    print total_hours
-    print list_of_attendance_per_day
     Dict = {'List of Attendance per Day' : list_of_attendance_per_day, 'Total Hours of Work': total_hours}
 
     return Dict
@@ -169,41 +123,25 @@ from the user and then generates the list.'''
 def company_wide_output_yearly_report(desired_year):
     total_batches = Batch.objects.filter(date__year = desired_year)
     number_of_employees = len(Employee.objects.all())
-    Jan = Feb = March = April = May = June = July = August = September = October = November = December = 0
+    Dict_array = []
+    batch_month_aggregate = {}
 
     for batch in total_batches:
-        if batch.date.month == 1:
-            Jan = Jan + batch.size
-        if batch.date.month == 2:
-            Feb = Feb + batch.size
-        if batch.date.month == 3:
-            March = March + batch.size
-        if batch.date.month == 4:
-            April = April + batch.size
-        if batch.date.month == 5:
-            May = May + batch.size
-        if batch.date.month == 6:
-            June = June + batch.size
-        if batch.date.month == 7:
-            July = July + batch.size
-        if batch.date.month == 8:
-            August = August + batch.size
-        if batch.date.month == 9:
-            September = September + batch.size
-        if batch.date.month == 10:
-            October = October + batch.size
-        if batch.date.month == 11:
-            November = November + batch.size
-        if batch.date.month == 12:
-            December = December + batch.size
+        month = calendar.month_name[batch.date.month]
+        if month not in batch_month_aggregate:
+            batch_month_aggregate[month] = batch.size
+        else: 
+            batch_month_aggregate[month] += batch.size
 
-    total_batches_size = Jan + Feb + March + April + May + June + July + August + September + October + November + December
+    for key in batch_month_aggregate:
+        temp_dict = {key: (batch_month_aggregate[key])}
+        Dict_array.append(temp_dict)
+        temp_dict = {}
+
+    total_batches_size = sum(batch_month_aggregate.values())
     batch_per_employee = total_batches_size/number_of_employees
 
-    Dict = {'Jan': Jan, 'Feb': Feb, 'March': March, 'April': April, 'May': May, 'June': June, 'July': July, 'August': August, 
-    ' September': September, 'October': October, 'November': November, 'December': December, 'batch_per_employee': batch_per_employee}
-
-    return Dict
+    return Dict_array, total_batches_size, batch_per_employee
 
 '''Tharwat --- This method returns the producivity output report for a specific month for all the employees. It takes in the
 year and month from the user and then lists the productivity for each day of the month.'''
@@ -211,6 +149,7 @@ year and month from the user and then lists the productivity for each day of the
 def company_wide_output_monthly_report(desired_year, desired_month):
     total_batches = Batch.objects.filter(date__year = desired_year, date__month = desired_month)
     number_of_employees = len(Employee.objects.all())
+    Dict_array = []
     list_of_output_per_day = [0]*31
     count = 0
     total = 0 
@@ -220,6 +159,7 @@ def company_wide_output_monthly_report(desired_year, desired_month):
 
     for x in list_of_output_per_day:
         total = total + x
+
 
     batch_per_employee = total/number_of_employees
     Dict = {'list_of_output_per_day': list_of_output_per_day, 'Total Produced': total, 'batch_per_employee': batch_per_employee}
@@ -232,53 +172,30 @@ class Payment(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
     employee = models.ForeignKey(Employee)
     amount = models.IntegerField()
-
+    def __unicode__(self):
+		return self.employee.name
 
 '''Tharwat--- This method returns the salary report for all employees for a specific year that is chosen by the user. It takes
 the year form the user and then checks for the amount of salaries that are paid each month for the chosen year'''
 
 def company_wide_salary_report(desired_year):
     yearly_payments = Payment.objects.filter(date__year = desired_year)
-    Jan = Feb = March = April = May = June = July = August = September = October = November = December = 0  
+    salary_month_aggregate = {}
+    Dict_array = []
 
     for payment in yearly_payments:
-        print 'x'
-        if payment.date.month == 1:
-            Jan = Jan + payment.amount
-        if payment.date.month == 2:
-            Feb = Feb + payment.amount
-        if payment.date.month == 3:
-            March = March + payment.amount
-        if payment.date.month == 4:
-            April = April + payment.amount
-        if payment.date.month == 5:
-            May = May + payment.amount
-        if payment.date.month == 6:
-            June = June + payment.amount
-        if payment.date.month == 7:
-            July = July + payment.amount
-        if payment.date.month == 8:
-            August = August + payment.amount
-        if payment.date.month == 9:
-            September = September + payment.amount
-        if payment.date.month == 10:
-            October = October + payment.amount
-        if payment.date.month == 11:
-            November = November + payment.amount
-        if payment.date.month == 12:
-            December = December + payment.amount
+        month = calendar.month_name[payment.date.month]
+        if month not in salary_month_aggregate: salary_month_aggregate[month] = payment.amount
+        else: salary_month_aggregate[month] += payment.amount
 
-    Dict = {'Jan': Jan, 'Feb': Feb, 'March': March, 'April': April, 'May': May, 'June': June, 'July': July, 'August': August, 
-    ' September': September, 'October': October, 'November': November, 'December': December}
+    for key in salary_month_aggregate:
+        temp_dict = {key: (salary_month_aggregate[key])}
+        Dict_array.append(temp_dict)
+        temp_dict = {}
+
+    total_salaries = sum(salary_month_aggregate.values())
+    return Dict_array, total_salaries
     
-    return Dict
-
-	date = models.DateTimeField(default=datetime.datetime.now())
-	employee = models.ForeignKey(Employee)
-	amount = models.IntegerField()
-	
-	def __unicode__(self):
-		return self.employee.name
 #Loans: ID, Date, Employee ID, Amount
 class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
@@ -287,4 +204,3 @@ class Loan(models.Model):
 
     def __unicode__(self):
     	return self.employee.name + str("__") + str(self.amount)
-##
