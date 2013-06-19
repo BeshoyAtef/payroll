@@ -20,8 +20,8 @@ class Employee(models.Model):
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
-    check_in = models.DateTimeField()
-    check_out = models.DateTimeField()
+    check_in = models.DateTimeField(null=True)
+    check_out = models.DateTimeField(null = True)
     employee = models.ForeignKey(Employee)
 
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
