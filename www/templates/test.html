@@ -1,0 +1,53 @@
+{% extends "admin/base_site.html" %}
+{% load staticfiles %}
+{% block extrastyle %}{{ block.super }}
+
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}" ></script>
+<script type="text/javascript" src="{% static "js/highcharts.js" %}"></script>
+{% endblock %}
+{% block content %}
+<div id="container" style="width:50%; height:100px;">Tesst</div>
+<script type="text/javascript">
+var array_of_keys = []
+var array_of_values = []
+$.ajax({
+   url: 'test',
+   dataType: 'json',
+   success: function (data) {
+      for(var i = 0; i<data.length; i++){
+        array_of_keys.push(Object.keys(data[i]));
+      }
+      for(var i = 0; i<array_of_keys.length; i++){
+        var x = array_of_keys[i].toString();
+        array_of_values.push(parseInt(data[i][x]));
+        console.log(array_of_values[i]);
+      }
+alert(array_of_values);
+$('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+
+        xAxis: {
+            categories: array_of_keys
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }
+        },
+        //console.log(array_of_values);
+        series: [{
+            name: 'EMployee Graph',
+            data: array_of_values
+        }]
+    });
+}
+
+});
+
+
+
+
+</script>
+{% endblock %}
