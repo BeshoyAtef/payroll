@@ -9,65 +9,71 @@
 {% endblock %}
 
 {% block content%}
+	<h3>Choose report type: </h3>
+	<select id="type">
+		<option>------</option>
+		<option>By month</option>
+		<option>By year</option>
+	</select>
+		<h3 id = "h3_from" style="display: none">From: </h3>
+		<span>
+			<select id = "years_from" style="display: none">
+				<option>------</option>
+				{% for year in years %}
+					<option value="{{year}}">{{year}}</option>
+				{% endfor %}
+			</select>
+			<select id="months_from" style="display: none">
+				<option id="tmp">------</option>
+				<option value="1">January</option>
+				<option value="2">February</option>
+				<option value="3">March</option>
+				<option value="4">April</option>
+				<option value="5">May</option>
+				<option value="6">June</option>
+				<option value="7">July</option>
+				<option value="8">August</option>
+				<option value="9">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>
+			</select>
+		</span>
 	{% if employees %}
 		{% for employee in employees %}
-			<span><h1>{{employee.name}}</h1></span>
-			<div id="{{employee.id}}">
-				<h3>From: </h3>
-				<span>
-					<select id = "years">
-						<option>------</option>
-						{% for year in years %}
-							<option value="{{year}}">{{year}}</option>
-						{% endfor %}
-					</select>
-					<select id="months">
-						<option id="tmp">------</option>
-						<option value="1">January</option>
-						<option value="2">February</option>
-						<option value="3">March</option>
-						<option value="4">April</option>
-						<option value="5">May</option>
-						<option value="6">June</option>
-						<option value="7">July</option>
-						<option value="8">August</option>
-						<option value="9">September</option>
-						<option value="10">October</option>
-						<option value="11">November</option>
-						<option value="12">December</option>
-					</select>
-					<select id="days">
-						<option>------</option>
-						{% if days_array %}
-							{% for day in days_array %}
-								<option value="{{day}}">{{day}}</option>
-							{% endfor %}
-						{% endif %}
-					</select>
-				</span>
-			</div>
+			<span><h1>{{employee.name}}</h1><button value="{{employee.id}}" onClick="generateReport(this);">Generate</button></span>
 		{% endfor %}
 	{% endif %}
 <script type="text/javascript">
-	$('#months').change(function() {
-		var month = $('#months').val()
-		var year = $('#years').val()
-		$.ajax({
-    		url: "/return_days/",
-  			type: "GET",
-    		data: {
-    			"month" : month,
-    			"year" : year,
-    		},
-    		dataType: 'json',
-        	success: function(req) {
-        		alert("aaaaaa");
-        		console.log(req);
-        			for(var i = 0; i<req.length;i++){
-        				$('#days').append("<option style='padding:0px;'>"+req[i]+"</option>");
-					}
+	function generateReport(elem){
+		var type = $("#type").val()
+		if (type == 'By month') {
+			alert("hello");
+			var month = $("#months_from").val()
+			var year = $("#years_from").val()
+			window.location.replace("../../../hours_month?e_id="+elem.value+"&month="+month+"&year="+year)
+		}
+		else {
+			
+		}
+	}
+	$('#type').change(function() {
+		$('#h3_from').css('display', 'none');
+		$('#years_from').css('display', 'none');
+		$('#months_from').css('display', 'none');
+		$('#days_from').css('display', 'none');
+		document.getElementById('years_from').selectedIndex = 0;
+		document.getElementById('months_from').selectedIndex = 0;
+		var type = $("#type").val()
+		if (type != '------') {
+			if (type == 'By month') {
+				$('#years_from').css('display', 'block');
+				$('#months_from').css('display', 'block');
 			}
-		});
+			else {
+				$('#years_from').css('display', 'block');
+			}
+		};
 	});
 </script>
 {% endblock %}
