@@ -25,10 +25,37 @@ def make_published(modeladmin, request, queryset):
     return render_to_response('paymentslip.html', {'list_of_exceptions':list_of_exceptions,'slips_list': list_of_slips, 'month':current_month})
 make_published.short_description = "Print payment slips"
 
+def show_workinghours_report(modeladmin, request, queryset):
+    current_year = datetime.datetime.now().year
+    years = []
+    while current_year != 2000:
+        years.append(current_year)
+        current_year = current_year - 1
+    return render(request, 'reportPage.html', {'employees': queryset, 'years': years})
+show_workinghours_report.short_description = "show working hours"
+
+def show_payement_report(modeladmin, request, queryset):
+    current_year = datetime.datetime.now().year
+    years = []
+    while current_year != 2000:
+        years.append(current_year)
+        current_year = current_year - 1
+    return render(request, 'reportPage.html', {'employees': queryset, 'years': years})
+show_payement_report.short_description = "show payements"
+
+def show_productivity_report(modeladmin, request, queryset):
+    current_year = datetime.datetime.now().year
+    years = []
+    while current_year != 2000:
+        years.append(current_year)
+        current_year = current_year - 1
+    return render(request, 'reportPage.html', {'employees': queryset, 'years': years})
+show_productivity_report.short_description = "show productivity"
+
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ['name', 'email','mobile', 'ssn']
     search_fields = ['name', 'email','mobile', 'ssn']
-    actions = [make_published]
+    actions = [make_published,show_workinghours_report, show_payement_report, show_productivity_report]
 
 def my_view(request, *args, **kwargs):
     return HttpsResponse(" <a href='/admin'>here to do nothing</a>")

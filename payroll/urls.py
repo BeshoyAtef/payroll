@@ -19,4 +19,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^employeeReport/$', 'www.views.view_report_page'),
+    url(r'^return_days/$', 'www.views.return_days')
 )

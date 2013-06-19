@@ -1,0 +1,73 @@
+{% extends "admin/base_site.html" %}
+{% load staticfiles %}
+{% block extrastyle %}{{ block.super }}
+
+<script type="text/javascript" src="{% static "js/jquery-1.9.1.min.js" %}" ></script>
+
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+
+{% endblock %}
+
+{% block content%}
+	{% if employees %}
+		{% for employee in employees %}
+			<span><h1>{{employee.name}}</h1></span>
+			<div id="{{employee.id}}">
+				<h3>From: </h3>
+				<span>
+					<select id = "years">
+						<option>------</option>
+						{% for year in years %}
+							<option value="{{year}}">{{year}}</option>
+						{% endfor %}
+					</select>
+					<select id="months">
+						<option id="tmp">------</option>
+						<option value="1">January</option>
+						<option value="2">February</option>
+						<option value="3">March</option>
+						<option value="4">April</option>
+						<option value="5">May</option>
+						<option value="6">June</option>
+						<option value="7">July</option>
+						<option value="8">August</option>
+						<option value="9">September</option>
+						<option value="10">October</option>
+						<option value="11">November</option>
+						<option value="12">December</option>
+					</select>
+					<select id="days">
+						<option>------</option>
+						{% if days_array %}
+							{% for day in days_array %}
+								<option value="{{day}}">{{day}}</option>
+							{% endfor %}
+						{% endif %}
+					</select>
+				</span>
+			</div>
+		{% endfor %}
+	{% endif %}
+<script type="text/javascript">
+	$('#months').change(function() {
+		var month = $('#months').val()
+		var year = $('#years').val()
+		$.ajax({
+    		url: "/return_days/",
+  			type: "GET",
+    		data: {
+    			"month" : month,
+    			"year" : year,
+    		},
+    		dataType: 'json',
+        	success: function(req) {
+        		alert("aaaaaa");
+        		console.log(req);
+        			for(var i = 0; i<req.length;i++){
+        				$('#days').append("<option style='padding:0px;'>"+req[i]+"</option>");
+					}
+			}
+		});
+	});
+</script>
+{% endblock %}

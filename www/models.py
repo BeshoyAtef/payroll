@@ -22,6 +22,9 @@ class Employee(models.Model):
         date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
         date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
         attendances = {}
+        #this if condition is to check whether the date is fixed or custom
+        #a fixed range means a specific month or year
+        #a custom range means any range of days
         if type_query == "fixed":
             attendances = Attendance.objects.filter(date__range = [date_start, date_end], employee = self).exclude(date = date_end)
         else:
@@ -32,6 +35,7 @@ class Employee(models.Model):
         for attendance in attendances:
             working_timedelta = attendance.check_out - attendance.check_in
             working_seconds = working_seconds + working_timedelta.seconds
+        working_hours = working_seconds/60/60
         return working_hours
 
     #Mohamed Awad
@@ -40,11 +44,14 @@ class Employee(models.Model):
     def productivity(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day, type_query):
         date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
         date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
-        total_products = 0
+        total_products = {}
+        #this if condition is to check whether the date is fixed or custom
+        #a fixed range means a specific month or year
+        #a custom range means any range of days
         if type_query == "fixed":
-            total_products = len(Batch.objects.filter(date__range = [date_start, date_end], employee = self).exclude(date = date_end))
+            total_products = Batch.objects.filter(date__range = [date_start, date_end], employee = self).exclude(date = date_end)
         else:
-            total_products = len(Batch.objects.filter(date__range = [date_start, date_end], employee = self))
+            total_products = Batch.objects.filter(date__range = [date_start, date_end], employee = self)
         return total_products
     
     #Mohamed Awad
@@ -73,6 +80,9 @@ class Attendance(models.Model):
     class Meta:
         ordering = ['date', 'employee']
         unique_together = ("date", "employee")
+
+    def __unicode__(self):
+        return unicode(self.date)
             
 
 #Attendance Exception: Attendance ID, Checkin time, Checkout time

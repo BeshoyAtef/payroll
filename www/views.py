@@ -1,6 +1,12 @@
 # Create your views here.
 
 from django.http import HttpResponse
+from django.shortcuts import render_to_response, redirect, render
+from www.models import *
+from datetime import date
+import json
+from django.utils import simplejson
+from django.core import serializers
 
 def index(request):
     return HttpResponse(" <a href='/admin'>Click here to got o the admin page</a>")
@@ -21,7 +27,7 @@ def employee_productivity_month(request):
 	employee = Employee.objects.get(id = request.GET['employee'])
 	total_hours = employee.working_hours(year, month, 1, year, month+1, 1, "fixed")
 	productivity = employee.productivity(year, month, 1, year, month+1, 1, "fixed")
-	average_productivity = productivity/total_hours
+	average_productivity = len(productivity)/total_hours
 	return render(request, '', {'average_productivity': average_productivity})
 
 #Mohamed Awad
@@ -33,7 +39,7 @@ def employee_productivity_year(request):
 	employee = Employee.objects.get(id = request.GET['employee'])
 	total_hours = employee.working_hours(year, 1, 1, year+1, 1, 1, "fixed")
 	productivity = employee.productivity(year, 1, 1, year+1, 1, 1, "fixed")
-	average_productivity = productivity/total_hours
+	average_productivity = len(productivity)/total_hours
 	return render(request, '', {'average_productivity': average_productivity})
 
 #Mohamed Awad
@@ -51,7 +57,7 @@ def employee_productivity_custom(request):
 	employee = Employee.objects.get(id = request.GET['employee'])
 	total_hours = employee.working_hours(year_start, month_start, day_start, year_end, month_end, day_end, "custom")
 	productivity = employee.productivity(year_start, month_start, day_start, year_end, month_end, day_end, "custom")
-	average_productivity = productivity/total_hours
+	average_productivity = len(productivity)/total_hours
 	return render(request, '', {'average_productivity': average_productivity})
 
 #Mohamed Awad
@@ -62,8 +68,8 @@ def employee_productivity_custom(request):
 def employee_payement_year(request):
 	year = request.GET['year']
 	employee = Employee.objects.get(id = request.GET['employee'])
-	total_hours = employee.payement(year, 1, 1, year+1, 1, 1)
-	return render(request, '', {'average_productivity': average_productivity})
+	total_payements = employee.payement(year, 1, 1, year+1, 1, 1)
+	return render(request, '', {'total_payements': total_payements})
 
 #Mohamed Awad
 #this def calculates the employee payement in a specific month
@@ -76,3 +82,23 @@ def employee_payement_month(request):
 	employee = Employee.objects.get(id = request.GET['employee'])
 	total_hours = employee.payement(year, month, 1, year, month+1, 1)
 	return render(request, '', {'average_productivity': average_productivity})
+
+def view_report_page(request):
+	employees =  Employee.objects.all()
+	print employees
+	return render(request, 'reportPage.html', {'employees': employees})
+
+def return_days(request):
+	month = int(request.GET['month'])
+	year = int(request.GET['year'])
+	days = -((date(year, month, 1) - date(year, month+1, 1)).days)
+	days_array = []
+	while days > 0:
+		days_array.append(days)
+		days = days - 1
+	# serialized_content = serializers.serialize('json', [ days_array ])
+	# dumped_array = simplejson.dumps(days_array)
+	print "xxxxxx"
+	x =  simplejson.dumps(days_array)
+	print x
+	return HttpResponse(x)
