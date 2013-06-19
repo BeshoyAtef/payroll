@@ -49,7 +49,7 @@ def company_wide_yearly_attendance_report(desired_year):
     Dict_array = []
 
     for attendance in all_attendances:
-        month = calendar.month_name[batch.date.month]
+        month = calendar.month_name[attendance.date.month]
         employee = attendance.employee
         working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
         if mon not in attendance_month_aggregate: attendance_month_aggregate[month] = working_hours
