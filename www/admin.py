@@ -7,6 +7,9 @@ from datetime import date
 from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponseRedirect, HttpResponse
 from admin_views.admin import AdminViews
+def print_loan_statements(modeladmin, request, queryset):
+    return render_to_response('loanslips.html',{'list_of_loans':queryset})
+
 def make_published(modeladmin, request, queryset):
     current_month = date.today()
     list_of_slips = []
@@ -30,6 +33,10 @@ class EmployeeAdmin(admin.ModelAdmin):
     search_fields = ['name', 'email','mobile', 'ssn']
     actions = [make_published]
 
+class LoanAdmin(admin.ModelAdmin):
+    list_display = ('employee','date','amount')
+    actions = [print_loan_statements]
+
 def my_view(request, *args, **kwargs):
     return HttpsResponse(" <a href='/admin'>here to do nothing</a>")
 
@@ -46,7 +53,7 @@ admin.site.register(Item, TestAdmin)
 admin.site.register(Employee,EmployeeAdmin)
 admin.site.register(Batch)
 admin.site.register(Payment)
-admin.site.register(Loan)
+admin.site.register(Loan,LoanAdmin)
 admin.site.register(CompanyDowntime)
 
 #remove unneeded items 
