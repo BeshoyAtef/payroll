@@ -81,14 +81,14 @@ def employee_payement_year(request):
 	year = int(request.GET['year'])
 	employee = Employee.objects.get(id = int(request.GET['e_id']))
 	months = 1
-	total_payements = []
+	total_payements_array = []
 	while months < 12:
 		total_payements = employee.payement_yearly(year, months, 1, year, months+1, 1)
-		total_payements.append(total_payements)
+		total_payements_array.append(total_payements)
 		months = months + 1
 	print "payement year"
-	print total_payement
-	return render(request, '', {'total_payements': total_payements})
+	print total_payements_array
+	return render(request, '', {'total_payements_array': total_payements_array})
 
 #Mohamed Awad
 #this def calculates the employee payement in a specific month
