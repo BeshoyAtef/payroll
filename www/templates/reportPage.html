@@ -66,46 +66,46 @@
 		if (range != '------' && type != '------' && year != '------') {
 			if (type == 'Working Hours') {
 				if (range == 'By month' && month != '------') {
-					window.location.replace("../../../hours_month?e_id="+elem.value+"&month="+month+"&year="+year)
+					window.open("../../../hours_month?e_id="+elem.value+"&month="+month+"&year="+year)
 				}
 				else {
-					window.location.replace("../../../hours_year?e_id="+elem.value+"&year="+year)
+					window.open("../../../hours_year?e_id="+elem.value+"&year="+year)
 				}
 
 			}
 			else {
 				if (type == 'Number of products produced') {
 					if (range == 'By month' && month != '------') {
-						window.location.replace("../../../products_month?e_id="+elem.value+"&month="+month+"&year="+year)
+						window.open("../../../products_month?e_id="+elem.value+"&month="+month+"&year="+year)
 					}
 					else {
-						window.location.replace("../../../products_year?e_id="+elem.value+"&year="+year)
+						window.open("../../../products_year?e_id="+elem.value+"&year="+year)
 					}
 				}
 				else {
 					if (type == 'number of products/hour') {
 						if (range == 'By month' && month != '------') {
-							window.location.replace("../../../productivity_month?e_id="+elem.value+"&month="+month+"&year="+year)
+							window.open("../../../productivity_month?e_id="+elem.value+"&month="+month+"&year="+year)
 						}
 						else {
-							window.location.replace("../../../productivity_year?e_id="+elem.value+"&year="+year)
+							window.open("../../../productivity_year?e_id="+elem.value+"&year="+year)
 						}
 					}
 					else {
 						if (type == 'Salary of the employee') {
 							if (range == 'By month' && month != '------') {
-								window.location.replace("../../../payement_month?e_id="+elem.value+"&month="+month+"&year="+year)
+								window.open("../../../payement_month?e_id="+elem.value+"&month="+month+"&year="+year)
 							}
 							else {
-								window.location.replace("../../../payement_year?e_id="+elem.value+"&year="+year)
+								window.open("../../../payement_year?e_id="+elem.value+"&year="+year)
 							}
 						}
 						else {
 							if (range == 'By month' && month != '------') {
-								window.location.replace("../../../attendance_month?e_id="+elem.value+"&month="+month+"&year="+year)
+								window.open("../../../attendance_month?e_id="+elem.value+"&month="+month+"&year="+year)
 							}
 							else {
-								window.location.replace("../../../attendance_year?e_id="+elem.value+"&year="+year)
+								window.open("../../../attendance_year?e_id="+elem.value+"&year="+year)
 							}
 
 						}
