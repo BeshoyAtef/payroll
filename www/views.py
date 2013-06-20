@@ -17,8 +17,10 @@ def view_reports(request):
     return HttpResponse(" <h1>Welcome to thereports page</h1> ")
 
 
+# can be deleted
+# can be deleted
+# can be deleted
 
-flag_done=False
 def add_batch(request):
     global flag_done
     if request.method == "GET" :
@@ -27,19 +29,26 @@ def add_batch(request):
         items=Item.objects.all()
         flag=flag_done
         flag_done=False
+        print batches
+        batches.order_by('pub_date')
+        print batches
         return render_to_response('rapid_batch.html', {'batch_list':batches,'employee_list': employees, 'item_list':items,'flag_done':flag}, context_instance=RequestContext(request))
     else :
         employee_id = request.POST['employee']
         tmp_date = request.POST['date']
-        item_id = request.POST['identifier']
-        tmp_item_price = request.POST['item_price']
+        item_id = request.POST['identifier'] 
         tmp_size = request.POST['size']
         tmp_reason = request.POST['reason']
         tmp_employee = Employee.objects.get(id=employee_id)
         tmp_item = Item.objects.get(id=item_id)
+        if 'item_price' not in request.POST: #to handel if the price didt change by the user
+            tmp_item_price = tmp_item.value
+        else :
+            tmp_item_price = request.POST['item_price']
         batch = Batch(employee=tmp_employee,date=tmp_date,item=tmp_item,item_price=tmp_item_price,size=tmp_size,
             reason=tmp_reason)
         flag_done=True
+        print batch
         batch.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

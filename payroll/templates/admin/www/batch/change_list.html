@@ -1,3 +1,13 @@
+<!-- Can be Deleted -->
+<!-- Can be Deleted -->
+<!-- Can be Deleted -->
+<!-- Can be Deleted -->
+<!-- Can be Deleted -->
+<!-- Can be Deleted -->
+<!-- Can be Deleted -->
+<!-- Can be Deleted -->
+
+
 {% extends "admin/base_site.html" %}
 {% load i18n admin_static admin_list %}
 {% load admin_urls %}
@@ -21,7 +31,15 @@
       #changelist table thead th:first-child {width: inherit}
     </style>
   {% endif %}
+  {% load staticfiles %}
+<link href="{% static "css/bootstrap.css" %}" rel="stylesheet" media="screen">
+<link href="{% static "css/datepicker.css" %}" rel="stylesheet" media="screen">
+<link href="{% static "select2/select2.css" %}" rel="stylesheet" media="screen">
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/bootstrap-datepicker.js" %}"></script>
+<script type="text/javascript" src="{% static "select2/select2.js" %}"></script>
 {% endblock %}
+
 
 {% block extrahead %}
 {{ block.super }}
@@ -53,6 +71,105 @@
 
 {% block content %}
   <div id="content-main">
+    
+    <style type="text/css" media="screen">
+    input{
+      width: auto;
+      vertical-align: middle;
+      margin: 2px 0;
+      font-size: 13px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      -o-border-radius: 4px;
+      -ms-border-radius: 4px;
+      -khtml-border-radius: 4px;
+      border-radius: 4px;
+      border: 1px solid #cccccc;
+      color: #555555;
+      padding: 6px 5px;
+      outline: none;
+    }
+    #result_list tr:first-child{
+      background: #E0FFB8;
+    }
+    </style>
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Date</th>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Size</th>
+                <th style="display:none;" class="reson_div"><strong>Add a Reason</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <form action="/add_batch/" method="POST">{% csrf_token %}
+                <td>
+                  <select name="employee" id="emp_list">
+                    {% for employee in employee_list %}
+                    <option  value="{{employee.id}}">{{employee.name}} - {{employee.mobile}}</option>
+                    {% endfor %}
+                  </select>
+                </td>
+                <td><input class="vDateField" id="dp1"  name="date" size="10" type="text"></td>
+                <td>
+                  <select name="identifier"  id="itm_list">
+                    {% for item in item_list %}
+                    <option value="{{item.id}}" data-price="{{item.value}}">{{item.identifier}} - {{item.description}}</option>
+                    {% endfor %}
+                  </select>
+                </td>
+                <td><input class="vDateField" id="id_item_price" name="item_price" type="text" >
+                 <a href="#"><i class="icon-pencil" id="edit_value" style="display:none;"></i></a> 
+                </td>
+                <td><input class="vDateField" id="id_item_size" name="size" type="text" ></td>
+                  <td>                
+                    <input style="display:none;" class="reson_div" class="vDateField" id="reason" name="reason" type="text">
+                  </td>
+                  <td>
+                <ul class="object-tools" style="margin-top: 0px;">
+                  <li>
+                    <input type="submit" value="Add batch" class="addlink">
+                </form>
+                      
+
+                  </li>
+                 </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<br>
+<br>
+<br>
+
+            <script>
+    $(function(){
+      $('#dp1').datepicker({
+        format: 'yyyy-mm-dd'
+      });
+      $("#emp_list").select2();
+      $("#itm_list").select2();
+      $("#itm_list").on("change", function(e) {
+        console.log($(e.added.element[0]).data("price"));
+      $("#id_item_price").val($(e.added.element[0]).data("price"));
+      $("#id_item_price").attr('disabled','disabled')
+      $("#edit_value").fadeIn();
+      });
+      $("#edit_value").on("click", function() {
+      $("#id_item_price").removeAttr('disabled');
+      $(".reson_div").fadeIn();
+      $(".reson_div").attr('required','true');
+      });
+
+    });
+
+  </script>
+
     {% block object-tools %}
       {% if has_add_permission %}
         <ul class="object-tools">

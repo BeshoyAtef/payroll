@@ -15,7 +15,7 @@ class Employee(models.Model):
     
     REQUIRED_FIELDS = ['name']  
     def __unicode__(self):
-        return self.name
+        return self.name+"-"+str(self.mobile)
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
@@ -46,6 +46,10 @@ class Item(models.Model):
 
     REQUIRED_FIELDS = ['identifier']  
 
+    def __unicode__(self):
+        s=self.identifier+"-"+self.description+"-"+str(self.value)
+        return s
+
 #Batches: ID, Employee ID, Date, item ID, Piece price, Size
 class Batch(models.Model):
     employee = models.ForeignKey(Employee)
@@ -55,6 +59,9 @@ class Batch(models.Model):
     size = models.IntegerField(default=0)
     reason = models.CharField(max_length=100,default="none")  
 
+    def __unicode__(self):
+        s=self.employee.name+"-"+str(self.item)+"-"+str(self.item_price)
+        return s
 #Payment: ID, Date, Employee ID, amount
 class Payment(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
@@ -62,7 +69,8 @@ class Payment(models.Model):
     amount = models.IntegerField()
 
     def __unicode__(self):
-        return self.employee.name
+        s=self.employee.name+"-"+self.amount+"-"+self.date
+        return s
 #Loans: ID, Date, Employee ID, Amount
 class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
