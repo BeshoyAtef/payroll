@@ -1,12 +1,11 @@
-# Create your views here.
-
-from django.http import HttpResponse
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from www.models import *
+from django.http import *
 from django.shortcuts import render_to_response, redirect, render
+from django.core.urlresolvers import reverse
+from www.models import *
 from django.core.context_processors import csrf
-from django.template import RequestContext        
+from django.template import RequestContext   
+from django.utils import simplejson     
+import json 
 
 def index(request):
     return HttpResponse(" <a href='/admin'>Click here to got o the admin page</a>")
@@ -44,3 +43,10 @@ def add_batch(request):
         batch.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def view_page(request):
+	content = "Here the report content should go like this is a report of the employee productivity etc.."
+	return render_to_response('test.html',{'content':content})
+
+def dummy_method(request):
+	data = [{'a': '10'},{'b':'20'},{'c':'7'}]
+	return HttpResponse(simplejson.dumps(data))
