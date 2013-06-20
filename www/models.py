@@ -52,13 +52,29 @@ class Employee(models.Model):
             total_products = Batch.objects.filter(date__range = [date_start, date_end], employee = self).exclude(date = date_end)
         else:
             total_products = Batch.objects.filter(date__range = [date_start, date_end], employee = self)
-        return total_products
+        items = 0
+        for product in total_products:
+            items = items + product.size
+        return items
     
     #Mohamed Awad
     #this def returns the total payement of an employee
     #of a specific start date and end date
-    def payement(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day):
+    def payement_yearly(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day):
         salary = self.salary
+        date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
+        date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
+        batches = Batch.objects.filter(employee = self, date__range = [date_start, date_end])
+        for batch in batches:
+            amounts_to_pay = batch.item_price*batch.size
+            salary = salary + amounts_to_pay
+        return salary
+
+    #Mohamed Awad
+    #this def returns the total payement of an employee
+    #of a specific start date and end date
+    def payement_monthly(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day):
+        salary = 0
         date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
         date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
         batches = Batch.objects.filter(employee = self, date__range = [date_start, date_end])
