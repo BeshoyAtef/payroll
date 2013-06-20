@@ -55,35 +55,27 @@ def company_wide_yearly_attendance_report(desired_year):
     number_of_employees = len(all_employees)
     total_number_of_working_hours = 0
     #dictonary to gather monthly related results
-    attendance_month_aggregate = {}
+    attendance_month_aggregate = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0}
     #array to group the dictonaries in the right order
     Dict_array = []
+    months = 1
 
-    for attendance in all_attendances:
-        #month name stored by default in Django
-        month = calendar.month_name[attendance.date.month]
-        employee = attendance.employee
-        #method provided by awad to calculate the working hours of an employee during a certain period
-        working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
-        print 'xxx'
-        print employee.id
-        print month
-        print working_hours
-        print 'xxx'
-        print 'end'
-        #if month hasent been already added it is added as the key and the value is added. Else add the new value with the previous one
-        if month not in attendance_month_aggregate: attendance_month_aggregate[month] = working_hours
-        else: attendance_month_aggregate[month] += working_hours
-    
+    #loop through the year
+    while months <= 12:
+        #calculates the monthly result
+        monthly_result = company_wide_monthly_attendance_report(desired_year, months)
+        for x in monthly_result:
+            attendance_month_aggregate[months] += x
+        months += 1
+
     #loop around the dictonary to group them in order and place them in the array
     for key in attendance_month_aggregate:
         temp_dict = {key: (attendance_month_aggregate[key])}
-        total_number_of_working_hours += attendance_month_aggregate[key]
+        # total_number_of_working_hours += attendance_month_aggregate[key]
         Dict_array.append(temp_dict)
         temp_dict = {}
 
-    print total_number_of_working_hours
-    average = total_number_of_working_hours/number_of_employees
+    # average = total_number_of_working_hours/number_of_employees
     return Dict_array
 
 '''Tharwat --- This method is used to get the attendance report for all employees during a certain month.
@@ -114,7 +106,8 @@ def company_wide_monthly_attendance_report(desired_year, desired_month):
     for x in list_of_attendance_per_day:
         total_hours = total_hours + x
 
-    Dict = {'List of Attendance per Day' : list_of_attendance_per_day, 'Total Hours of Work': total_hours}
+    # Dict = {'List of Attendance per Day' : list_of_attendance_per_day}
+    Dict = list_of_attendance_per_day
 
     return Dict
 
