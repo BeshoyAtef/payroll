@@ -24,8 +24,6 @@ def view_reports(request):
 def employee_productivity_month(request):
 	month = int(request.GET['month'])
 	year = int(request.GET['year'])
-	print "yyyyyyyyyyyyyyyy"
-	print int(request.GET['month'])
 	employee = Employee.objects.get(id = int(request.GET['e_id']))
 	days = -((date(year, month, 1) - date(year, month+1, 1)).days)
 	average_productivity_array = []
@@ -33,9 +31,6 @@ def employee_productivity_month(request):
 	while iterator <= days :
 		total_hours = employee.working_hours(year, month, iterator, year, month, iterator + 1, "custom")
 		productivity = employee.productivity(year, month, iterator, year, month, iterator + 1, "custom")
-		print "testing"
-		print productivity
-		print total_hours
 		iterator = iterator + 1
 		try:
 			average_productivity = productivity/total_hours
@@ -43,8 +38,6 @@ def employee_productivity_month(request):
 		except:
 			average_productivity_array.append(0)
 		iterator = iterator + 1
-	print "productivity month"
-	print average_productivity_array
 	return render(request, '', {'average_productivity_array': average_productivity_array})
 
 #Mohamed Awad
@@ -59,17 +52,12 @@ def employee_productivity_year(request):
 	while months < 12:
 		total_hours = employee.working_hours(year, months, 1, year, months+1, 1, "custom")
 		productivity = employee.productivity(year, months, 1, year, months+1, 1, "custom")
-		print "yyyyyyyyyy"
-		print productivity
-		print total_hours
 		try:
 			average_productivity = productivity/total_hours
 			average_productivity_array.append(average_productivity)
 		except:
 			average_productivity_array.append(0)
 		months = months + 1
-	print "productivity year"
-	print average_productivity_array
 	return render(request, '', {'average_productivity_array': average_productivity_array})
 
 #Mohamed Awad
@@ -86,8 +74,6 @@ def employee_payement_year(request):
 		total_payements = employee.payement_yearly(year, months, 1, year, months+1, 1)
 		total_payements_array.append(total_payements)
 		months = months + 1
-	print "payement year"
-	print total_payements_array
 	return render(request, '', {'total_payements_array': total_payements_array})
 
 #Mohamed Awad
@@ -147,3 +133,25 @@ def employee_workinghours_year(request):
 		months = months + 1
 		total_hours_array.append(total_hours)
 	return render(request, '', {'total_hours_array': total_hours_array})
+
+def calc_attendance_month(month, year, employee):
+	days = -((date(year, month, 1) - date(year, month+1, 1)).days)
+	number_of_attendances = employee.attendances_monthly(year, month, 1, year, month + 1, 1)
+	return (number_of_attendances/float(days))*100
+
+def employee_attendance_month(request):
+	month = int(request.GET['month'])
+	year = int(request.GET['year'])
+	employee = Employee.objects.get(pk = int(request.GET['e_id']))
+	return render(request, '', {'attendance_percentage': calc_attendance_month(month,year,employee)})
+
+def employe_attendance_year(request):
+	year = int(request.GET['year'])
+	employee = Employee.objects.get(pk = int(request.GET['e_id']))
+	months = 1
+	total_attendance_percentage = []
+	while months < 12:
+		attendance_percentage = calc_attendance_month(months, year, employee)
+		months = months + 1
+		total_attendance_percentage.append(attendance_percentage)
+	return render(request, '', {'total_attendance_percentage': total_attendance_percentage})
