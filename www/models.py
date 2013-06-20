@@ -46,17 +46,24 @@ class Attendance(models.Model):
     check_out = models.DateTimeField()
     employee = models.ForeignKey(Employee)
 
+'''This method is used to get the attendance report for all employees during a specific year. the method takes in the 
+    year of which the user wishes to view the result. it will then add the results related to each month together in a
+    dictionary. after its done it will place them all in an array. it returns an array of dictionaries'''
 def company_wide_yearly_attendance_report(desired_year):
     all_employees = Employee.objects.all()
     all_attendances = Attendance.objects.filter(date__year = desired_year)
     number_of_employees = len(all_employees)
     total_number_of_working_hours = 0
+    #dictonary to gather monthly related results
     attendance_month_aggregate = {}
+    #array to group the dictonaries in the right order
     Dict_array = []
 
     for attendance in all_attendances:
+        #month name stored by default in Django
         month = calendar.month_name[attendance.date.month]
         employee = attendance.employee
+        #method provided by awad to calculate the working hours of an employee during a certain period
         working_hours = employee.working_hours(desired_year, 1, 1, desired_year + 1, 1, 1, "fixed")
         print 'xxx'
         print employee.id
@@ -64,10 +71,11 @@ def company_wide_yearly_attendance_report(desired_year):
         print working_hours
         print 'xxx'
         print 'end'
+        #if month hasent been already added it is added as the key and the value is added. Else add the new value with the previous one
         if month not in attendance_month_aggregate: attendance_month_aggregate[month] = working_hours
         else: attendance_month_aggregate[month] += working_hours
     
-
+    #loop around the dictonary to group them in order and place them in the array
     for key in attendance_month_aggregate:
         temp_dict = {key: (attendance_month_aggregate[key])}
         total_number_of_working_hours += attendance_month_aggregate[key]
@@ -78,22 +86,31 @@ def company_wide_yearly_attendance_report(desired_year):
     average = total_number_of_working_hours/number_of_employees
     return Dict_array
 
+'''Tharwat --- This method is used to get the attendance report for all employees during a certain month.
+    it takes in a year and the month the user wishes to view. '''
 def company_wide_monthly_attendance_report(desired_year, desired_month):
     all_attendances = Attendance.objects.filter(date__year = desired_year, date__month = desired_month)
     number_of_employees = len(Employee.objects.all())
+    #create an empty list with the number of days (biggest = 31)
     list_of_attendance_per_day = [0]*31
     total_hours = 0
 
+    #loops on all attendances and checks which one belongs to which day and then inserts it in the corresponding index in 
+    # the array
     for attendance in all_attendances:
+        #day starts at 0 since first index = 0
         day = 0
         while day <= 31:
             if attendance.date.day == (day + 1):
+                #calculate hours worked during the day
                 hours = ((attendance.check_out - attendance.check_in).seconds)/60/60
+                #adds value to the list in the corresponding index
                 list_of_attendance_per_day[day] = list_of_attendance_per_day[day] + hours
                 day = day + 1
             else:
                 day = day + 1
 
+    #loop on the list to calculate the total hours worked during the month
     for x in list_of_attendance_per_day:
         total_hours = total_hours + x
 
@@ -137,21 +154,28 @@ from the user and then generates the list.'''
 def company_wide_output_yearly_report(desired_year):
     total_batches = Batch.objects.filter(date__year = desired_year)
     number_of_employees = len(Employee.objects.all())
-    Dict_array = []
+    #Dictonary to group month related results together
     batch_month_aggregate = {}
+    #Array to order the dictonary 
+    Dict_array = []
 
     for batch in total_batches:
+        #month name stored by default in Django
         month = calendar.month_name[batch.date.month]
+        #if month hasent been already added it is added as the key and the value is added. 
+        #Else add the new value with the previous one
         if month not in batch_month_aggregate:
             batch_month_aggregate[month] = batch.size
         else: 
             batch_month_aggregate[month] += batch.size
 
+    #loop around the dictonary to group them in order and place them in the array
     for key in batch_month_aggregate:
         temp_dict = {key: (batch_month_aggregate[key])}
         Dict_array.append(temp_dict)
         temp_dict = {}
 
+    #sumes up all batch sizes
     total_batches_size = sum(batch_month_aggregate.values())
     batch_per_employee = total_batches_size/number_of_employees
 
@@ -163,7 +187,9 @@ year and month from the user and then lists the productivity for each day of the
 def company_wide_output_monthly_report(desired_year, desired_month):
     total_batches = Batch.objects.filter(date__year = desired_year, date__month = desired_month)
     number_of_employees = len(Employee.objects.all())
+    #Array to order dictionary
     Dict_array = []
+    #array of days (biggest = 31)
     list_of_output_per_day = [0]*31
     count = 0
     total = 0 
@@ -194,14 +220,22 @@ the year form the user and then checks for the amount of salaries that are paid 
 
 def company_wide_salary_report(desired_year):
     yearly_payments = Payment.objects.filter(date__year = desired_year)
+    #Dictonary to store results that are monthly related
     salary_month_aggregate = {}
+    #Array to order the dictionary
     Dict_array = []
 
+
     for payment in yearly_payments:
+        #month name stored by default in Django 
         month = calendar.month_name[payment.date.month]
+        
+        #if month hasent been already added it is added as the key and the value is added.
+        # Else add the new value with the previous one    
         if month not in salary_month_aggregate: salary_month_aggregate[month] = payment.amount
         else: salary_month_aggregate[month] += payment.amount
 
+    #loop around the dictonary to group them in order and place them in the array
     for key in salary_month_aggregate:
         temp_dict = {key: (salary_month_aggregate[key])}
         Dict_array.append(temp_dict)
