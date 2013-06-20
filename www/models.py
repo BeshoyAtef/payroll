@@ -22,6 +22,7 @@ class Employee(models.Model):
     acc_no = models.IntegerField(default=0)
     
     REQUIRED_FIELDS = ['name']  
+    
 
 
 #Attendance: Date, Checkin time, Checkout time, Employee
@@ -75,6 +76,5 @@ class Loan(models.Model):
 
 ##
 
-
-
-    
+class CsvFile(models.Model):
+    attendence_sheet = models.FileField(upload_to='media')

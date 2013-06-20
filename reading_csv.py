@@ -36,10 +36,12 @@ for row in dataReader:
 	    dic[account_number].append(stime)
 
 for acc, stimes in dic.iteritems():
-	
+
+
 	checkin = stimes.pop(0)
-	print checkin
+	
 	employee = Employee.objects.get(acc_no= acc)
+	# print str(employee.acc_no)
 	
 	
 	d = checkin[:-4].strip()
@@ -47,13 +49,14 @@ for acc, stimes in dic.iteritems():
 	
 	check_out = None
 	for stime in stimes:
-		
+		print stime
 		stime = stime[:-4].strip()
 		stime = datetime.datetime.strptime(stime, "%m/%d/%Y %H:%M" )
         
 		if stime.date() == check_in.date():
 			check_out = stime
 			
+		
 
 		else:
 			attend = Attendance()
@@ -64,5 +67,12 @@ for acc, stimes in dic.iteritems():
 			check_in = stime
 			check_out= None
 
-			
+	attend = Attendance()
+	attend.check_in = check_in
+	attend.check_out = check_out
+	attend.employee = employee
+	attend.save()
+	check_in = stime
+	check_out= None
 
+	   
