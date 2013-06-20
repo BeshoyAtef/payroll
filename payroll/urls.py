@@ -12,6 +12,12 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'www.views.index', name='home'),
+    url(r'^goToCompanyReports$', 'www.views.goToCompanyReports'),
+    url(r'^getSalary/$', 'www.views.company_wide_salaryReport'),
+    url(r'^getOutputYearly/$', 'www.views.company_wide_output_yearlyReport'),
+    url(r'^getAttendanceYearly/$', 'www.views.company_wide_yearly_attendanceReport'),
+    url(r'^getOutputMonthly/$', 'www.views.company_wide_output_monthlyReport'),
+    url(r'^getAttendanceMonthly/$', 'www.views.company_wide_monthly_attendanceReport'),
     # url(r'^payroll/', include('payroll.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
