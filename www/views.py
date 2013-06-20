@@ -12,8 +12,9 @@ def import_attendance(request):
 def view_reports(request):
     return HttpResponse(" <h1>Welcome to thereports page</h1> ")
 def view_page(request):
-	return render_to_response('test.html')
+	content = "Here the report content should go like this is a report of the employee productivity etc.."
+	return render_to_response('test.html',{'content':content})
 
 def dummy_method(request):
-	data = [{'a': '10'},{'b':'20'}]
+	data = [{'a': '10'},{'b':'20'},{'c':'7'}]
 	return HttpResponse(simplejson.dumps(data))

@@ -1,15 +1,23 @@
-{% extends "admin/base_site.html" %}
 {% load staticfiles %}
-{% block extrastyle %}{{ block.super }}
+<html>
+<head>
+  <title>Django admin system</title>
 
 <script type="text/javascript" src="{% static "js/jquery.min.js" %}" ></script>
 <script type="text/javascript" src="{% static "js/highcharts.js" %}"></script>
-{% endblock %}
-{% block content %}
-<div id="container" style="width:50%; height:100px;">Tesst</div>
+</head>
+<body>
+<div>{{content}}</div>
+<div id="barcontainer" ></div>
+<div id="areacontainer"></div>
+<div id="linecontainer"></div>
+<div id="piecontainer"></div>
+
 <script type="text/javascript">
 var array_of_keys = []
 var array_of_values = []
+var dataArrayFinal = Array();
+
 $.ajax({
    url: 'test',
    dataType: 'json',
@@ -20,10 +28,31 @@ $.ajax({
       for(var i = 0; i<array_of_keys.length; i++){
         var x = array_of_keys[i].toString();
         array_of_values.push(parseInt(data[i][x]));
-        console.log(array_of_values[i]);
       }
-alert(array_of_values);
-$('#container').highcharts({
+      for(j=0;j<array_of_keys.length;j++) { 
+   var temp = new Array(array_of_keys[j],array_of_values[j]); 
+   dataArrayFinal[j] = temp;     
+}
+// alert(array_of_values);
+$('#areacontainer').highcharts({
+        chart: {
+            type: 'areaspline'
+        },
+
+        xAxis: {
+            categories: array_of_keys
+        },
+        yAxis: {
+            title: {
+                text: ''
+            }
+        },
+        series: [{
+            name: 'EMployee Graph',
+            data: array_of_values
+        }]
+    });
+$('#barcontainer').highcharts({
         chart: {
             type: 'column'
         },
@@ -42,12 +71,89 @@ $('#container').highcharts({
             data: array_of_values
         }]
     });
+
+$('#linecontainer').highcharts({
+            chart: {
+                type: 'spline'
+            },
+            title: {
+                text: 'Average fruit consumption during one week'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 150,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF'
+            },
+            xAxis: {
+                categories: array_of_keys
+            
+            },
+            yAxis: {
+                title: {
+                    text: 'Fruit units'
+                }
+            },
+            
+            plotOptions: {
+                areaspline: {
+                    fillOpacity: 0.5
+                }
+            },
+            series: [{
+                name: 'John',
+                data: array_of_values
+                        }]
+        });
+var chart;
+    
+      // Build the chart
+        $('#piecontainer').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Browser market shares at a specific website, 2010'
+            },
+            tooltip: {
+              pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+              percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: ' share',
+                data: dataArrayFinal
+            }]
+        });
+    
+    
+
+
+
+
+
 }
 
 });
-
-
-
-
 </script>
-{% endblock %}
+</body>
+</html>
+
+
+
