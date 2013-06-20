@@ -1,7 +1,6 @@
-# Create your views here.
-
-from django.http import HttpResponse
+from django.http import *
 from django.shortcuts import render_to_response, redirect, render
+from django.http import HttpResponse
 from www.models import *
 from datetime import date
 import json
@@ -155,3 +154,11 @@ def employe_attendance_year(request):
 		months = months + 1
 		total_attendance_percentage.append(attendance_percentage)
 	return render(request, '', {'total_attendance_percentage': total_attendance_percentage})
+
+def view_page(request):
+	content = "Here the report content should go like this is a report of the employee productivity etc.."
+	return render_to_response('test.html',{'content':content})
+
+def dummy_method(request):
+	data = [{'a': '10'},{'b':'20'},{'c':'7'}]
+	return HttpResponse(simplejson.dumps(data))

@@ -1,4 +1,6 @@
 import os
+import datetime
+
 # Django settings for payroll project.
 def relative_project_path(*x):
     return os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
@@ -133,6 +135,11 @@ INSTALLED_APPS = (
     'www',
     'south',
     'admin_views',
+
+    'constance',
+    'constance.backends.database',
+    'picklefield',
+
 )
 
 # A sample logging configuration. The only tangible logging
@@ -162,4 +169,11 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+# Constance
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {
+    'CHECKIN_TIME': (datetime.time(8, 0), 'the answer to everything'),
 }
