@@ -11,7 +11,10 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
+    
     url(r'^$', 'www.views.index', name='home'),
+    url(r'^view_output_yearly/$', 'www.views.view_output_yearly', name='home'),
+    url(r'^view_output_monthly/$', 'www.views.view_output_monthly', name='home'),
     url(r'^goToCompanyReports$', 'www.views.goToCompanyReports'),
     url(r'^getSalary/$', 'www.views.company_wide_salaryReport'),
     url(r'^getOutputYearly/$', 'www.views.company_wide_output_yearlyReport'),

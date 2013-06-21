@@ -53,19 +53,21 @@ def company_wide_yearly_attendance_report(desired_year):
     all_employees = Employee.objects.all()
     all_attendances = Attendance.objects.filter(date__year = desired_year)
     number_of_employees = len(all_employees)
-    total_number_of_working_hours = 0
     #dictonary to gather monthly related results
     attendance_month_aggregate = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0}
     #array to group the dictonaries in the right order
     Dict_array = []
     months = 1
+    total_number_of_working_hours = 0
 
     #loop through the year
     while months <= 12:
-        #calculates the monthly result
+        #calculates the monthly result from the montly method
         monthly_result = company_wide_monthly_attendance_report(desired_year, months)
-        for x in monthly_result:
-            attendance_month_aggregate[months] += x
+        #gets the total value
+        monthly_result_value = monthly_result[31]['Total']
+        total_number_of_working_hours += monthly_result_value
+        attendance_month_aggregate[months] = monthly_result_value
         months += 1
 
     #loop around the dictonary to group them in order and place them in the array
@@ -75,7 +77,13 @@ def company_wide_yearly_attendance_report(desired_year):
         Dict_array.append(temp_dict)
         temp_dict = {}
 
-    # average = total_number_of_working_hours/number_of_employees
+    average = total_number_of_working_hours/number_of_employees
+    dict_total = {'Total': total_number_of_working_hours}
+    dict_average = {'Average/Employee': average}
+
+    Dict_array.append(dict_total)
+    Dict_array.append(dict_average)
+
     return Dict_array
 
 '''Tharwat --- This method is used to get the attendance report for all employees during a certain month.
@@ -86,6 +94,7 @@ def company_wide_monthly_attendance_report(desired_year, desired_month):
     #create an empty list with the number of days (biggest = 31)
     list_of_attendance_per_day = [0]*31
     total_hours = 0
+    Dict_array = []
 
     #loops on all attendances and checks which one belongs to which day and then inserts it in the corresponding index in 
     # the array
@@ -106,10 +115,17 @@ def company_wide_monthly_attendance_report(desired_year, desired_month):
     for x in list_of_attendance_per_day:
         total_hours = total_hours + x
 
-    # Dict = {'List of Attendance per Day' : list_of_attendance_per_day}
-    Dict = list_of_attendance_per_day
+    day = 1
+    for value in list_of_attendance_per_day:
+        temp_dict = {day: value}
+        Dict_array.append(temp_dict)
+        temp_dict = {}
+        day +=1
 
-    return Dict
+    dict_total = {'Total': total_hours}
+    Dict_array.append(dict_total)
+    
+    return Dict_array
 
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
 class AttendanceException(models.Model):
@@ -143,12 +159,11 @@ class Batch(models.Model):
 
 '''Tharwat --- This method returns the productivity report for a whole year that is chosen by the user. It takes the desired year
 from the user and then generates the list.'''
-
 def company_wide_output_yearly_report(desired_year):
     total_batches = Batch.objects.filter(date__year = desired_year)
     number_of_employees = len(Employee.objects.all())
     #Dictonary to group month related results together
-    batch_month_aggregate = {}
+    batch_month_aggregate = {'June': 0}
     #Array to order the dictonary 
     Dict_array = []
 
@@ -159,18 +174,30 @@ def company_wide_output_yearly_report(desired_year):
         #Else add the new value with the previous one
         if month not in batch_month_aggregate:
             batch_month_aggregate[month] = batch.size
+            print month
         else: 
             batch_month_aggregate[month] += batch.size
+            print month
 
     #loop around the dictonary to group them in order and place them in the array
+
+    #append the results in an array of dictionaries
+    month = 1
     for key in batch_month_aggregate:
-        temp_dict = {key: (batch_month_aggregate[key])}
+        temp_dict = {key: batch_month_aggregate[key]}
         Dict_array.append(temp_dict)
         temp_dict = {}
+        month += 1
+
 
     #sumes up all batch sizes
     total_batches_size = sum(batch_month_aggregate.values())
     batch_per_employee = total_batches_size/number_of_employees
+
+    dict_total = {'Total': total_batches_size}
+    dict_average = {'Average': batch_per_employee}
+    # Dict_array.append(dict_total)
+    # Dict_array.append(dict_average)
 
     return Dict_array, total_batches_size, batch_per_employee
 
@@ -193,11 +220,20 @@ def company_wide_output_monthly_report(desired_year, desired_month):
     for x in list_of_output_per_day:
         total = total + x
 
+    day = 1
+    for value in list_of_output_per_day:
+        temp_dict = {day: value}
+        Dict_array.append(temp_dict)
+        temp_dict = {}
+        day +=1
 
     batch_per_employee = total/number_of_employees
-    Dict = {'list_of_output_per_day': list_of_output_per_day, 'Total Produced': total, 'batch_per_employee': batch_per_employee}
+    dict_total = {'Total': total}
+    dict_average = {'Average': batch_per_employee}
+    Dict_array.append(dict_total)
+    Dict_array.append(dict_average)
 
-    return Dict
+    return Dict_array
 
 
 #Payment: ID, Date, Employee ID, amount
@@ -210,7 +246,6 @@ class Payment(models.Model):
 
 '''Tharwat--- This method returns the salary report for all employees for a specific year that is chosen by the user. It takes
 the year form the user and then checks for the amount of salaries that are paid each month for the chosen year'''
-
 def company_wide_salary_report(desired_year):
     yearly_payments = Payment.objects.filter(date__year = desired_year)
     #Dictonary to store results that are monthly related
@@ -234,9 +269,12 @@ def company_wide_salary_report(desired_year):
         Dict_array.append(temp_dict)
         temp_dict = {}
 
-    total_salaries = sum(salary_month_aggregate.values())
+    total = sum(salary_month_aggregate.values())
+    dict_total = {'Total': total}
+    Dict_array.append(dict_total)
+
     return Dict_array
-    
+
 #Loans: ID, Date, Employee ID, Amount
 class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
