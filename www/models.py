@@ -5,6 +5,8 @@ from django.contrib.auth.models import BaseUserManager , AbstractBaseUser
 from django.utils.timezone import utc
 import datetime
 from datetime import timedelta
+from itertools import chain
+
 
 class Employee(models.Model):
     name = models.CharField(max_length=100)     
@@ -27,6 +29,14 @@ class Attendance(models.Model):
     def __unicode__(self):
         s=self.employee.name+"-"+str(self.date.date())
         return s
+
+def get_attendance(employee):
+    attendance=Attendance.objects.filter(employee=employee)
+    attendance_exptions=AttendanceException.objects.filter(attendance__in=[o.id for o in attendance])
+    attendance=Attendance.objects.filter(employee=employee).exclude(id__in=[o.attendance.id for o in attendance_exptions])
+    final_attendace=list(chain(attendance, attendance_exptions))
+    return final_attendace
+    
 
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
 class AttendanceException(models.Model):
@@ -81,5 +91,5 @@ class Loan(models.Model):
     employee = models.ForeignKey(Employee)
     amount = models.IntegerField()
     def __unicode__(self):
-    	return self.employee.name + str("__") + str(self.amount)
+        return self.employee.name + str("__") + str(self.amount)
 ##
