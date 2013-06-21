@@ -23,12 +23,12 @@ urlpatterns = patterns('',
     url(r'^employeeReport/$', 'www.views.view_report_page'),
     url(r'^hours_month/$', 'www.views.employee_workinghours_month'),
     url(r'^hours_year/$', 'www.views.employee_workinghours_year'),
-    # url(r'^products_month/$', 'www.views.employee_workinghours_year'),
-    # url(r'^products_year/$', 'www.views.employee_workinghours_year'),
+    url(r'^products_month/$', 'www.views.products_month'),
+    url(r'^products_year/$', 'www.views.products_year'),
     url(r'^productivity_month/$', 'www.views.employee_productivity_month'),
     url(r'^productivity_year/$', 'www.views.employee_productivity_year'),
     url(r'^payement_month/$', 'www.views.employee_payement_month'),
-    url(r'^payement_year/$', 'www.views.employee_payement_year'),
-    url(r'^attendance_month/$', 'www.views.employee_workinghours_year'),
-    url(r'^attendance_year/$', 'www.views.employee_workinghours_year')
+    url(r'^payement_year/$', 'www.views.employee_payement_year')
+    # url(r'^attendance_month/$', 'www.views.employee_workinghours_year'),
+    # url(r'^attendance_year/$', 'www.views.employee_workinghours_year')
 )

@@ -5,10 +5,12 @@
 <script type="text/javascript" src="{% static "js/jquery-1.9.1.min.js" %}" ></script>
 
 <script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/highcharts.js" %}"></script>
 
 {% endblock %}
 
 {% block content%}
+	<div id="global">
 	<h3>Choose report type: </h3>
 	<select id="type">
 		<option>------</option>
@@ -37,75 +39,686 @@
 			<br>
 			<select id="months_from" style="display: none">
 				<option id="tmp">------</option>
-				<option value="1">January</option>
-				<option value="2">February</option>
-				<option value="3">March</option>
-				<option value="4">April</option>
-				<option value="5">May</option>
-				<option value="6">June</option>
-				<option value="7">July</option>
-				<option value="8">August</option>
-				<option value="9">September</option>
-				<option value="10">October</option>
-				<option value="11">November</option>
-				<option value="12">December</option>
+				<option id="January" value="1">January</option>
+				<option id="February" value="2">February</option>
+				<option id="March" value="3">March</option>
+				<option id="April" value="4">April</option>
+				<option id="May" value="5">May</option>
+				<option id="June" value="6">June</option>
+				<option id="July" value="7">July</option>
+				<option id="August" value="8">August</option>
+				<option id="September" value="9">September</option>
+				<option id="October" value="10">October</option>
+				<option id="November" value="11">November</option>
+				<option id="December" value="12">December</option>
 			</select>
 		</span>
 		<br>
 	{% if employees %}
 		{% for employee in employees %}
-			<span><h1>{{employee.name}}</h1><button value="{{employee.id}}" onClick="generateReport(this);">Generate</button></span>
+			<span><h1>{{employee.name}}</h1><button id = "{{employee.name}}" value="{{employee.id}}" onClick="generateReport(this);">Generate</button></span>
 		{% endfor %}
 	{% endif %}
+</div>
+	<div id="report_page"></div>
+	<div id="linecontainer"></div>
 <script type="text/javascript">
 	function generateReport(elem){
 		var type = $("#type").val()
 		var range = $("#range").val()
 		var year = $("#years_from").val()
 		var month = $("#months_from").val()
+		var el = document.getElementById('years_from')
+		var ml = document.getElementById('months_from')
+		var array_of_keys = []
+		var array_of_values = []
+		var dataArrayFinal = Array();
+		var report = 0
 		if (range != '------' && type != '------' && year != '------') {
 			if (type == 'Working Hours') {
+				report = 1
 				if (range == 'By month' && month != '------') {
-					window.open("../../../hours_month?e_id="+elem.value+"&month="+month+"&year="+year)
+					$.ajax({
+					   	url: '../hours_month',
+					   	dataType: 'json',
+						data: {
+				    		"year" : year,
+				    		"e_id" : elem.value,
+				    		"month" : month,
+				    	},
+					   	success: function (data) {
+					   		
+					   		
+					    	for(var i = 0; i<data.length; i++){
+					        	array_of_keys.push(Object.keys(data[i]));
+					      	}
+					      	for(var i = 0; i<array_of_keys.length; i++){
+					        	var x = array_of_keys[i].toString();
+					        	array_of_values.push(parseInt(data[i][x]));
+					      	}
+					      	for(j=0;j<array_of_keys.length;j++) { 
+					   			var temp = new Array(array_of_keys[j],array_of_values[j]); 
+					   			dataArrayFinal[j] = temp;     
+							}
+							$('#linecontainer').highcharts({
+					            chart: {
+					                type: 'spline'
+					            },
+					            title: {
+					                text: elem.id + ' Working Hours in ' + ml.options[ml.selectedIndex].innerHTML + '/' + el.options[el.selectedIndex].innerHTML
+					            },
+					            legend: {
+					                layout: 'vertical',
+					                align: 'left',
+					                verticalAlign: 'top',
+					                x: 150,
+					                y: 100,
+					                floating: true,
+					                borderWidth: 1,
+					                backgroundColor: '#FFFFFF'
+					            },
+					            xAxis: {
+					                categories: array_of_keys
+					            
+					            },
+					            yAxis: {
+					                title: {
+					                    text: 'Fruit units'
+					                }
+					            },
+					            
+					            plotOptions: {
+					                areaspline: {
+					                    fillOpacity: 0.5
+					                }
+					            },
+					            series: [{
+					                name: 'John',
+					                data: array_of_values
+					                        }]
+					        });
+					    }	
+					});
 				}
 				else {
-					window.open("../../../hours_year?e_id="+elem.value+"&year="+year)
+					$.ajax({
+					   	url: '../../../hours_year',
+					   	dataType: 'json',
+						data: {
+				    		"year" : year,
+				    		"e_id" : elem.value,
+				    	},
+					   	success: function (data) {
+					   		$('#global').css('display', 'none');
+					   		$('#header').css('display', 'none');
+					   		$('#breadcrumbs').css('display', 'none');
+					   		$('#report_page').append('<h1 style=\"position:center\">'+elem.id+'</h1>');
+					    	for(var i = 0; i<data.length; i++){
+					        	array_of_keys.push(Object.keys(data[i]));
+					      	}
+					      	for(var i = 0; i<array_of_keys.length; i++){
+					        	var x = array_of_keys[i].toString();
+					        	array_of_values.push(parseInt(data[i][x]));
+					      	}
+					      	for(j=0;j<array_of_keys.length;j++) { 
+					   			var temp = new Array(array_of_keys[j],array_of_values[j]); 
+					   			dataArrayFinal[j] = temp;     
+							}
+
+							$('#linecontainer').highcharts({
+					            chart: {
+					                type: 'spline'
+					            },
+					            title: {
+					                text: elem.id + ' Working Hours in ' + el.options[el.selectedIndex].innerHTML
+					            },
+					            legend: {
+					                layout: 'vertical',
+					                align: 'left',
+					                verticalAlign: 'top',
+					                x: 150,
+					                y: 100,
+					                floating: true,
+					                borderWidth: 1,
+					                backgroundColor: '#FFFFFF'
+					            },
+					            xAxis: {
+					                categories: array_of_keys
+					            
+					            },
+					            yAxis: {
+					                title: {
+					                    text: 'Fruit units'
+					                }
+					            },
+					            
+					            plotOptions: {
+					                areaspline: {
+					                    fillOpacity: 0.5
+					                }
+					            },
+					            series: [{
+					                name: elem.id,
+					                data: array_of_values
+					                        }]
+					        });
+					    }	
+					});
 				}
 
 			}
 			else {
 				if (type == 'Number of products produced') {
+					report = 2
 					if (range == 'By month' && month != '------') {
-						window.open("../../../products_month?e_id="+elem.value+"&month="+month+"&year="+year)
+						$.ajax({
+					   	url: '../../../products_month',
+					   	dataType: 'json',
+						data: {
+				    		"year" : year,
+				    		"e_id" : elem.value,
+				    		"month" : month,
+				    	},
+					   	success: function (data) {
+					   		
+					   		
+					    	for(var i = 0; i<data.length; i++){
+					        	array_of_keys.push(Object.keys(data[i]));
+					      	}
+					      	for(var i = 0; i<array_of_keys.length; i++){
+					        	var x = array_of_keys[i].toString();
+					        	array_of_values.push(parseInt(data[i][x]));
+					      	}
+					      	for(j=0;j<array_of_keys.length;j++) { 
+					   			var temp = new Array(array_of_keys[j],array_of_values[j]); 
+					   			dataArrayFinal[j] = temp;     
+							}
+							$('#linecontainer').highcharts({
+					            chart: {
+					                type: 'spline'
+					            },
+					            title: {
+					                text: elem.id + ' produced in ' + ml.options[ml.selectedIndex].innerHTML + '/' + el.options[el.selectedIndex].innerHTML
+					            },
+					            legend: {
+					                layout: 'vertical',
+					                align: 'left',
+					                verticalAlign: 'top',
+					                x: 150,
+					                y: 100,
+					                floating: true,
+					                borderWidth: 1,
+					                backgroundColor: '#FFFFFF'
+					            },
+					            xAxis: {
+					                categories: array_of_keys
+					            
+					            },
+					            yAxis: {
+					                title: {
+					                    text: 'Fruit units'
+					                }
+					            },
+					            
+					            plotOptions: {
+					                areaspline: {
+					                    fillOpacity: 0.5
+					                }
+					            },
+					            series: [{
+					                name: 'John',
+					                data: array_of_values
+					                        }]
+					        });
+					    }	
+					});
 					}
 					else {
-						window.open("../../../products_year?e_id="+elem.value+"&year="+year)
+						$.ajax({
+					   	url: '../../../products_year',
+					   	dataType: 'json',
+						data: {
+				    		"year" : year,
+				    		"e_id" : elem.value,
+				    	},
+					   	success: function (data) {
+					   		
+					   		
+					    	for(var i = 0; i<data.length; i++){
+					        	array_of_keys.push(Object.keys(data[i]));
+					      	}
+					      	for(var i = 0; i<array_of_keys.length; i++){
+					        	var x = array_of_keys[i].toString();
+					        	array_of_values.push(parseInt(data[i][x]));
+					      	}
+					      	for(j=0;j<array_of_keys.length;j++) { 
+					   			var temp = new Array(array_of_keys[j],array_of_values[j]); 
+					   			dataArrayFinal[j] = temp;     
+							}
+							$('#linecontainer').highcharts({
+					            chart: {
+					                type: 'spline'
+					            },
+					            title: {
+					                text: elem.id + ' produced in ' + el.options[el.selectedIndex].innerHTML
+					            },
+					            legend: {
+					                layout: 'vertical',
+					                align: 'left',
+					                verticalAlign: 'top',
+					                x: 150,
+					                y: 100,
+					                floating: true,
+					                borderWidth: 1,
+					                backgroundColor: '#FFFFFF'
+					            },
+					            xAxis: {
+					                categories: array_of_keys
+					            
+					            },
+					            yAxis: {
+					                title: {
+					                    text: 'Fruit units'
+					                }
+					            },
+					            
+					            plotOptions: {
+					                areaspline: {
+					                    fillOpacity: 0.5
+					                }
+					            },
+					            series: [{
+					                name: 'John',
+					                data: array_of_values
+					                        }]
+					        });
+					    }	
+					});
 					}
 				}
 				else {
 					if (type == 'number of products/hour') {
+						report = 3
 						if (range == 'By month' && month != '------') {
-							window.open("../../../productivity_month?e_id="+elem.value+"&month="+month+"&year="+year)
+						$.ajax({
+					   	url: '../../../productivity_month',
+					   	dataType: 'json',
+						data: {
+				    		"year" : year,
+				    		"e_id" : elem.value,
+				    		"month" : month,
+				    	},
+					   	success: function (data) {
+					   		
+					   		
+					    	for(var i = 0; i<data.length; i++){
+					        	array_of_keys.push(Object.keys(data[i]));
+					      	}
+					      	for(var i = 0; i<array_of_keys.length; i++){
+					        	var x = array_of_keys[i].toString();
+					        	array_of_values.push(parseInt(data[i][x]));
+					      	}
+					      	for(j=0;j<array_of_keys.length;j++) { 
+					   			var temp = new Array(array_of_keys[j],array_of_values[j]); 
+					   			dataArrayFinal[j] = temp;     
+							}
+							$('#linecontainer').highcharts({
+					            chart: {
+					                type: 'spline'
+					            },
+					            title: {
+					                text: elem.id + ' productivity in ' + ml.options[ml.selectedIndex].innerHTML + '/' + el.options[el.selectedIndex].innerHTML
+					            },
+					            legend: {
+					                layout: 'vertical',
+					                align: 'left',
+					                verticalAlign: 'top',
+					                x: 150,
+					                y: 100,
+					                floating: true,
+					                borderWidth: 1,
+					                backgroundColor: '#FFFFFF'
+					            },
+					            xAxis: {
+					                categories: array_of_keys
+					            
+					            },
+					            yAxis: {
+					                title: {
+					                    text: 'Fruit units'
+					                }
+					            },
+					            
+					            plotOptions: {
+					                areaspline: {
+					                    fillOpacity: 0.5
+					                }
+					            },
+					            series: [{
+					                name: 'John',
+					                data: array_of_values
+					                        }]
+					        });
+					    }	
+					});
 						}
 						else {
-							window.open("../../../productivity_year?e_id="+elem.value+"&year="+year)
+						$.ajax({
+					   	url: '../../../productivity_year',
+					   	dataType: 'json',
+						data: {
+				    		"year" : year,
+				    		"e_id" : elem.value,
+				    	},
+					   	success: function (data) {
+					   		
+					    	for(var i = 0; i<data.length; i++){
+					        	array_of_keys.push(Object.keys(data[i]));
+					      	}
+					      	for(var i = 0; i<array_of_keys.length; i++){
+					        	var x = array_of_keys[i].toString();
+					        	array_of_values.push(parseInt(data[i][x]));
+					      	}
+					      	for(j=0;j<array_of_keys.length;j++) { 
+					   			var temp = new Array(array_of_keys[j],array_of_values[j]); 
+					   			dataArrayFinal[j] = temp;     
+							}
+							$('#linecontainer').highcharts({
+					            chart: {
+					                type: 'spline'
+					            },
+					            title: {
+					                text: elem.id + ' productivity in ' + el.options[el.selectedIndex].innerHTML
+					            },
+					            legend: {
+					                layout: 'vertical',
+					                align: 'left',
+					                verticalAlign: 'top',
+					                x: 150,
+					                y: 100,
+					                floating: true,
+					                borderWidth: 1,
+					                backgroundColor: '#FFFFFF'
+					            },
+					            xAxis: {
+					                categories: array_of_keys
+					            
+					            },
+					            yAxis: {
+					                title: {
+					                    text: 'Fruit units'
+					                }
+					            },
+					            
+					            plotOptions: {
+					                areaspline: {
+					                    fillOpacity: 0.5
+					                }
+					            },
+					            series: [{
+					                name: 'John',
+					                data: array_of_values
+					                        }]
+					        });
+					    }	
+					});
 						}
 					}
 					else {
 						if (type == 'Salary of the employee') {
+							report = 3
 							if (range == 'By month' && month != '------') {
-								window.open("../../../payement_month?e_id="+elem.value+"&month="+month+"&year="+year)
+							$.ajax({
+					   	url: '../../../payement_month',
+					   	dataType: 'json',
+						data: {
+				    		"year" : year,
+				    		"e_id" : elem.value,
+				    		"month": month
+				    	},
+					   	success: function (data) {
+					   		
+					   		
+					    	for(var i = 0; i<data.length; i++){
+					        	array_of_keys.push(Object.keys(data[i]));
+					      	}
+					      	for(var i = 0; i<array_of_keys.length; i++){
+					        	var x = array_of_keys[i].toString();
+					        	array_of_values.push(parseInt(data[i][x]));
+					      	}
+					      	for(j=0;j<array_of_keys.length;j++) { 
+					   			var temp = new Array(array_of_keys[j],array_of_values[j]); 
+					   			dataArrayFinal[j] = temp;     
+							}
+							$('#linecontainer').highcharts({
+					            chart: {
+					                type: 'spline'
+					            },
+					            title: {
+					                text: elem.id + ' Salaries in ' + ml.options[ml.selectedIndex].innerHTML + '/' + el.options[el.selectedIndex].innerHTML
+					            },
+					            legend: {
+					                layout: 'vertical',
+					                align: 'left',
+					                verticalAlign: 'top',
+					                x: 150,
+					                y: 100,
+					                floating: true,
+					                borderWidth: 1,
+					                backgroundColor: '#FFFFFF'
+					            },
+					            xAxis: {
+					                categories: array_of_keys
+					            
+					            },
+					            yAxis: {
+					                title: {
+					                    text: 'Fruit units'
+					                }
+					            },
+					            
+					            plotOptions: {
+					                areaspline: {
+					                    fillOpacity: 0.5
+					                }
+					            },
+					            series: [{
+					                name: 'John',
+					                data: array_of_values
+					                        }]
+					        });
+					    }	
+					});
 							}
 							else {
-								window.open("../../../payement_year?e_id="+elem.value+"&year="+year)
+													$.ajax({
+					   	url: '../../../payement_year',
+					   	dataType: 'json',
+						data: {
+				    		"year" : year,
+				    		"e_id" : elem.value,
+				    	},
+					   	success: function (data) {
+					   		
+					   		
+					    	for(var i = 0; i<data.length; i++){
+					        	array_of_keys.push(Object.keys(data[i]));
+					      	}
+					      	for(var i = 0; i<array_of_keys.length; i++){
+					        	var x = array_of_keys[i].toString();
+					        	array_of_values.push(parseInt(data[i][x]));
+					      	}
+					      	for(j=0;j<array_of_keys.length;j++) { 
+					   			var temp = new Array(array_of_keys[j],array_of_values[j]); 
+					   			dataArrayFinal[j] = temp;     
+							}
+							$('#linecontainer').highcharts({
+					            chart: {
+					                type: 'spline'
+					            },
+					            title: {
+					                text: elem.id + ' Salary in ' + el.options[el.selectedIndex].innerHTML
+					            },
+					            legend: {
+					                layout: 'vertical',
+					                align: 'left',
+					                verticalAlign: 'top',
+					                x: 150,
+					                y: 100,
+					                floating: true,
+					                borderWidth: 1,
+					                backgroundColor: '#FFFFFF'
+					            },
+					            xAxis: {
+					                categories: array_of_keys
+					            
+					            },
+					            yAxis: {
+					                title: {
+					                    text: 'Fruit units'
+					                }
+					            },
+					            
+					            plotOptions: {
+					                areaspline: {
+					                    fillOpacity: 0.5
+					                }
+					            },
+					            series: [{
+					                name: 'John',
+					                data: array_of_values
+					                        }]
+					        });
+					    }	
+					});
 							}
 						}
 						else {
+							report = 4
 							if (range == 'By month' && month != '------') {
-								window.open("../../../attendance_month?e_id="+elem.value+"&month="+month+"&year="+year)
+													$.ajax({
+					   	url: '../../../attendance_month',
+					   	dataType: 'json',
+						data: {
+				    		"year" : year,
+				    		"e_id" : elem.value,
+				    		"month": month,
+				    	},
+					   	success: function (data) {
+					   		
+					   		
+					    	for(var i = 0; i<data.length; i++){
+					        	array_of_keys.push(Object.keys(data[i]));
+					      	}
+					      	for(var i = 0; i<array_of_keys.length; i++){
+					        	var x = array_of_keys[i].toString();
+					        	array_of_values.push(parseInt(data[i][x]));
+					      	}
+					      	for(j=0;j<array_of_keys.length;j++) { 
+					   			var temp = new Array(array_of_keys[j],array_of_values[j]); 
+					   			dataArrayFinal[j] = temp;     
+							}
+							$('#linecontainer').highcharts({
+					            chart: {
+					                type: 'spline'
+					            },
+					            title: {
+					                text: elem.id + ' Attendance in ' + ml.options[ml.selectedIndex].innerHTML + '/' + el.options[el.selectedIndex].innerHTML
+					            },
+					            legend: {
+					                layout: 'vertical',
+					                align: 'left',
+					                verticalAlign: 'top',
+					                x: 150,
+					                y: 100,
+					                floating: true,
+					                borderWidth: 1,
+					                backgroundColor: '#FFFFFF'
+					            },
+					            xAxis: {
+					                categories: array_of_keys
+					            
+					            },
+					            yAxis: {
+					                title: {
+					                    text: 'Fruit units'
+					                }
+					            },
+					            
+					            plotOptions: {
+					                areaspline: {
+					                    fillOpacity: 0.5
+					                }
+					            },
+					            series: [{
+					                name: 'John',
+					                data: array_of_values
+					                        }]
+					        });
+					    }	
+					});
 							}
 							else {
-								window.open("../../../attendance_year?e_id="+elem.value+"&year="+year)
+						$.ajax({
+					   	url: '../../../attendance_year',
+					   	dataType: 'json',
+						data: {
+				    		"year" : year,
+				    		"e_id" : elem.value,
+				    	},
+					   	success: function (data) {
+					   		
+					   		
+					    	for(var i = 0; i<data.length; i++){
+					        	array_of_keys.push(Object.keys(data[i]));
+					      	}
+					      	for(var i = 0; i<array_of_keys.length; i++){
+					        	var x = array_of_keys[i].toString();
+					        	array_of_values.push(parseInt(data[i][x]));
+					      	}
+					      	for(j=0;j<array_of_keys.length;j++) { 
+					   			var temp = new Array(array_of_keys[j],array_of_values[j]); 
+					   			dataArrayFinal[j] = temp;     
+							}
+							$('#linecontainer').highcharts({
+					            chart: {
+					                type: 'spline'
+					            },
+					            title: {
+					                text: 'Employee Attendance in ' + el.options[el.selectedIndex].innerHTML
+					            },
+					            legend: {
+					                layout: 'vertical',
+					                align: 'left',
+					                verticalAlign: 'top',
+					                x: 150,
+					                y: 100,
+					                floating: true,
+					                borderWidth: 1,
+					                backgroundColor: '#FFFFFF'
+					            },
+					            xAxis: {
+					                categories: array_of_keys
+					            
+					            },
+					            yAxis: {
+					                title: {
+					                    text: 'Fruit units'
+					                }
+					            },
+					            
+					            plotOptions: {
+					                areaspline: {
+					                    fillOpacity: 0.5
+					                }
+					            },
+					            series: [{
+					                name: 'John',
+					                data: array_of_values
+					                        }]
+					        });
+					    }	
+					});
 							}
 
 						}
@@ -139,7 +752,7 @@
 					}
 				};
 			});
-		});		
+		});
 	});
 </script>
 {% endblock %}

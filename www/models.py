@@ -64,7 +64,7 @@ class Employee(models.Model):
         salary = self.salary
         date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
         date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
-        batches = Batch.objects.filter(employee = self, date__range = [date_start, date_end])
+        batches = Batch.objects.filter(employee = self, date__range = [date_start, date_end]).exclude(date = date_end)
         for batch in batches:
             amounts_to_pay = batch.item_price*batch.size
             salary = salary + amounts_to_pay
