@@ -21,8 +21,8 @@ def make_published(modeladmin, request, queryset):
 
         except:
             list_of_exceptions.append(employee)
-
-    return render_to_response('paymentslip.html', {'list_of_exceptions':list_of_exceptions,'slips_list': list_of_slips, 'month':current_month})
+    attendance = Attendance.objects.all()
+    return render_to_response('paymentslip.html', {'attendance':attendance,'list_of_exceptions':list_of_exceptions,'slips_list': list_of_slips, 'month':current_month})
 make_published.short_description = "Print payment slips"
 
 class EmployeeAdmin(admin.ModelAdmin):
