@@ -29,6 +29,18 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_display = ['name', 'email','mobile', 'ssn']
     search_fields = ['name', 'email','mobile', 'ssn']
     actions = [make_published]
+    list_filter = ('salary',)
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        employee=Employee.objects.get(id=object_id)
+        batches=Batch.objects.filter(employee=employee)
+        attendance=Attendance.objects.filter(employee=employee)
+        print attendance
+
+        extra_context = {'batch_list':batches,'attendance_list':attendance}
+
+        return super(EmployeeAdmin, self).change_view(request, object_id,
+            form_url, extra_context=extra_context)
 
 
 class BatchAdmin(admin.ModelAdmin):
@@ -64,6 +76,8 @@ admin.site.register(Batch,BatchAdmin)
 admin.site.register(Payment,PaymentAdmin)
 admin.site.register(Loan,LoanAdmin)
 admin.site.register(CompanyDowntime)
+admin.site.register(AttendanceException)
+
 
 #remove unneeded items 
 from django.contrib.auth.models import User
