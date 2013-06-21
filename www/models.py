@@ -25,7 +25,7 @@ class Attendance(models.Model):
     employee = models.ForeignKey(Employee)
 
     def __unicode__(self):
-        s=self.employee.name+"-"+str(self.date)
+        s=self.employee.name+"-"+str(self.date.date())
         return s
 
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
