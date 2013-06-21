@@ -46,6 +46,7 @@ def employee_productivity_month(request):
 #the def takes as request the specific year the admin is wishing to look for
 #and returns all products produced by such employee divided by the total hours he worked in that year
 def employee_productivity_year(request):
+	print "done caching"
 	year = int(request.GET['year'])
 	employee = Employee.objects.get(id = int(request.GET['e_id']))
 	average_productivity_array = []
@@ -60,6 +61,16 @@ def employee_productivity_year(request):
 		except:
 			average_productivity_array.append({str(months): '0'})
 		months = months + 1
+		if months == 12:
+			total_hours = employee.working_hours(year, months, 1, year+1, 1, 1, "fixed")
+			productivity = employee.productivity(year, months, 1, year+1, 1, 1, "fixed")
+			try:
+				average_productivity = float(productivity)/float(total_hours)
+				avg_dict = {str(months): str(average_productivity)}
+				average_productivity_array.append(avg_dict)
+			except:
+				average_productivity_array.append({str(months): '0'})			
+	print "done"
 	return HttpResponse(json.dumps(average_productivity_array))
 
 #Mohamed Awad
@@ -142,28 +153,45 @@ def employee_workinghours_year(request):
    	response = HttpResponse(json.dumps(total_hours_array))
 	return response
 
-# def calc_attendance_month(month, year, employee):
-# 	days = -((date(year, month, 1) - date(year, month+1, 1)).days)
-# 	number_of_attendances = employee.attendances_monthly(year, month, 1, year, month + 1, 1)
-# 	return (number_of_attendances/float(days))*100
+#Mohamed Awad
+#this def calculates the employee average prductivity per year
+#the def takes as request the specific year the admin is wishing to look for
+#and returns all products produced by such employee divided by the total hours he worked in that year
+def employee_abscence_year(request):
+	year = int(request.GET['year'])
+	employee = Employee.objects.get(pk = int(request.GET['e_id']))
+	months = 1
+	total_abscence_array = []
+	while months < 12:
+		days = (date(year, months+1, 1) - date(year, months, 1)).days
+		total_days = get_total_days(year, months, days)
+		months = months + 1
+		#the following lines are not used bs msh hashelha 3alashan te3ebt feehom fa fakes
+		# days = (date(year, months+1, 1) - date(year, months, 1)).days
+		# print days
+        # date_start = datetime.datetime(year, months, 1)
+        # date_end = datetime.datetime(year, months, days)
+        # print date_start
+        # print date_end
+        # print "look"
+        # working_days = workdaysub(date_start, date_end)
+        # print working_days
+        # months = months + 1
+        # abs_dict = {str(months): str(total_hours)}
+        # total_abscence_array.append(abs_dict)
+   	response = HttpResponse(json.dumps(total_abscence_array))
+	return response
 
-# def employee_attendance_month(request):
-# 	month = int(request.GET['month'])
-# 	year = int(request.GET['year'])
-# 	employee = Employee.objects.get(pk = int(request.GET['e_id']))
-# 	return HttpResponse(json.dumps({'attendance_percentage': str(calc_attendance_month(month,year,employee))}))
-
-# def employe_attendance_year(request):
-# 	year = int(request.GET['year'])
-# 	employee = Employee.objects.get(pk = int(request.GET['e_id']))
-# 	months = 1
-# 	total_attendance_percentage = []
-# 	while months < 12:
-# 		attendance_percentage = calc_attendance_month(months, year, employee)
-# 		months = months + 1
-# 		att_dict = {'attendance_percentage': str(attendance_percentage)}
-# 		total_attendance_percentage.append(attendance_percentage)
-# 	return HttpResponse(json.dumps(total_attendance_percentage))
+def get_total_days(year, month, days):
+	day = 1
+	total_days = 0
+	while day < days:
+		print "in while"
+		date = datetime.date(year, month, day).strftime("%A")
+		if  date != 'Sunday':
+			total_days = total_days + 1
+		day = day + 1
+	return total_days
 
 def products_month(request):
 	month = int(request.GET['month'])
