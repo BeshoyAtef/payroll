@@ -36,6 +36,31 @@ class Employee(models.Model):
         working_hours = working_seconds/60/60
         return working_hours
 
+'''Tharwat --- This method is used to compute the yearly attendance for a specific employee in order to determine his yearly
+    attendance and show the total in each month of the year. it takes in 2 variables, the employee and the desired year.
+    it then returns an array of the result'''
+    def employee_yearly_attendance_report(self, desired_year):
+        employee = Employee.objects.get(id = self.id)
+        all_attendances = Attendance.objects.filter(date__year = desired_year, employee_id = self.id)    
+        #dictonary to gather monthly related results
+        attendance_month_aggregate = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:0, 12:0}
+        Dict_array = []
+
+        #loop through all attendances in the year
+        for attendance in all_attendances:
+            working_hours = ((attendance.check_out - attendance.check_in).seconds)/60/60
+            attendance_month_aggregate[attendance.date.month] += working_hours
+
+        #loop around the dictonary to group them in order and place them in the array
+        for key in attendance_month_aggregate:
+            temp_dict = {key: (attendance_month_aggregate[key])}
+            # total_number_of_working_hours += attendance_month_aggregate[key]
+            Dict_array.append(temp_dict)
+            temp_dict = {}
+
+        # average = total_number_of_working_hours/number_of_employees
+        return Dict_array
+        
     def __unicode__(self):
         return self.name
 
@@ -45,6 +70,9 @@ class Attendance(models.Model):
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
     employee = models.ForeignKey(Employee)
+
+
+            
 
 '''This method is used to get the attendance report for all employees during a specific year. the method takes in the 
     year of which the user wishes to view the result. it will then add the results related to each month together in a
