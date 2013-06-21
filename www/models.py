@@ -36,7 +36,7 @@ class Employee(models.Model):
         working_hours = working_seconds/60/60
         return working_hours
 
-'''Tharwat --- This method is used to compute the yearly attendance for a specific employee in order to determine his yearly
+    '''Tharwat --- This method is used to compute the yearly attendance for a specific employee in order to determine his yearly
     attendance and show the total in each month of the year. it takes in 2 variables, the employee and the desired year.
     it then returns an array of the result'''
     def employee_yearly_attendance_report(self, desired_year):
@@ -60,7 +60,40 @@ class Employee(models.Model):
 
         # average = total_number_of_working_hours/number_of_employees
         return Dict_array
-        
+
+    '''Tharwat --- This method is used to compute the monthly attendance for a specific employee in order to determine his daily
+    attendance and show the total in each day of the month. it takes in 3 variables, the employee, thr desired_month and the desired year.
+    it then returns an array of the result'''
+    def employee_monthly_attendance_report(self, desired_year, desired_month):
+        employee = Employee.objects.get(id = self.id)
+        all_attendances = Attendance.objects.filter(date__year = desired_year, date__month = desired_month, employee_id = self.id)    
+        list_of_attendance_per_day = [0]*31
+        total_hours = 0
+
+        #loops on all attendances and checks which one belongs to which day and then inserts it in the corresponding index in 
+        # the array
+        for attendance in all_attendances:
+            #day starts at 0 since first index = 0
+            day = 0
+            while day <= 31:
+                if attendance.date.day == (day + 1):
+                    #calculate hours worked during the day
+                    hours = ((attendance.check_out - attendance.check_in).seconds)/60/60
+                    #adds value to the list in the corresponding index
+                    list_of_attendance_per_day[day] = list_of_attendance_per_day[day] + hours
+                    day = day + 1
+                else:
+                    day = day + 1
+
+        #loop on the list to calculate the total hours worked during the month
+        for x in list_of_attendance_per_day:
+            total_hours = total_hours + x
+
+        # Dict = {'List of Attendance per Day' : list_of_attendance_per_day}
+        Dict = list_of_attendance_per_day
+
+        return Dict
+    
     def __unicode__(self):
         return self.name
 

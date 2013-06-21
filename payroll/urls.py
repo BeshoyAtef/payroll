@@ -18,6 +18,8 @@ urlpatterns = patterns('',
     url(r'^getAttendanceYearly/$', 'www.views.company_wide_yearly_attendanceReport'),
     url(r'^getOutputMonthly/$', 'www.views.company_wide_output_monthlyReport'),
     url(r'^getAttendanceMonthly/$', 'www.views.company_wide_monthly_attendanceReport'),
+    url(r'^getEmployeeAttendanceMonthly/$', 'www.views.employee_monthly_attendanceReport'),
+    url(r'^getEmployeeAttendanceYearly/$', 'www.views.employee_yearly_attendanceReport'),
     # url(r'^payroll/', include('payroll.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

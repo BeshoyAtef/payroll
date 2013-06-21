@@ -42,8 +42,18 @@ def company_wide_output_monthlyReport(request):
 def company_wide_monthly_attendanceReport(request):
 	desired_year = request.POST['year']
 	desired_month = request.POST['month']
-	print desired_year
-	print desired_month
 	Dict = company_wide_monthly_attendance_report(int(desired_year), int(desired_month))
 	return render(request,'companyReports.html', Dict)
 	
+def employee_yearly_attendanceReport(request):
+	desired_year = request.POST['year']
+	Dict = employee_yearly_attendance_report(int(desired_year))
+	return render(request,'', Dict)
+def employee_monthly_attendanceReport(request):
+	desired_year = request.POST['year']
+	desired_month = request.POST['month']
+	Dict = employee_monthly_attendance_report(int(desired_year), int(desired_month))
+	return render(request,'', Dict)
+	
+
+
