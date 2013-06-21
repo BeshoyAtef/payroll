@@ -32,6 +32,42 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_display = ['name', 'email','mobile', 'ssn']
     search_fields = ['name', 'email','mobile', 'ssn']
     actions = [make_published]
+    list_filter = ('salary',)
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        employee=Employee.objects.get(id=object_id)
+        batches=Batch.objects.filter(employee=employee)
+        attendance=Attendance.objects.filter(employee=employee)
+        print attendance
+
+        extra_context = {'batch_list':batches,'attendance_list':attendance}
+
+        return super(EmployeeAdmin, self).change_view(request, object_id,
+            form_url, extra_context=extra_context)
+
+
+class BatchAdmin(admin.ModelAdmin):
+
+
+    list_display = ['id','employee', 'date','item', 'item_price','size','reason']
+    search_fields = ['employee__name', 'date','item__identifier', 'item_price','size','reason']
+
+    def changelist_view(self, request, extra_context=None):
+        batches=Batch.objects.all()
+        employees=Employee.objects.all()
+        items=Item.objects.all()
+        extra_context = {'batch_list':batches,'employee_list': employees, 'item_list':items}
+        print extra_context
+        return super(BatchAdmin, self).changelist_view(request,extra_context=extra_context)
+
+
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['date', 'employee','amount']
+    search_fields = ['date', 'employee','amount']
+
+class LoanAdmin(admin.ModelAdmin):
+    list_display = ['date', 'employee','amount']
+    search_fields = ['date', 'employee','amount']
 
 class LoanAdmin(admin.ModelAdmin):
     list_display = ('employee','date','amount')
@@ -40,21 +76,15 @@ class LoanAdmin(admin.ModelAdmin):
 def my_view(request, *args, **kwargs):
     return HttpsResponse(" <a href='/admin'>here to do nothing</a>")
 
-class TestAdmin(AdminViews):
-    admin_views = (
-                    ('Test Report', 'redirect_to_cnn'),
-                    ('Upload Attendance-Log','import_attendance'),
-        )
 
-    def redirect_to_cnn(self, *args, **kwargs):
-        return HttpResponse(" <a href='/admin'>here to do nothing</a>")
-
-admin.site.register(Item, TestAdmin)
+admin.site.register(Item)
 admin.site.register(Employee,EmployeeAdmin)
-admin.site.register(Batch)
-admin.site.register(Payment)
+admin.site.register(Batch,BatchAdmin)
+admin.site.register(Payment,PaymentAdmin)
 admin.site.register(Loan,LoanAdmin)
 admin.site.register(CompanyDowntime)
+admin.site.register(AttendanceException)
+
 
 #remove unneeded items 
 from django.contrib.auth.models import User
