@@ -5,6 +5,8 @@ from django.contrib.auth.models import BaseUserManager , AbstractBaseUser
 from django.utils.timezone import utc
 import datetime
 from datetime import timedelta
+from itertools import chain
+
 
 class Employee(models.Model):
     name = models.CharField(max_length=100)
@@ -84,7 +86,7 @@ class Employee(models.Model):
         return salary
 
     def __unicode__(self):
-        return self.name
+        return self.name+"-"+str(self.mobile)
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
@@ -99,7 +101,22 @@ class Attendance(models.Model):
 
     def __unicode__(self):
         return unicode(self.date)
-            
+
+    date = models.DateTimeField(default=datetime.datetime.now())
+    check_in = models.DateTimeField(null=True)
+    check_out = models.DateTimeField(null = True)
+    employee = models.ForeignKey(Employee)
+
+    def __unicode__(self):
+        s=self.employee.name+"-"+str(self.date.date())
+        return s
+
+def get_attendance(employee):
+    attendance=Attendance.objects.filter(employee=employee)
+    attendance_exptions=AttendanceException.objects.filter(attendance__in=[o.id for o in attendance])
+    attendance=Attendance.objects.filter(employee=employee).exclude(id__in=[o.attendance.id for o in attendance_exptions])
+    final_attendace=list(chain(attendance, attendance_exptions))
+    return final_attendace
 
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
 class AttendanceException(models.Model):
@@ -123,22 +140,31 @@ class Item(models.Model):
 
     REQUIRED_FIELDS = ['identifier']  
 
+    def __unicode__(self):
+        s=self.identifier+"-"+self.description+"-"+str(self.value)
+        return s
+
 #Batches: ID, Employee ID, Date, item ID, Piece price, Size
 class Batch(models.Model):
-	employee = models.ForeignKey(Employee)
-	date = models.DateField(default=datetime.date.today)
-	item = models.ForeignKey(Item)
-	item_price = models.IntegerField()
-	size = models.IntegerField(default=0)
+    employee = models.ForeignKey(Employee)
+    date = models.DateTimeField(default=datetime.datetime.now())
+    item = models.ForeignKey(Item)
+    item_price = models.IntegerField()
+    size = models.IntegerField(default=0)
+    reason = models.CharField(max_length=100,default="none")
 
+    def __unicode__(self):
+        s=self.employee.name+"-"+str(self.item)+"-"+str(self.item_price)
+        return s
 #Payment: ID, Date, Employee ID, amount
 class Payment(models.Model):
-	date = models.DateTimeField(default=datetime.datetime.now())
-	employee = models.ForeignKey(Employee)
-	amount = models.IntegerField()
-	
-	def __unicode__(self):
-		return self.employee.name
+    date = models.DateTimeField(default=datetime.datetime.now())
+    employee = models.ForeignKey(Employee)
+    amount = models.IntegerField()
+
+    def __unicode__(self):
+        s=self.employee.name+"-"+self.amount+"-"+self.date
+        return s
 #Loans: ID, Date, Employee ID, Amount
 class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())

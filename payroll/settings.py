@@ -135,7 +135,6 @@ INSTALLED_APPS = (
     'www',
     'south',
     'admin_views',
-
     'constance',
     'constance.backends.database',
     'picklefield',
@@ -175,5 +174,7 @@ LOGGING = {
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
-    'CHECKIN_TIME': (datetime.time(8, 0), 'the answer to everything'),
+    'CHECK-IN_TIME': (datetime.time(10, 0), 'The time where the Company Starts working Daily'),
+    'CHECK-Out_TIME': (datetime.time(20, 0), 'The time where the Company working ends Daily'),
+    'CHECK-Buffer': (datetime.time(11, 0), 'The Allowed Buffer to be late'),
 }

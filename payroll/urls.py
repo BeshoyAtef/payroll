@@ -30,5 +30,6 @@ urlpatterns = patterns('',
     url(r'^payement_month/$', 'www.views.employee_payement_month'),
     url(r'^payement_year/$', 'www.views.employee_payement_year'),
     # url(r'^attendance_month/$', 'www.views.employee_workinghours_year'),
-    url(r'^attendance_year/$', 'www.views.employee_abscence_year')
+    url(r'^attendance_year/$', 'www.views.employee_abscence_year'),
+    url(r'^add_batch/', 'www.views.add_batch'),
 )
