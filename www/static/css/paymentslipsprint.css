@@ -3,9 +3,25 @@
 	display: block;
 	font-family: arial;
 }
+.paymenttext{
+display: inline-block;
+width: 600px;"
+}
+	.watermark{
+		position: absolute; 
+opacity: 0.35;
+font-size: 3em;
+width: 100%;
+margin-left: 210px;
+margin-top: 113px;
+z-index: 1000;
+transform: rotate(40deg);
+-ms-transform: rotate(40deg);
+-webkit-transform: rotate(14deg);
+	}
 .left_sign{
 		display: inline-block;
-		width: 500px;
+		width: 520px;
 	}
 	.sliptop{
 		font-family: arial;
@@ -30,7 +46,7 @@
 	.left_label{
 		font-family: arial;
 		display: inline-block;
-		width: 600px;
+		width: 750px;
 				}
 
 .numtext{
@@ -41,16 +57,4 @@
 }
 .main_th{
 	height:200px;
-}
-.watermark {
-position: absolute;
-opacity: 0.35;
-font-size: 2em;
-width: 100%;
-margin-left: 210px;
-margin-top: 286px;
-z-index: 1000;
-transform: rotate(45deg);
--ms-transform: rotate(45deg);
--webkit-transform: rotate(15deg);
 }
