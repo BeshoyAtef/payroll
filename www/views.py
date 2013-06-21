@@ -38,6 +38,7 @@ def upload_file(request):
             print temp.attendence_sheet
             
             # path = media/temp.attendence_sheet.url
+
             
             dataReader = csv.reader(open('%s/%s' % (MEDIA_ROOT, temp.attendence_sheet)), delimiter=',', quotechar='"')
             
@@ -75,13 +76,17 @@ def upload_file(request):
                     
 
                     else:
-                        attend = Attendance()
-                        attend.check_in = check_in
-                        attend.check_out = check_out
-                        attend.employee = employee
-                        attend.save()
-                        check_in = stime
-                        check_out= None
+                        
+                        if not Attendance.objects.filter(check_in=check_in,check_out=check_out,employee=employee).exists():
+                            attend = Attendance()
+                            attend.check_in = check_in
+                            attend.check_out = check_out
+                            attend.employee = employee
+                            attend.save()
+                            check_in = stime
+                            check_out= None
+                        else:
+                            return HttpResponse ("file has been read")
 
                 attend = Attendance()
                 attend.check_in = check_in
