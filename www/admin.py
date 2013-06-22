@@ -7,6 +7,9 @@ from datetime import date
 from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponseRedirect, HttpResponse
 from admin_views.admin import AdminViews
+def print_loan_statements(modeladmin, request, queryset):
+    return render_to_response('loanslips.html',{'list_of_loans':queryset})
+
 def make_published(modeladmin, request, queryset):
     current_month = date.today()
     list_of_slips = []
@@ -65,6 +68,10 @@ class PaymentAdmin(admin.ModelAdmin):
 class LoanAdmin(admin.ModelAdmin):
     list_display = ['date', 'employee','amount']
     search_fields = ['date', 'employee','amount']
+
+class LoanAdmin(admin.ModelAdmin):
+    list_display = ('employee','date','amount')
+    actions = [print_loan_statements]
 
 def my_view(request, *args, **kwargs):
     return HttpsResponse(" <a href='/admin'>here to do nothing</a>")
