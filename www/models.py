@@ -5,7 +5,13 @@ from django.contrib.auth.models import BaseUserManager , AbstractBaseUser
 from django.utils.timezone import utc
 import datetime
 from datetime import timedelta
+
+from django.db.models import Sum , Avg 
+
+
+
 from itertools import chain
+
 
 
 class Employee(models.Model):
@@ -14,8 +20,10 @@ class Employee(models.Model):
     mobile = models.IntegerField(default=0)
     ssn = models.IntegerField(default=0)        
     salary = models.IntegerField(default=0)
+    acc_no = models.IntegerField(default=0)
     
     REQUIRED_FIELDS = ['name']  
+
     def __unicode__(self):
         return self.name+"-"+str(self.mobile)
 
@@ -90,6 +98,14 @@ class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
     employee = models.ForeignKey(Employee)
     amount = models.IntegerField()
+
+
+##
+
+class CsvFile(models.Model):
+    attendence_sheet = models.FileField(upload_to='media')
+
     def __unicode__(self):
         return self.employee.name + str("__") + str(self.amount)
 ##
+
