@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>  
+  <title>{% block title %}{% endblock %}</title>
+  </head> 
+  <body>
+
+   {% block content %}{% endblock %}
+ 
+ 	<form enctype="multipart/form-data" action="" method="post" >
+ 	{% csrf_token %}
+  {{form.as_p}}
+	<tr><td><button type="submit" class="btn">Submit</button></td></tr>
+	<form>
+	
+  </body>
+</html>

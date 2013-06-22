@@ -13,8 +13,13 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'www.views.index', name='home'),
     # url(r'^payroll/', include('payroll.foo.urls')),
+
+    url(r'^read$', 'www.views.upload_file'),
+
+
     url(r'^view/$', 'www.views.view_page', name='home'),
     url(r'^view/test/$', 'www.views.dummy_method', name='home'),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
@@ -31,5 +36,5 @@ urlpatterns = patterns('',
     url(r'^payement_year/$', 'www.views.employee_payement_year'),
     # url(r'^attendance_month/$', 'www.views.employee_workinghours_year'),
     url(r'^attendance_year/$', 'www.views.employee_abscence_year'),
-    url(r'^add_batch/', 'www.views.add_batch'),
+    url(r'^add_batch/', 'www.views.add_batch')
 )
