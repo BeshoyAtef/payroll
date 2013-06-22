@@ -6,6 +6,7 @@ from django.utils.timezone import utc
 import datetime
 from datetime import timedelta
 from itertools import chain
+from constance import config
 
 
 class Employee(models.Model):
@@ -22,27 +23,52 @@ class Employee(models.Model):
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
-    check_in = models.DateTimeField(null=True)
-    check_out = models.DateTimeField(null = True)
+    check_in = models.DateTimeField(null=True,default="")
+    check_out = models.DateTimeField(null = True,default="")
     employee = models.ForeignKey(Employee)
+    reason = models.CharField(max_length=100,default="",null=True)
+    is_exeption = models.BooleanField(default=False)
+
 
     def __unicode__(self):
         s=self.employee.name+"-"+str(self.date.date())
         return s
 
-def get_attendance(employee):
-    attendance=Attendance.objects.filter(employee=employee)
-    attendance_exptions=AttendanceException.objects.filter(attendance__in=[o.id for o in attendance])
-    attendance=Attendance.objects.filter(employee=employee).exclude(id__in=[o.attendance.id for o in attendance_exptions])
-    final_attendace=list(chain(attendance, attendance_exptions))
-    return final_attendace
+# def get_attendance(employee):
+#     attendance=Attendance.objects.filter(employee=employee)
+#     .exclude(date.strftime("%A")=(CONFIG.Holidays).strftime("%A")) #execlude record in the holiday
+#     .include()
+#     return None
+
+def cal_payment():
+    employees=Employee.objects.all()
+    for emp in employees:
+        salary_per_hour=emp.salary/30/(config.CHECKIN_TIME-config.CHECKOut_TIME).hour()
+        attendances=Attendance.objects.filter(employee=emp)
+        hours_worked=0
+        #attendance Loop to cal salary
+        for att in attendances:
+            if att.check_out.day()==att.check_in.day():
+                hours_worked=hours_worked+(att.check_out-att.check_in)
+            else:
+                return None#should rais an error as how can ana employee checkin in a day and checkout in another
+        salary=hours_worked*salary_per_hour
+        #batches cal
+        batches=Batche.objects.filter(employee=emp)
+        for batch in batches:
+            salary=salary+(batch.size*batch.item_price)
+        p=Payment(date=datetime.now(),employee=emp,amout=salary)
+        p.save()
+        #cal payment
+
+
+    # attendance=Attendance.objects.filter(employee=employee)
+    # attendance_exptions=AttendanceException.objects.filter(attendance__in=[o.id for o in attendance])
+    # attendance=Attendance.objects.filter(employee=employee).exclude(id__in=[o.attendance.id for o in attendance_exptions])
+    # final_attendace=list(chain(attendance, attendance_exptions))
+    # return final_attendace
     
 
-#Attendance Exception: Attendance ID, Checkin time, Checkout time
-class AttendanceException(models.Model):
-    attendance = models.ForeignKey(Attendance)
-    check_in = models.DateTimeField()
-    check_out = models.DateTimeField()
 
 #Company Downtime: Date, start time, end time
 class CompanyDowntime(models.Model):
