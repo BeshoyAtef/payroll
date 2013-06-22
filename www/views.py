@@ -72,8 +72,7 @@ def employee_productivity_year(request):
 				avg_dict = {str(months): str(average_productivity)}
 				average_productivity_array.append(avg_dict)
 			except:
-				average_productivity_array.append({str(months): '0'})			
-	print "done"
+				average_productivity_array.append({str(months): '0'})
 	return HttpResponse(json.dumps(average_productivity_array))
 
 #Mohamed Awad
@@ -167,7 +166,9 @@ def employee_abscence_year(request):
 	total_abscence_array = []
 	while months < 12:
 		days = (date(year, months+1, 1) - date(year, months, 1)).days
-		total_days = get_total_days(year, months, days)
+		total_attendances = get_total_days(year, months, days, employee)
+		attendances_dict = {str(months):str(total_attendances)}
+		total_abscence_array.append(attendances_dict)
 		months = months + 1
 		#the following lines are not used bs msh hashelha 3alashan te3ebt feehom fa fakes
 		# days = (date(year, months+1, 1) - date(year, months, 1)).days
@@ -185,16 +186,15 @@ def employee_abscence_year(request):
    	response = HttpResponse(json.dumps(total_abscence_array))
 	return response
 
-def get_total_days(year, month, days):
+def get_total_days(year, month, days, employee):
 	day = 1
-	total_days = 0
+	total_attendances = 0
 	while day < days:
-		print "in while"
 		date = datetime.date(year, month, day).strftime("%A")
 		if  date != 'Sunday':
-			total_days = total_days + 1
+			total_attendances = total_attendances + len(employee.get_attendance(year, month, day, year, month, day))
 		day = day + 1
-	return total_days
+	return total_attendances
 
 def products_month(request):
 	month = int(request.GET['month'])
@@ -225,7 +225,6 @@ def products_year(request):
 		months = months + 1
 		prd_dict = {str(months): str(total_products)}
 		total_products_array.append(prd_dict)
-	print "look here"
 	print total_products_array
    	response = HttpResponse(json.dumps(total_products_array))
 	return response

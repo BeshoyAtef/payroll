@@ -85,38 +85,24 @@ class Employee(models.Model):
             salary = salary + amounts_to_pay
         return salary
 
+    def get_attendance(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day):
+        date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
+        date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
+        attendance=Attendance.objects.filter(employee=self,date__range=[date_start,date_end])
+        attendance_exptions=AttendanceException.objects.filter(attendance__in=[o.id for o in attendance], check_in__range = [date_start, date_end])
+        attendance=Attendance.objects.filter(employee=self, date__range=[date_start,date_end]).exclude(id__in=[o.attendance.id for o in attendance_exptions])
+        final_attendace=list(chain(attendance, attendance_exptions))
+        return final_attendace
+
     def __unicode__(self):
         return self.name+"-"+str(self.mobile)
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
-    date = models.DateField(default=datetime.date.today)
-    check_in = models.DateTimeField()
-    check_out = models.DateTimeField()
-    employee = models.ForeignKey(Employee)
-
-    class Meta:
-        ordering = ['date', 'employee']
-        unique_together = ("date", "employee")
-
-    def __unicode__(self):
-        return unicode(self.date)
-
     date = models.DateTimeField(default=datetime.datetime.now())
     check_in = models.DateTimeField(null=True)
     check_out = models.DateTimeField(null = True)
     employee = models.ForeignKey(Employee)
-
-    def __unicode__(self):
-        s=self.employee.name+"-"+str(self.date.date())
-        return s
-
-def get_attendance(employee):
-    attendance=Attendance.objects.filter(employee=employee)
-    attendance_exptions=AttendanceException.objects.filter(attendance__in=[o.id for o in attendance])
-    attendance=Attendance.objects.filter(employee=employee).exclude(id__in=[o.attendance.id for o in attendance_exptions])
-    final_attendace=list(chain(attendance, attendance_exptions))
-    return final_attendace
 
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
 class AttendanceException(models.Model):
