@@ -1,25 +1,22 @@
-<<<<<<< HEAD
+
 # Create your views here.
 # Full path and name to the csv file
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
 import re
-import csv
+
 from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponseRedirect, HttpResponse
-from django.http import HttpResponse
+
 from www.forms import UploadForm
 from django.template import RequestContext
-from www.models import CsvFile
-from www.models import Attendance , Employee
-
 from payroll import settings
 from payroll.settings import MEDIA_ROOT
 import csv
 import string 
 import datetime
-=======
+
 from django.http import *
 from django.shortcuts import render_to_response, redirect, render
 from django.core.urlresolvers import reverse
@@ -28,7 +25,7 @@ from django.core.context_processors import csrf
 from django.template import RequestContext   
 from django.utils import simplejson     
 import json 
->>>>>>> master
+
 
 def index(request):
     return HttpResponse(" <a href='/admin'>Click here to got o the admin page</a>")
@@ -40,7 +37,7 @@ def view_reports(request):
     return HttpResponse(" <h1>Welcome to thereports page</h1> ")
 
 
-<<<<<<< HEAD
+
 def upload_file(request):
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
@@ -119,7 +116,7 @@ def upload_file(request):
         context = {'form': form}
         return render_to_response('upload.html', context, context_instance=RequestContext(request))
 
-=======
+
 # can be deleted
 # can be deleted
 # can be deleted
@@ -162,4 +159,4 @@ def view_page(request):
 def dummy_method(request):
 	data = [{'a': '10'},{'b':'20'},{'c':'7'}]
 	return HttpResponse(simplejson.dumps(data))
->>>>>>> master
+
