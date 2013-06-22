@@ -197,7 +197,7 @@
 
                     </div>
                     <div id="activities_area">
-                         <div><p id="reportcontent">hey</p>The detailed output per month is below:<br><ul id="records_list"><li>tttttt</li></ul></div>
+                         <div><p id="reportcontent">hey</p>The detailed output per month is below:<br><ul id="records_list"></ul></div>
                          <div style="width: 50%;padding-top: 25px;" id="barcontainer"></div>
 
                     </div>
@@ -289,18 +289,15 @@ $.ajax({
    },
 
    success: function (data) { 
-    // console.log(data[0]);
     array1 = []
     array2 = []
       $('#report_types_button_div').hide();
       $('#report_nav_bar').show();
           document.getElementById('reportcontent').innerHTML = 'The Total units produced year: ' + year +   ' is '+ data[0] + ' units  <br> The average output per employee is: ' + data[2] + ' units <br>' ;
-      for(var i = 0; i<data[0].length; i++){
-        
+      for(var i = 0; i<data[0].length; i++){ 
         var t = Object.keys(data[0][i]);
           array1.push(t[0]);
       }
-
       for(var i = 0; i<array1.length; i++){
         var x = array1[i];
         // console.log(i);
@@ -309,16 +306,10 @@ $.ajax({
         // console.log(t);
         array2.push(data[0][i][x]);
         }
-
         for(var i = 0; i < array1.length; i++){
         // console.log(array1[i]);
-        $("#records_list").append('<li>'+array1[i]+'</li>');
-        // $("</li>").appendTo("#records_list").html("The number of units produced in "+array1[0]+' is: '+array2[0]);
-        // console.log(array2[i]);
+        $("#records_list").append('<li>The number of units produced in '+array1[i]+'    is: </li>'+array2[i]);
     }
-        
-
-// console.log(array1);
 var array_of_keys = []
 var array_of_values = []
 var dataArrayFinal = Array();
@@ -342,7 +333,7 @@ $.ajax({
    var temp = new Array(array_of_keys[j],array_of_values[j]); 
    dataArrayFinal[j] = temp;     
 }
-// console.log("keys");
+console.log(array_of_keys);
 
 
 $('#barcontainer').highcharts({
