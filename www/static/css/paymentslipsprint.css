@@ -1,0 +1,60 @@
+#non-printable {display: none}
+.name_modification{
+	display: block;
+	font-family: arial;
+}
+.paymenttext{
+display: inline-block;
+width: 600px;"
+}
+	.watermark{
+		position: absolute; 
+opacity: 0.35;
+font-size: 3em;
+width: 100%;
+margin-left: 210px;
+margin-top: 113px;
+z-index: 1000;
+transform: rotate(40deg);
+-ms-transform: rotate(40deg);
+-webkit-transform: rotate(14deg);
+	}
+.left_sign{
+		display: inline-block;
+		width: 520px;
+	}
+	.sliptop{
+		font-family: arial;
+		font-size: 16;
+	}
+.wrapper_content{
+	font-family: arial;
+	border-top: 3px solid black;
+	border-left: 3px solid black;
+	border-right: 3px solid black;
+}
+.earnings{
+	padding: 2px;
+	font-family: arial;
+	border-bottom: 3px solid black;
+}
+	.right_label{
+
+		font-family: arial;
+		display: inline-block;
+				}
+	.left_label{
+		font-family: arial;
+		display: inline-block;
+		width: 750px;
+				}
+
+.numtext{
+	font-family: arial;
+}
+.footer{
+	font-family: arial;
+}
+.main_th{
+	height:200px;
+}

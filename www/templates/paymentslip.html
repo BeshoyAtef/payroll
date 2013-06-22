@@ -1,0 +1,77 @@
+{% extends "admin/base_site.html" %}
+{% load www_filters %}
+{% load staticfiles %}
+{% load humanize %}
+{% block extrastyle %}{{ block.super }}
+<link href="{% static "css/paymentslipsdisplay.css" %}" rel="stylesheet" media="screen">
+<link href="{% static "css/paymentslipsprint.css" %}" rel="stylesheet" media="print">
+<script type="text/javascript" src="{% static "js/jquery-1.9.1.min.js" %}" ></script>
+
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+
+
+{% endblock %}
+{% block content%}
+
+<title>payment slips for {{ month|month_name }}
+ </title>
+
+
+
+<body>
+{% block branding %}
+<h1 id="non-printable">payment slips for {{ month|month_name }}</h1>
+{% endblock %}
+	
+	 {% for payment in slips_list %}
+	<div class="main_th">
+	<div class="watermark">Innov Development</div>
+	<div>
+	<div class="sliptop">
+	
+		<label class="name_modification">Employee name: {{payment.employee.name}}</label>
+		<label>Month & Year: {{payment.date|month_name}}</label>
+	</div>
+	<div class="wrapper_content">
+		<div class="earnings">
+			<label class="left_label"> Earnings:</label>
+			<label id="1" class="right_label"> {{payment.amount}}</label>
+		</div>
+		<div class="earnings">
+			<label class="left_label"> Deductions</label>
+			<label id="2" class="right_label">0</label>
+		</div>
+		<div class="earnings">
+			<label class="left_label"> Net Salary</label>
+			<label class="right_label">{{ payment.amount|deduct:payment.amount }}</label>
+		</div>
+
+
+		<script type="text/javascript">
+		</script>
+
+	</div>
+	<div class="numtext">
+			<label class="paymenttext">{{payment.amount|change_number}} LE </label>
+			<label class="attendance-exception">The number of days without checkin/out:{{attendance|calculate_missing_days:payment.employee}}</label>
+	</div>
+			
+		 
+		
+
+	
+	<div class="footer">
+		<label>Date</label>
+		<br>
+		<label class="left_sign">Signature of the employee</label>
+		<label class="">Director</label>
+		<hr align="left" width="700" size="1" noshade="noshade"/>  
+	</div>
+	</div>
+	</div>
+	{% endfor %}
+	<div id="non-printable">
+		<a href="javascript:window.print()" onclick="print();">print all slips</a>
+	</div>
+</body>
+{% endblock %}

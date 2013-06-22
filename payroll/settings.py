@@ -1,4 +1,6 @@
 import os
+import datetime
+
 # Django settings for payroll project.
 def relative_project_path(*x):
     return os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
@@ -32,6 +34,7 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
+
 TIME_ZONE = 'Africa/Cairo'
 
 # Language code for this installation. All choices can be found here:
@@ -125,6 +128,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     # Uncomment the next line to enable the admin:
     'djangocms_admin_style',
      'django.contrib.admin',
@@ -133,6 +137,10 @@ INSTALLED_APPS = (
     'www',
     'south',
     'admin_views',
+    'constance',
+    'constance.backends.database',
+    'picklefield',
+
 )
 
 # A sample logging configuration. The only tangible logging
@@ -162,4 +170,15 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+# Constance
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {
+    'CHECK-IN_TIME': (datetime.time(10, 0), 'The time where the Company Starts working Daily'),
+    'CHECK-Out_TIME': (datetime.time(20, 0), 'The time where the Company working ends Daily'),
+    'CHECK-Buffer': (datetime.time(11, 0), 'The Allowed Buffer to be late'),
+    'holidays': (datetime.date(2013, 6, 2), 'this is holidays '),
+
 }
