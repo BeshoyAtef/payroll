@@ -90,6 +90,10 @@ def employee_payement_year(request):
 		pay_dict = {str(months): str(total_payements)}
 		total_payements_array.append(pay_dict)
 		months = months + 1
+		if months == 12:
+			total_payements = employee.payement_yearly(year, months, 1, year+1, 1, 1)
+			pay_dict = {str(months): str(total_payements)}
+			total_payements_array.append(pay_dict)
 	print total_payements_array
 	return HttpResponse(json.dumps(total_payements_array))
 
@@ -105,10 +109,10 @@ def employee_payement_month(request):
 	days = -((date(year, month, 1) - date(year, month+1, 1)).days)
 	payement_array = []
 	iterator = 1
-	while iterator < days:
-		total_payement = employee.payement_monthly(year, month, iterator, year, month, iterator + 1)
-		iterator = iterator + 1
+	while iterator <= days:
+		total_payement = employee.payement_monthly(year, month, iterator, year, month, iterator)
 		pay_dict = {str(iterator): str(total_payement)}
+		iterator = iterator + 1
 		payement_array.append(pay_dict)
 	last_day_payement = int(payement_array[-1].values()[0])
 	last_day_payement = last_day_payement + employee.salary
@@ -131,11 +135,11 @@ def employee_workinghours_month(request):
 	iterator = 1
 	days = -((date(year, month, 1) - date(year, month+1, 1)).days)
 	payement_array = []
-	while iterator < days:
-		total_hours = employee.working_hours(year, month, iterator, year, month, iterator + 1, "custom")
-		iterator = iterator + 1
+	while iterator <= days:
+		total_hours = employee.working_hours(year, month, iterator, year, month, iterator, "custom")
 		hrs_dict = {str(iterator): str(total_hours)}
-		payement_array.append(total_hours)
+		iterator = iterator + 1
+		payement_array.append(hrs_dict)
 	return HttpResponse(json.dumps(payement_array))
 
 #Mohamed Awad
@@ -149,9 +153,13 @@ def employee_workinghours_year(request):
 	total_hours_array = []
 	while months < 12:
 		total_hours = employee.working_hours(year, months, 1, year, months+1, 1, "fixed")
-		months = months + 1
 		hrs_dict = {str(months): str(total_hours)}
+		months = months + 1
 		total_hours_array.append(hrs_dict)
+		if months == 12:
+			total_hours = employee.working_hours(year, months, 1, year+1, 1, 1, "fixed")
+			hrs_dict = {str(months): str(total_hours)}
+			total_hours_array.append(hrs_dict)			
    	response = HttpResponse(json.dumps(total_hours_array))
 	return response
 
@@ -183,6 +191,11 @@ def employee_abscence_year(request):
         # months = months + 1
         # abs_dict = {str(months): str(total_hours)}
         # total_abscence_array.append(abs_dict)
+        if months == 12:
+			days = 31
+			total_attendances = get_total_days(year, months, days, employee)
+			attendances_dict = {str(months):str(total_attendances)}
+			total_abscence_array.append(attendances_dict)
    	response = HttpResponse(json.dumps(total_abscence_array))
 	return response
 
@@ -204,10 +217,10 @@ def products_month(request):
 	iterator = 1
 	days = -((date(year, month, 1) - date(year, month+1, 1)).days)
 	products_array = []
-	while iterator < days:
-		products = employee.productivity(year, month, iterator, year, month, iterator + 1, "custom")
-		iterator = iterator + 1
+	while iterator <= days:
+		products = employee.productivity(year, month, iterator, year, month, iterator, "custom")
 		prd_dict = {str(iterator): str(products)}
+		iterator = iterator + 1
 		products_array.append(prd_dict)
 	return HttpResponse(json.dumps(products_array))
 
@@ -222,10 +235,13 @@ def products_year(request):
 	total_products_array = []
 	while months < 12:
 		total_products = employee.productivity(year, months, 1, year, months+1, 1, "fixed")
-		months = months + 1
 		prd_dict = {str(months): str(total_products)}
+		months = months + 1
 		total_products_array.append(prd_dict)
-	print total_products_array
+		if months == 12:
+			total_products = employee.productivity(year, months, 1, year+1, 1, 1, "fixed")
+			prd_dict = {str(months): str(total_products)}
+			total_products_array.append(prd_dict)
    	response = HttpResponse(json.dumps(total_products_array))
 	return response
 # can be deleted

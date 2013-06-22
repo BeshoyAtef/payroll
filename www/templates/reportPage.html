@@ -25,7 +25,7 @@
 	<h3 id = "h3_range" style="display: none">Choose report date range: </h3>
 	<select id="range" style="display: none">
 		<option>------</option>
-		<option>By month</option>
+		<option id="ByMonth">By month</option>
 		<option>By year</option>
 	</select>
 	<br>
@@ -79,7 +79,7 @@
 				report = 1
 				if (range == 'By month' && month != '------') {
 					$.ajax({
-					   	url: '../hours_month',
+					   	url: '../../../hours_month',
 					   	dataType: 'json',
 						data: {
 				    		"year" : year,
@@ -149,9 +149,7 @@
 				    		"e_id" : elem.value,
 				    	},
 					   	success: function (data) {
-					   		$('#global').css('display', 'none');
 					   		$('#header').css('display', 'none');
-					   		$('#breadcrumbs').css('display', 'none');
 					   		$('#report_page').append('<h1 style=\"position:center\">'+elem.id+'</h1>');
 					    	for(var i = 0; i<data.length; i++){
 					        	array_of_keys.push(Object.keys(data[i]));
@@ -593,6 +591,7 @@
 							}
 						}
 						else {
+
 							report = 4
 							if (range == 'By month' && month != '------') {
 													$.ajax({
@@ -742,12 +741,20 @@
 				document.getElementById('months_from').selectedIndex = 0;
 				var range = $("#range").val()
 				if (range != '------' && $("#type").val() != '------') {
-					if (range == 'By month') {
+					if ($("#type").val() == 'Attendance of the employee') {
+						$('#ByMonth').css('display', 'none');
 						$('#years_from').css('display', 'block');
-						$('#months_from').css('display', 'block');
 					}
-					else {
-						$('#years_from').css('display', 'block');
+					else{
+						if (range == 'By month') {
+							$('#ByMonth').css('display', 'block');
+							$('#years_from').css('display', 'block');
+							$('#months_from').css('display', 'block');
+						}
+						else {
+							$('#ByMonth').css('display', 'block');
+							$('#years_from').css('display', 'block');
+						}
 					}
 				};
 			});
