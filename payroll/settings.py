@@ -34,8 +34,7 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
-
+TIME_ZONE ='Africa/Cairo'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
@@ -51,7 +50,7 @@ USE_I18N = True
 USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = True
+USE_TZ = False
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -177,4 +176,6 @@ CONSTANCE_CONFIG = {
     'CHECK-IN_TIME': (datetime.time(10, 0), 'The time where the Company Starts working Daily'),
     'CHECK-Out_TIME': (datetime.time(20, 0), 'The time where the Company working ends Daily'),
     'CHECK-Buffer': (datetime.time(11, 0), 'The Allowed Buffer to be late'),
+    'holidays': (datetime.date(2013, 6, 2), 'this is holidays '),
+
 }
