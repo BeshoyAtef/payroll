@@ -25,18 +25,10 @@
 	
 	 {% for payment in slips_list %}
 	<div class="main_th">
+	<div class="watermark">Innov Development</div>
+	<div>
 	<div class="sliptop">
-	<div class="watermark" style="
-position: absolute;
-opacity: 0.35;
-font-size: 2em;
-width: 100%;
-margin-left: 210px;
-margin-top: 286px;
-z-index: 1000;
-transform: rotate(45deg);
--ms-transform: rotate(45deg);
--webkit-transform: rotate(15deg);">Innov Development</div>
+	
 		<label class="name_modification">Employee name: {{payment.employee.name}}</label>
 		<label>Month & Year: {{payment.date|month_name}}</label>
 	</div>
@@ -60,10 +52,13 @@ transform: rotate(45deg);
 
 	</div>
 	<div class="numtext">
-		 
-			<label>{{payment.amount|change_number}}</label>
-		
+			<label class="paymenttext">{{payment.amount|change_number}} LE </label>
+			<label class="attendance-exception">The number of days without checkin/out:{{attendance|calculate_missing_days:payment.employee}}</label>
 	</div>
+			
+		 
+		
+
 	
 	<div class="footer">
 		<label>Date</label>
@@ -71,6 +66,7 @@ transform: rotate(45deg);
 		<label class="left_sign">Signature of the employee</label>
 		<label class="">Director</label>
 		<hr align="left" width="700" size="1" noshade="noshade"/>  
+	</div>
 	</div>
 	</div>
 	{% endfor %}

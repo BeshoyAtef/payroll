@@ -6,6 +6,8 @@ from django.utils.timezone import utc
 import datetime
 import calendar
 from datetime import timedelta
+from itertools import chain
+
 
 class Employee(models.Model):
     name = models.CharField(max_length=100)     
@@ -37,15 +39,16 @@ class Employee(models.Model):
         return working_hours
 
     def __unicode__(self):
-        return self.name
+        return self.name+"-"+str(self.mobile)
 
 #Attendance: Date, Checkin time, Checkout time, Employee
 class Attendance(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
-    check_in = models.DateTimeField()
-    check_out = models.DateTimeField()
+    check_in = models.DateTimeField(null=True)
+    check_out = models.DateTimeField(null = True)
     employee = models.ForeignKey(Employee)
 
+<<<<<<< HEAD
 '''This method is used to get the attendance report for all employees during a specific year. the method takes in the 
     year of which the user wishes to view the result. it will then add the results related to each month together in a
     dictionary. after its done it will place them all in an array. it returns an array of dictionaries'''
@@ -126,7 +129,17 @@ def company_wide_monthly_attendance_report(desired_year, desired_month):
     Dict_array.append(dict_total)
     
     return Dict_array
+    def __unicode__(self):
+        s=self.employee.name+"-"+str(self.date.date())
+        return s
 
+def get_attendance(employee):
+    attendance=Attendance.objects.filter(employee=employee)
+    attendance_exptions=AttendanceException.objects.filter(attendance__in=[o.id for o in attendance])
+    attendance=Attendance.objects.filter(employee=employee).exclude(id__in=[o.attendance.id for o in attendance_exptions])
+    final_attendace=list(chain(attendance, attendance_exptions))
+    return final_attendace
+    
 #Attendance Exception: Attendance ID, Checkin time, Checkout time
 class AttendanceException(models.Model):
     attendance = models.ForeignKey(Attendance)
@@ -148,6 +161,10 @@ class Item(models.Model):
     value = models.IntegerField(default=0)
 
     REQUIRED_FIELDS = ['identifier']  
+
+    def __unicode__(self):
+        s=self.identifier+"-"+self.description+"-"+str(self.value)
+        return s
 
 #Batches: ID, Employee ID, Date, item ID, Piece price, Size
 class Batch(models.Model):
@@ -234,8 +251,10 @@ def company_wide_output_monthly_report(desired_year, desired_month):
     Dict_array.append(dict_average)
 
     return Dict_array
-
-
+    reason = models.CharField(max_length=100,default="none")  
+    def __unicode__(self):
+        s=self.employee.name+"-"+str(self.item)+"-"+str(self.item_price)
+        return s
 #Payment: ID, Date, Employee ID, amount
 class Payment(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
@@ -274,12 +293,13 @@ def company_wide_salary_report(desired_year):
     Dict_array.append(dict_total)
 
     return Dict_array
-
+    def __unicode__(self):
+        s=self.employee.name+"-"+self.amount+"-"+self.date
+        return s
 #Loans: ID, Date, Employee ID, Amount
 class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
     employee = models.ForeignKey(Employee)
     amount = models.IntegerField()
-
     def __unicode__(self):
     	return self.employee.name + str("__") + str(self.amount)

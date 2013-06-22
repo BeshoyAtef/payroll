@@ -1,7 +1,7 @@
 from django import template
 from datetime import date, timedelta
 import calendar
-
+from www.models import Attendance
 
 from django.contrib.humanize.templatetags.humanize import intword
 register = template.Library()
@@ -17,7 +17,9 @@ def list_length(inlist):
 @register.filter
 def deduct(payment, deductions):
 	return int(payment) - int(deductions)
-
+@register.filter
+def calculate_missing_days(attendance,employee):
+    return attendance.filter(employee = employee).count() - attendance.filter(employee=employee).exclude(check_in="1900-01-01 00:00").exclude(check_out="1900-01-01 00:00").count()
 @register.filter
 def change_number(n):
     n3 = []
@@ -55,13 +57,13 @@ def change_number(n):
         else:
             t = thousands[i]
         if b2 == 0:
-            nw = ones[b1] + t + nw
+            nw = ones[b1] + t + nw 
         elif b2 == 1:
-            nw = tens[b1] + t + nw
+            nw = tens[b1] + t + nw 
         elif b2 > 1:
-            nw = twenties[b2] + ones[b1] + t + nw
+            nw = twenties[b2] + ones[b1] + t + nw 
         if b3 > 0:
-            nw = ones[b3] + "hundred " + nw + "Egyptian Pounds"
+            nw = ones[b3] + "hundred " + nw 
     return nw
 
 ones = ["", "one ","two ","three ","four ", "five ",
