@@ -87,14 +87,17 @@ def upload_file(request):
                             check_out= None
                         else:
                             return HttpResponse ("file has been read")
+                if not Attendance.objects.filter(check_in=check_in,check_out=check_out,employee=employee).exists():
 
-                attend = Attendance()
-                attend.check_in = check_in
-                attend.check_out = check_out
-                attend.employee = employee
-                attend.save()
-                check_in = stime
-                check_out= None
+                    attend = Attendance()
+                    attend.check_in = check_in
+                    attend.check_out = check_out
+                    attend.employee = employee
+                    attend.save()
+                    check_in = stime
+                    check_out= None
+                else:
+                    return HttpResponse ("file has been read")
 
             return HttpResponse('sucess')
         else :
