@@ -43,19 +43,19 @@ class EmployeeAdmin(admin.ModelAdmin):
             form_url, extra_context=extra_context)
 
 
-class BatchAdmin(admin.ModelAdmin):
+# class BatchAdmin(admin.ModelAdmin):
 
 
-    list_display = ['id','employee', 'date','item', 'item_price','size','reason']
-    search_fields = ['employee__name', 'date','item__identifier', 'item_price','size','reason']
+#     list_display = ['id','employee', 'date','item', 'item_price','size','reason']
+#     search_fields = ['employee__name', 'date','item__identifier', 'item_price','size','reason']
 
-    def changelist_view(self, request, extra_context=None):
-        batches=Batch.objects.all()
-        employees=Employee.objects.all()
-        items=Item.objects.all()
-        extra_context = {'batch_list':batches,'employee_list': employees, 'item_list':items}
-        print extra_context
-        return super(BatchAdmin, self).changelist_view(request,extra_context=extra_context)
+#     def changelist_view(self, request, extra_context=None):
+#         batches=Batch.objects.all()
+#         employees=Employee.objects.all()
+#         items=Item.objects.all()
+#         extra_context = {'batch_list':batches,'employee_list': employees, 'item_list':items}
+#         print extra_context
+#         return super(BatchAdmin, self).changelist_view(request,extra_context=extra_context)
 
 
 class PaymentAdmin(admin.ModelAdmin):
@@ -68,17 +68,13 @@ class LoanAdmin(admin.ModelAdmin):
 
 def my_view(request, *args, **kwargs):
     return HttpsResponse(" <a href='/admin'>here to do nothing</a>")
-
-
 admin.site.register(Item)
 admin.site.register(Employee,EmployeeAdmin)
-admin.site.register(Batch,BatchAdmin)
+admin.site.register(Batch)
 admin.site.register(Payment,PaymentAdmin)
 admin.site.register(Loan,LoanAdmin)
 admin.site.register(CompanyDowntime)
 admin.site.register(AttendanceException)
-
-
 #remove unneeded items 
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site

@@ -48,7 +48,7 @@ class Attendance(models.Model):
     check_out = models.DateTimeField(null = True)
     employee = models.ForeignKey(Employee)
 
-<<<<<<< HEAD
+
 '''This method is used to get the attendance report for all employees during a specific year. the method takes in the 
     year of which the user wishes to view the result. it will then add the results related to each month together in a
     dictionary. after its done it will place them all in an array. it returns an array of dictionaries'''
@@ -81,8 +81,8 @@ def company_wide_yearly_attendance_report(desired_year):
         temp_dict = {}
 
     average = total_number_of_working_hours/number_of_employees
-    dict_total = {'Total': total_number_of_working_hours}
-    dict_average = {'Average/Employee': average}
+    dict_total = total_number_of_working_hours
+    dict_average = average
 
     Dict_array.append(dict_total)
     Dict_array.append(dict_average)
@@ -243,13 +243,11 @@ def company_wide_output_monthly_report(desired_year, desired_month):
         Dict_array.append(temp_dict)
         temp_dict = {}
         day +=1
-
     batch_per_employee = total/number_of_employees
     dict_total = {'Total': total}
     dict_average = {'Average': batch_per_employee}
     Dict_array.append(dict_total)
     Dict_array.append(dict_average)
-
     return Dict_array
     reason = models.CharField(max_length=100,default="none")  
     def __unicode__(self):
@@ -289,7 +287,7 @@ def company_wide_salary_report(desired_year):
         temp_dict = {}
 
     total = sum(salary_month_aggregate.values())
-    dict_total = {'Total': total}
+    dict_total = total
     Dict_array.append(dict_total)
 
     return Dict_array
