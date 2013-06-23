@@ -6,7 +6,13 @@ from django.utils.timezone import utc
 import datetime
 import calendar
 from datetime import timedelta
+
+from django.db.models import Sum , Avg 
+
+
+
 from itertools import chain
+
 
 
 class Employee(models.Model):
@@ -15,9 +21,9 @@ class Employee(models.Model):
     mobile = models.IntegerField(default=0)
     ssn = models.IntegerField(default=0)        
     salary = models.IntegerField(default=0)
+    acc_no = models.IntegerField(default=0)
     
     REQUIRED_FIELDS = ['name']  
-
     def working_hours(self, date_start_year, date_start_month, date_start_day, date_end_year, date_end_month, date_end_day, type_query):
         date_start = datetime.datetime(date_start_year, date_start_month, date_start_day)
         date_end = datetime.datetime(date_end_year, date_end_month, date_end_day)
@@ -37,7 +43,6 @@ class Employee(models.Model):
             working_seconds = working_seconds + working_timedelta.seconds
         working_hours = working_seconds/60/60
         return working_hours
-
     def __unicode__(self):
         return self.name+"-"+str(self.mobile)
 
@@ -299,5 +304,12 @@ class Loan(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now())
     employee = models.ForeignKey(Employee)
     amount = models.IntegerField()
+
+
+##
+
+class CsvFile(models.Model):
+    attendence_sheet = models.FileField(upload_to='media')
+
     def __unicode__(self):
     	return self.employee.name + str("__") + str(self.amount)

@@ -31,13 +31,20 @@ urlpatterns = patterns('',
     url(r'^getOutputMonthly/$', 'www.views.company_wide_output_monthlyReport'),
     url(r'^getAttendanceMonthly/$', 'www.views.company_wide_monthly_attendanceReport'),
     # url(r'^payroll/', include('payroll.foo.urls')),
+
+    url(r'^read$', 'www.views.upload_file'),
+
+
     url(r'^view/$', 'www.views.view_page', name='home'),
     url(r'^view/test/$', 'www.views.dummy_method', name='home'),
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    
-    url(r'^add_batch/', 'www.views.add_batch'),
+    url(r'^add_batch/', 'www.views.add_batch')
+
 )
+
+
