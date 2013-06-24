@@ -174,7 +174,8 @@ LOGGING = {
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
-    'CHECKIN_TIME': (datetime.time(10, 0), 'The time where the Company Starts working Daily'),
-    'CHECKOut_TIME': (datetime.time(20, 0), 'The time where the Company working ends Daily'),
-    'CHECK-Buffer': (datetime.time(11, 0), 'The Allowed Buffer to be late'),
+    'CHECKIN_TIME': (datetime.datetime(2013, 6, 10, 10, 0, 0), 'The time where the Company Starts working Daily'),
+    'CHECKOut_TIME': (datetime.datetime(2013, 6, 10, 22, 0, 0), 'The time where the Company working ends Daily'),
+    'CHECK-Buffer': (datetime.datetime(2013, 6, 10, 11, 0, 0), 'The Allowed Buffer to be late'),
+    'holidays': (datetime.date(2013, 6, 2), 'this is holidays '),
 }

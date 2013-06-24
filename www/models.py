@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import BaseUserManager , AbstractBaseUser
 from django.utils.timezone import utc
 import datetime
-from datetime import timedelta
+# from datetime import timedelta
 from itertools import chain
 from constance import config
 
@@ -43,13 +43,20 @@ class Attendance(models.Model):
 def cal_payment():
     employees=Employee.objects.all()
     for emp in employees:
-        salary_per_hour=emp.salary/30/(config.CHECKIN_TIME-config.CHECKOut_TIME).hour()
+        ckin=config.CHECKIN_TIME
+        ckout=config.CHECKOut_TIME
+        #get the Hours Worked (keep in mind the Company Start times & buffer-time & Company-Downtime)
+        print ckin
+        print ckout
+        print ckout-ckin
+        company_working_hours=ckout-ckin
+        salary_per_hour=emp.salary/30/(ckin-ckout).hour()
         attendances=Attendance.objects.filter(employee=emp)
         hours_worked=0
         #attendance Loop to cal salary
         for att in attendances:
             if att.check_out.day()==att.check_in.day():
-                hours_worked=hours_worked+(att.check_out-att.check_in)
+                hours_worked=hours_worked+(att.check_out.time()-att.check_in.time())
             else:
                 return None#should rais an error as how can ana employee checkin in a day and checkout in another
         salary=hours_worked*salary_per_hour
@@ -58,8 +65,10 @@ def cal_payment():
         for batch in batches:
             salary=salary+(batch.size*batch.item_price)
         p=Payment(date=datetime.now(),employee=emp,amout=salary)
+        # check if payment exits dunt save
         p.save()
         #cal payment
+
 
 
     # attendance=Attendance.objects.filter(employee=employee)

@@ -76,7 +76,7 @@ admin.site.register(Batch,BatchAdmin)
 admin.site.register(Payment,PaymentAdmin)
 admin.site.register(Loan,LoanAdmin)
 admin.site.register(CompanyDowntime)
-admin.site.register(AttendanceException)
+# admin.site.register(AttendanceException)
 
 
 #remove unneeded items 
