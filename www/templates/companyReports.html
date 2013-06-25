@@ -177,7 +177,7 @@
                          <div style="padding-top: 25px;" id="barcontainer"></div>
                          <div id="linecontainer" style="padding-top: 25px;"></div>
                          <div id="areacontainer" style="padding-top: 25px;"></div>
-                         <label style="padding-left:275px;"><lbl id="barlabel" ><a onClick="showbar();">bar chart</a></lbl><lbl id="arealabel" ><a onclick="showarea();" style="padding-left:25px;"href="">area chart</a></lbl><lbl id="linelabel"><a onclick="showline();" style="padding-left:25px;"href="">line chart</a></lbl></label>
+                         <label style="padding-left:275px;"><lbl id="barlabel" ><a onClick="showbar();">bar chart</a></lbl><lbl id="arealabel" ><a onclick="showarea();" style="padding-left:25px;">area chart</a></lbl><lbl id="linelabel"><a onclick="showline();" style="padding-left:25px;">line chart</a></lbl></label>
 
                     </div>
                 </div>
@@ -301,7 +301,6 @@ function show_years_salary(year){
             var input_to_solve = 'Older'
             
         }
-        console.log("entered the function");
         str = '<li class=\'activity_item\'>' + input_to_solve + '</li>';
         $("#listyear").append(str);
         $('#li'+i).click(createCallback_salary(1995));
@@ -562,8 +561,7 @@ function getSalaryYearly(year){
                 for(var i = 0; i<data.length-1; i++){ 
                     array1.push(Object.keys(data[i])[0]);
                 }
-                console.log(array1);
-                for(var i = 0; i<array1.length; i++){
+     for(var i = 0; i<array1.length; i++){
                     var x = array1[i];
                     var t = data[i][x];
                     array2.push(t);
@@ -573,8 +571,7 @@ function getSalaryYearly(year){
                     $("#records_list_output").append('<td>'+array2[i]+'</td>');
                 }
                 var s = document.getElementById('records_list_output').html;
-                console.log(s);
-                var array_of_keys = []
+    array_of_keys = []
                 var array_of_values = []
                 var dataArrayFinal = Array();
                     $.ajax({
@@ -594,8 +591,7 @@ function getSalaryYearly(year){
                             for(var i = 0; i<data.length-1; i++){ 
                                 array1.push(Object.keys(data[i])[0]);
                             }
-                            console.log(array1);
-                            for(var i = 0; i<array1.length; i++){
+                             for(var i = 0; i<array1.length; i++){
                                 var x = array1[i];
                                 var t = data[i][x];
                                 array2.push(t);
