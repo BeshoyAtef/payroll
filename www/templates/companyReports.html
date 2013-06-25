@@ -116,10 +116,19 @@
                             <ul id="activity_ul" style="list-style:none">
                                 <li id="abd" class="activity_item" value="all" onClick="show_years({% now "Y" %})">Year<span>  
                                 </span> </li>
+                                  <li id="abd_salary" class="activity_item" value="all" onClick="show_years_salary({% now "Y" %})">Year<span>  
+                                </span> </li>
                                 <li id="navmonths"class="activity_item" value="all" onClick="show_months()">Month<span>  
                                 </span> </li>
                             </ul>
+
+                            <ul id="activity_ul" style="list-style:none">
+                                <li id="abd1" class="activity_item" value="all" onClick="show_years({% now "Y" %})">Year<span>  
+                                </span> </li>
+                            
+                            </ul>
                             </div>
+
 
                             <div id="nav_months" style="display:none;">
                             <ul id="activity_ul" style="list-style:none; padding-left:10px;">
@@ -142,6 +151,7 @@
                          <div id="nav_years" style="display:none;">
                             <ul id="listyear" style="padding-left:10px;">
                             </ul>
+
                             </div>
                         </div>
 
@@ -150,51 +160,6 @@
 
                     </div>
 
-
-
-
-                    <div id="attendance">
-                    <div id="activity_selection">
-                        <div style="font-family: tahoma,verdana; font-size:25px; line-height:1.5; border-bottom:thin;"></div>
-                        <div id="activity_selections">
-                            
-                            <div>
-                            <ul id="activity_ul" style="list-style:none">
-                                <li id="ab_d" class="activity_item" value="all" onClick="show_years({% now "Y" %})">Year<span>  
-                                </span> </li>
-                                <li id="navmonths"class="activity_item" value="all" onClick="show_months()">Month<span>  
-                                </span> </li>
-                            </ul>
-                            </div>
-
-                            <div id="navmonths" >
-                            <ul id="activity_ul" style="list-style:none; padding-left:10px;">
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(1);">January<span>  
-                                </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(2);">February<span>  
-                                </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(3);">March<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(4);">April<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(5);">May<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(6);">June<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(7);">July<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(8);">August<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(9);">September<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(10);">October<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(11);">November<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getAttendanceMonthly(12);">December<span> </span> </li>
-                            </ul>
-                            </div>
-                         <div id="nav_years" style="display:none;">
-                            <ul id="listyear" style="padding-left:10px;">
-                            </ul>
-                            </div>
-                        </div>
-
-                           
-                        </div>
-
-                    </div>
 
 
 
@@ -245,6 +210,8 @@
 </div>
 </center>
 <script>
+$('#abd_salary').show();
+$('#abd1').hide();
 $('#report_nav_bar').hide();
     var current_year = $('#current_year').text();
     var selected_year = 0;
@@ -292,6 +259,11 @@ $('#report_nav_bar').hide();
             getOutputYearly(t);
                         }
                     }
+    function createCallback_salary(t){
+    return function(){
+        getSalaryYearly(t);
+                    }
+                }
     function show_years(year){
         $('#nav_months').hide();
         var t;
@@ -311,6 +283,29 @@ $('#report_nav_bar').hide();
         str = '<li class=\'activity_item\'>' + input_to_solve + '</li>';
         $("#listyear").append(str);
         $('#li'+i).click(createCallback(1995));
+    }
+function show_years_salary(year){
+        $('#nav_months').hide();
+        $('#abd_1').hide();
+        var t;
+        var years = [];
+        year = parseInt(year);
+        var str = '';
+        for(var i=0; i < 10; i++){
+            io = parseInt(i);
+            t = year-io
+            str = '<li class=\'activity_item\' id=\'li' + i + '\'>' + t + '</li>';
+            $("#listyear").append(str);
+            $('#li'+i).click(createCallback_salary(t));    
+            $('#navmonths').hide();
+            var input_to_solve = 'Older'
+            
+        }
+        console.log("entered the function");
+        str = '<li class=\'activity_item\'>' + input_to_solve + '</li>';
+        $("#listyear").append(str);
+        $('#li'+i).click(createCallback_salary(1995));
+        $('#nav_years').show();
     }
 function getAttendanceYearly(year){
     selected_year = year;
@@ -427,6 +422,9 @@ function getAttendanceYearly(year){
             });
     }
 function getOutputYearly(year){
+    $('#abd').hide();
+    $('#abd1').show();
+
     selected_year = year;
     var array_of_values = [];
     var array_of_keys = new Array(); 
@@ -542,6 +540,9 @@ function getSalaryYearly(year){
     selected_year = year;
     var array_of_values = [];
     $('#navmonths').hide();
+    $('#navyears').hide();
+    $('#abd').hide();
+    $('#abd_salary').show();
     var array_of_keys = new Array(); 
         $.ajax({
             url: '/view_salary_yearly/',
