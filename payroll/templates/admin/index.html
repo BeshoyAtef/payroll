@@ -14,8 +14,15 @@
 {% endblock %}
 
 {% block content %}
+<button style = "float:right; width:150; height:50px; font-size:20px !important"><a href="/read" class="btn btn-block btn-info">{% trans 'Import Attendence' %} <i class="icon-tasks"></i></a></button>
+
 <div id="content-main" style="margin-left: auto;
     margin-right: auto">
+
+
+
+
+
 
 {% if app_list %}
     {% for app in app_list %}

@@ -34,12 +34,12 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Employee</th>
-                <th>Date</th>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Size</th>
-                <th style="display:none;" class="reson_div"><strong>Add a Reason</strong></th>
+                <th>{% trans 'Employee' %}</th>
+                <th>{% trans 'Date' %}</th>
+                <th>{% trans 'Item' %}</th>
+                <th>{% trans 'Price' %}</th>
+                <th>{% trans 'Size' %}</th>
+                <th style="display:none;" class="reson_div"><strong>{% trans 'Add a Reason' %}</strong></th>
               </tr>
             </thead>
             <tbody>
@@ -90,11 +90,11 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Employee</th>
-              <th>Date</th>
-              <th>Item</th>
-              <th>Price</th>
-              <th>Size</th>
+              <th>{% trans 'Employee' %}</th>
+              <th>{% trans 'Date' %}</th>
+              <th>{% trans 'Item' %}</th>
+              <th>{% trans 'Price' %}</th>
+              <th>{% trans 'Size' %}</th>
             </tr>
           </thead>
           <tbody>
@@ -110,13 +110,13 @@
           </tbody>
         </table>
   {% else %}
-        <p>"No Batches Avaiable"</p>
+        <p>"{% trans 'No Batches Avaiable' %}"</p>
   {% endif %}
   </div>
   {% if flag_done %}
   <div class="alert alert-success">
     <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong>Well done!</strong> The Batch Has been Added.
+    <strong>Well done!</strong> {% trans 'The Batch Has been Added' %}.
   </div>
   {% endif %}
 

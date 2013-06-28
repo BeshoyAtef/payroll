@@ -176,6 +176,6 @@ CONSTANCE_CONFIG = {
     'CHECK-IN_TIME': (datetime.time(10, 0), 'The time where the Company Starts working Daily'),
     'CHECK-Out_TIME': (datetime.time(20, 0), 'The time where the Company working ends Daily'),
     'CHECK-Buffer': (datetime.time(11, 0), 'The Allowed Buffer to be late'),
-    'holidays': (datetime.date(2013, 6, 2), 'this is holidays '),
+    'Holidays': (datetime.date(2013, 6, 2), 'this is holidays '),
 
 }

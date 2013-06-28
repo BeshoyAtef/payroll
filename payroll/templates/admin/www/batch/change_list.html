@@ -98,12 +98,12 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Employee</th>
-                <th>Date</th>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Size</th>
-                <th style="display:none;" class="reson_div"><strong>Add a Reason</strong></th>
+                <th>{% trans 'Employee' %}</th>
+                <th>{% trans 'Date' %}</th>
+                <th>{% trans 'Item'%}</th>
+                <th>{% trans 'Price'%}</th>
+                <th>{% trans 'Size' %}</th>
+                <th style="display:none;" class="reson_div"><strong>{% trans  'Add a Reason' %}</strong></th>
               </tr>
             </thead>
             <tbody>
@@ -237,6 +237,6 @@
       outline: none;
     }
     </style>
-            <a href="/add_batch/" class="addlink">Add batches</a>
+            <a href="/add_batch/" class="addlink">{% trans 'Add batches' %}</a>
   </div>
 {% endblock %}
