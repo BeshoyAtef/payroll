@@ -28,10 +28,19 @@ def make_published(modeladmin, request, queryset):
     return render_to_response('paymentslip.html', {'attendance':attendance,'list_of_exceptions':list_of_exceptions,'slips_list': list_of_slips, 'month':current_month})
 make_published.short_description = "Print payment slips"
 
+def show_employee_reports(modeladmin, request, queryset):
+    current_year = datetime.datetime.now().year
+    years = []
+    while current_year != 1999:
+        years.append(current_year)
+        current_year = current_year - 1
+    return render(request, 'reportPage.html', {'employees': queryset, 'years': years})
+show_employee_reports.short_description = "show reports"
+
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ['name', 'email','mobile', 'ssn']
     search_fields = ['name', 'email','mobile', 'ssn']
-    actions = [make_published]
+    actions = [make_published,show_employee_reports]
     list_filter = ('salary',)
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
