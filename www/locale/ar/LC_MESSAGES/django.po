@@ -1,0 +1,92 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-06-30 19:24+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: templates/paymentslip.html:16 templates/paymentslip.html.py:23
+msgid "payment slips for"
+msgstr "وصلات الدفع"
+
+#: templates/paymentslip.html:32
+msgid "Employee name"
+msgstr "اسم الموظف"
+
+#: templates/paymentslip.html:33
+msgid "Month & Year"
+msgstr "السنة و اليوم"
+
+#: templates/paymentslip.html:37
+msgid "Earnings"
+msgstr "الايرادات"
+
+#: templates/paymentslip.html:41
+msgid "Deductions"
+msgstr "الخصومات"
+
+#: templates/paymentslip.html:45
+msgid "Net Salary"
+msgstr "الراتب الصافى"
+
+#: templates/paymentslip.html:56
+msgid "The number of days without checkin/out"
+msgstr "عدد ايام الغياب"
+
+#: templates/paymentslip.html:66
+msgid "Signature of the employee"
+msgstr "امضاء الموظف"
+
+#: templates/paymentslip.html:67
+msgid "Director"
+msgstr "المدير"
+
+#: templates/paymentslip.html:74
+msgid "print all slips"
+msgstr "طباعة جميع الايصلات"
+
+#: templates/rapid_batch.html:37 templates/rapid_batch.html.py:93
+msgid "Employee"
+msgstr "الموظف"
+
+#: templates/rapid_batch.html:38 templates/rapid_batch.html.py:94
+msgid "Date"
+msgstr "التاريخ"
+
+#: templates/rapid_batch.html:39 templates/rapid_batch.html.py:95
+msgid "Item"
+msgstr "قطعة"
+
+#: templates/rapid_batch.html:40 templates/rapid_batch.html.py:96
+msgid "Price"
+msgstr "السعر"
+
+#: templates/rapid_batch.html:41 templates/rapid_batch.html.py:97
+msgid "Size"
+msgstr "الحجم"
+
+#: templates/rapid_batch.html:42
+msgid "Add a Reason"
+msgstr "اضف السبب"
+
+#: templates/rapid_batch.html:113
+msgid "No Batches Avaiable"
+msgstr "لا توجد دفعات"
+
+#: templates/rapid_batch.html:119
+msgid "The Batch Has been Added"
+msgstr "تم اضافة الدفعة"
