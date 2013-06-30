@@ -1,9 +1,14 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_static admin_views %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
-{% block help %}
-
+{% block extrastyle %}{{ block.super }}
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery.easing.1.3.js" %}"></script>
+<script type="text/javascript" src="{% static "js/cufon-yui.js" %}"></script>
+<script type="text/javascript" src="{% static "js/ChunkFive_400.font.js" %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/jquerytour.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}" />
 {% endblock %}
 
 {% block coltype %}colMS{% endblock %}
@@ -13,7 +18,6 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block branding %}
-<h1>help</h1>
   <h1 style="font-weight: bold;" id="site-name">{% trans 'Innov Payroll' %}</h1>
 {% endblock %}
 
@@ -204,12 +208,12 @@ box-shadow:1px 3px  3px 0 rgba(0,0,0,0.33);
                 we can restart or stop the tour,
                 and also navigate through the steps
                  */
-                $('#activatetour').live('click',startTour);
-                $('#canceltour').live('click',endTour);
-                $('#endtour').live('click',endTour);
-                $('#restarttour').live('click',restartTour);
-                $('#nextstep').live('click',nextStep);
-                $('#prevstep').live('click',prevStep);
+                $('#activatetour').on('click',startTour);
+                $('#canceltour').on('click',endTour);
+                $('#endtour').on('click',endTour);
+                $('#restarttour').on('click',restartTour);
+                $('#nextstep').on('click',nextStep);
+                $('#prevstep').on('click',prevStep);
                 
                 function startTour(){
                     $('#activatetour').remove();
