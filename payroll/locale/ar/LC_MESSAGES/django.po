@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-30 18:58+0200\n"
+"POT-Creation-Date: 2013-07-01 21:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,59 +19,59 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: settings.py:112
+#: settings.py:44
 msgid "Arabic"
 msgstr ""
 
-#: settings.py:113
+#: settings.py:45
 msgid "English"
 msgstr ""
 
 #: templates/admin/index.html:13
 #: templates/admin/www/employee/change_form.html:101
 msgid "Innov Payroll"
-msgstr ""
+msgstr "جدول الرواتب - Innov"
 
 #: templates/admin/index.html:17
 msgid "Import Attendence"
 msgstr "استخراج الحضور"
 
-#: templates/admin/index.html:30
+#: templates/admin/index.html:31
 #, python-format
 msgid "Models available in the %(name)s application."
 msgstr ""
 
-#: templates/admin/index.html:31
+#: templates/admin/index.html:32
 #, python-format
 msgid "%(name)s"
 msgstr ""
 
-#: templates/admin/index.html:59
+#: templates/admin/index.html:60
 #: templates/admin/www/employee/change_form.html:24
 msgid "Add"
 msgstr "اضف"
 
-#: templates/admin/index.html:65
+#: templates/admin/index.html:66
 msgid "Change"
 msgstr "غير"
 
-#: templates/admin/index.html:77
+#: templates/admin/index.html:78
 msgid "You don't have permission to edit anything."
 msgstr "لا توجد لديك الصلاحية لتغير اى شىء"
 
-#: templates/admin/index.html:85
+#: templates/admin/index.html:86
 msgid "Recent Actions"
 msgstr "الاجرات الاخيرة"
 
-#: templates/admin/index.html:86
+#: templates/admin/index.html:87
 msgid "My Actions"
 msgstr "تطبيقاتى"
 
-#: templates/admin/index.html:90
+#: templates/admin/index.html:91
 msgid "None available"
 msgstr "لا يوجد"
 
-#: templates/admin/index.html:104
+#: templates/admin/index.html:105
 msgid "Unknown content"
 msgstr "المحتوى غير معروف"
 
@@ -111,6 +111,11 @@ msgstr "الحجم"
 msgid "Add a Reason"
 msgstr "اضف السبب"
 
+#: templates/admin/www/batch/change_list.html:137
+#, fuzzy
+msgid "Add batch"
+msgstr "اضف الدفعة"
+
 #: templates/admin/www/batch/change_list.html:181
 #, python-format
 msgid "Add %(name)s"
@@ -129,7 +134,7 @@ msgstr "حدد"
 
 #: templates/admin/www/batch/change_list.html:240
 msgid "Add batches"
-msgstr "اضف الدفعة"
+msgstr "اضف الدفعات"
 
 #: templates/admin/www/employee/change_form.html:37
 msgid "History"

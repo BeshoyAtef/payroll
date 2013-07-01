@@ -16,6 +16,13 @@ def import_attendance(request):
 def view_reports(request):
     return HttpResponse(" <h1>Welcome to thereports page</h1> ")
 
+def switch_lang(request):
+    if request.session['django_language'] == 'en': 
+        request.session['django_language'] = 'ar'
+    else:
+        request.session['django_language'] = 'en'
+    return redirect('index.html')
+
 
 # can be deleted
 # can be deleted

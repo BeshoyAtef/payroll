@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-30 19:24+0200\n"
+"POT-Creation-Date: 2013-07-01 21:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,145 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: models.py:12
+msgid "Name"
+msgstr "الاسم"
+
+#: models.py:13
+msgid "Email"
+msgstr "البريد الالكترونى"
+
+#: models.py:14
+msgid "Mobile"
+msgstr "الموبايل"
+
+#: models.py:15
+msgid "SSN"
+msgstr "الرقم القومى"
+
+#: models.py:16
+msgid "Salary"
+msgstr "الراتب الصافى"
+
+#: models.py:21 models.py:91 models.py:108 models.py:121
+#: templates/rapid_batch.html:37 templates/rapid_batch.html.py:93
+msgid "Employee"
+msgstr "الموظف"
+
+#: models.py:22
+#, fuzzy
+msgid "Employees"
+msgstr "الموظفون"
+
+#: models.py:29 models.py:63 models.py:92 models.py:107 models.py:120
+#: templates/rapid_batch.html:38 templates/rapid_batch.html.py:94
+msgid "Date"
+msgstr "التاريخ"
+
+#: models.py:30 models.py:53
+msgid "CheckIn"
+msgstr "الدخول"
+
+#: models.py:31 models.py:54
+msgid "CheckOut"
+msgstr "الخروج"
+
+#: models.py:35 models.py:52
+msgid "Attendance"
+msgstr "الحضور"
+
+#: models.py:36
+msgid "Attendances"
+msgstr "الحضور"
+
+#: models.py:57
+#, fuzzy
+msgid "AttendanceException"
+msgstr "الحضور الاستثنائى"
+
+#: models.py:58
+#, fuzzy
+msgid "AttendanceExceptions"
+msgstr "الحضور الاستثنائى"
+
+#: models.py:64
+msgid "StartTime"
+msgstr "وقت البدء"
+
+#: models.py:65
+msgid "EndTime"
+msgstr "نهاية الوقت"
+
+#: models.py:68
+msgid "CompanyDowntime"
+msgstr "غير ساعات العمل في الشركة"
+
+#: models.py:69
+msgid "CompanyDowntimes"
+msgstr "غير ساعات العمل في الشركة"
+
+#: models.py:75
+msgid "Identifier"
+msgstr "هوية القطعة"
+
+#: models.py:76
+msgid "description"
+msgstr "الوصف"
+
+#: models.py:77
+msgid "Value"
+msgstr "القيمة"
+
+#: models.py:82 models.py:93 templates/rapid_batch.html:39
+#: templates/rapid_batch.html.py:95
+msgid "Item"
+msgstr "قطعة"
+
+#: models.py:83
+#, fuzzy
+msgid "Items"
+msgstr "القطع"
+
+#: models.py:94
+msgid "ItemPrice"
+msgstr "سعر القطعة"
+
+#: models.py:95 templates/rapid_batch.html:41 templates/rapid_batch.html.py:97
+msgid "Size"
+msgstr "الحجم"
+
+#: models.py:96
+msgid "Reason1"
+msgstr "السبب"
+
+#: models.py:99
+msgid "Batch"
+msgstr "الدفعة"
+
+#: models.py:100
+msgid "Batches"
+msgstr "الدفعات"
+
+#: models.py:109 models.py:122
+msgid "Amount"
+msgstr "العدد"
+
+#: models.py:112
+msgid "Payment"
+msgstr "الدفع"
+
+#: models.py:113
+msgid "Payments"
+msgstr "دفع"
+
+#: models.py:125
+msgid "Loan"
+msgstr "قرض"
+
+#: models.py:126
+msgid "Loans"
+msgstr "قروض"
 
 #: templates/paymentslip.html:16 templates/paymentslip.html.py:23
 msgid "payment slips for"
@@ -59,25 +198,9 @@ msgstr "المدير"
 msgid "print all slips"
 msgstr "طباعة جميع الايصلات"
 
-#: templates/rapid_batch.html:37 templates/rapid_batch.html.py:93
-msgid "Employee"
-msgstr "الموظف"
-
-#: templates/rapid_batch.html:38 templates/rapid_batch.html.py:94
-msgid "Date"
-msgstr "التاريخ"
-
-#: templates/rapid_batch.html:39 templates/rapid_batch.html.py:95
-msgid "Item"
-msgstr "قطعة"
-
 #: templates/rapid_batch.html:40 templates/rapid_batch.html.py:96
 msgid "Price"
 msgstr "السعر"
-
-#: templates/rapid_batch.html:41 templates/rapid_batch.html.py:97
-msgid "Size"
-msgstr "الحجم"
 
 #: templates/rapid_batch.html:42
 msgid "Add a Reason"

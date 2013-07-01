@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     # url(r'^payroll/', include('payroll.foo.urls')),
     url(r'^view/$', 'www.views.view_page', name='home'),
     url(r'^view/test/$', 'www.views.dummy_method', name='home'),
+    url(r'^test1/$', 'www.views.switch_lang'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
@@ -22,4 +23,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     
     url(r'^add_batch/', 'www.views.add_batch'),
+
 )
