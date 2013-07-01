@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 00:24+0200\n"
+"POT-Creation-Date: 2013-07-02 00:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgid "Print payment slips"
 msgstr "طباعة وصل الدفع"
 
 #: admin.py:40
-msgid "Show Reports"
+msgid "Show Report"
 msgstr "أظهر التقارير"
 
 #: models.py:18
@@ -52,7 +52,7 @@ msgid "AccNum"
 msgstr "رقم الحساب"
 
 #: models.py:28 models.py:120 models.py:179 models.py:196 models.py:209
-#: templates/rapid_batch.html:37 templates/rapid_batch.html.py:93
+#: templates/rapid_batch.html:36 templates/rapid_batch.html.py:92
 msgid "Employee"
 msgstr "الموظف"
 
@@ -61,7 +61,7 @@ msgid "Employees"
 msgstr "الموظفون"
 
 #: models.py:117 models.py:151 models.py:180 models.py:195 models.py:208
-#: templates/rapid_batch.html:38 templates/rapid_batch.html.py:94
+#: templates/rapid_batch.html:37 templates/rapid_batch.html.py:93
 msgid "Date"
 msgstr "التاريخ"
 
@@ -117,8 +117,8 @@ msgstr "الوصف"
 msgid "Value"
 msgstr "القيمة"
 
-#: models.py:170 models.py:181 templates/rapid_batch.html:39
-#: templates/rapid_batch.html.py:95
+#: models.py:170 models.py:181 templates/rapid_batch.html:38
+#: templates/rapid_batch.html.py:94
 msgid "Item"
 msgstr "قطعة"
 
@@ -130,8 +130,8 @@ msgstr "القطع المنتجة"
 msgid "ItemPrice"
 msgstr "سعر القطعة"
 
-#: models.py:183 templates/rapid_batch.html:41
-#: templates/rapid_batch.html.py:97
+#: models.py:183 templates/rapid_batch.html:40
+#: templates/rapid_batch.html.py:96
 msgid "Size"
 msgstr "الحجم"
 
@@ -167,17 +167,37 @@ msgstr "القرض"
 msgid "Loans"
 msgstr "القروض"
 
+#: templates/loanslips.html:78
+msgid "Date:"
+msgstr "التاريخ:"
+
+#: templates/loanslips.html:79
+msgid "Employee Name:"
+msgstr "اسم الموظف:"
+
+#: templates/loanslips.html:80
+msgid "Loan Amount:"
+msgstr "العدد:"
+
+#: templates/loanslips.html:81
+msgid "Employee Signature:"
+msgstr "امضاء الموظف:"
+
+#: templates/loanslips.html:82 templates/paymentslip.html:68
+msgid "Director"
+msgstr "المدير:"
+
 #: templates/paymentslip.html:18 templates/paymentslip.html.py:24
 msgid "payment slips for"
 msgstr "وصلات الدفع"
 
 #: templates/paymentslip.html:33
 msgid "Employee name"
-msgstr "اسم الموظف"
+msgstr "اسم الموظف:"
 
 #: templates/paymentslip.html:34
 msgid "Month & Year"
-msgstr "السنة و اليوم"
+msgstr "السنة و اليوم:"
 
 #: templates/paymentslip.html:38
 msgid "Earnings"
@@ -199,27 +219,23 @@ msgstr "عدد ايام الغياب"
 msgid "Signature of the employee"
 msgstr "امضاء الموظف"
 
-#: templates/paymentslip.html:68
-msgid "Director"
-msgstr "المدير"
-
 #: templates/paymentslip.html:75
 msgid "print all slips"
 msgstr "طباعة جميع الايصلات"
 
-#: templates/rapid_batch.html:40 templates/rapid_batch.html.py:96
+#: templates/rapid_batch.html:39 templates/rapid_batch.html.py:95
 msgid "Price"
 msgstr "السعر"
 
-#: templates/rapid_batch.html:42
+#: templates/rapid_batch.html:41
 msgid "Add a Reason"
 msgstr "اضف السبب"
 
-#: templates/rapid_batch.html:113
+#: templates/rapid_batch.html:112
 msgid "No Batches Avaiable"
 msgstr "لا توجد دفعات"
 
-#: templates/rapid_batch.html:119
+#: templates/rapid_batch.html:118
 msgid "The Batch Has been Added"
 msgstr "تم اضافة الدفعة"
 
@@ -306,3 +322,6 @@ msgstr "ديسيمبر"
 #: templates/reportPage.html:60
 msgid "Generate"
 msgstr "توليد"
+
+#~ msgid "Print Loan Statements"
+#~ msgstr "طباعة وصل الدفع"

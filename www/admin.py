@@ -7,6 +7,8 @@ from datetime import date
 from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponseRedirect, HttpResponse
 from admin_views.admin import AdminViews
+from django.utils.translation import ugettext_lazy as _
+
 def print_loan_statements(modeladmin, request, queryset):
     return render_to_response('loanslips.html',{'list_of_loans':queryset})
 
@@ -26,7 +28,7 @@ def make_published(modeladmin, request, queryset):
             list_of_exceptions.append(employee)
     attendance = Attendance.objects.all()
     return render_to_response('paymentslip.html', {'attendance':attendance,'list_of_exceptions':list_of_exceptions,'slips_list': list_of_slips, 'month':current_month})
-make_published.short_description = "Print payment slips"
+make_published.short_description = verbose_name =_('Print payment slips')
 
 def show_employee_reports(modeladmin, request, queryset):
     current_year = datetime.datetime.now().year
@@ -35,7 +37,7 @@ def show_employee_reports(modeladmin, request, queryset):
         years.append(current_year)
         current_year = current_year - 1
     return render(request, 'reportPage.html', {'employees': queryset, 'years': years})
-show_employee_reports.short_description = "show reports"
+show_employee_reports.short_description = verbose_name =_('Show Report')
 
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = ['name', 'email','mobile', 'ssn']
