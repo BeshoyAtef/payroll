@@ -176,7 +176,6 @@ class Item(models.Model):
 
 #Batches: ID, Employee ID, Date, item ID, Piece price, Size
 class Batch(models.Model):
-<<<<<<< HEAD
     employee = models.ForeignKey(Employee, verbose_name=_('Employee'))
     date = models.DateTimeField(default=datetime.datetime.now(), verbose_name =_('Date'))
     item = models.ForeignKey(Item, verbose_name=_('Item'))
