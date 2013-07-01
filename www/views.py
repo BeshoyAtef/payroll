@@ -347,7 +347,6 @@ def upload_file(request):
         form = UploadForm()
         context = {'form': form}
         return render_to_response('upload.html', context, context_instance=RequestContext(request))
->>>>>>> master
 
 
 # can be deleted
