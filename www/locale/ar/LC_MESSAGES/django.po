@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-01 23:11+0200\n"
+"POT-Creation-Date: 2013-07-02 00:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: admin.py:31
+msgid "Print payment slips"
+msgstr "طباعة وصل الدفع"
+
+#: admin.py:40
+msgid "Show Reports"
+msgstr "أظهر التقارير"
 
 #: models.py:18
 msgid "Name"
@@ -159,43 +167,43 @@ msgstr "القرض"
 msgid "Loans"
 msgstr "القروض"
 
-#: templates/paymentslip.html:16 templates/paymentslip.html.py:23
+#: templates/paymentslip.html:18 templates/paymentslip.html.py:24
 msgid "payment slips for"
 msgstr "وصلات الدفع"
 
-#: templates/paymentslip.html:32
+#: templates/paymentslip.html:33
 msgid "Employee name"
 msgstr "اسم الموظف"
 
-#: templates/paymentslip.html:33
+#: templates/paymentslip.html:34
 msgid "Month & Year"
 msgstr "السنة و اليوم"
 
-#: templates/paymentslip.html:37
+#: templates/paymentslip.html:38
 msgid "Earnings"
 msgstr "الايرادات"
 
-#: templates/paymentslip.html:41
+#: templates/paymentslip.html:42
 msgid "Deductions"
 msgstr "الخصومات"
 
-#: templates/paymentslip.html:45
+#: templates/paymentslip.html:46
 msgid "Net Salary"
 msgstr "الراتب الصافى"
 
-#: templates/paymentslip.html:56
+#: templates/paymentslip.html:57
 msgid "The number of days without checkin/out"
 msgstr "عدد ايام الغياب"
 
-#: templates/paymentslip.html:66
+#: templates/paymentslip.html:67
 msgid "Signature of the employee"
 msgstr "امضاء الموظف"
 
-#: templates/paymentslip.html:67
+#: templates/paymentslip.html:68
 msgid "Director"
 msgstr "المدير"
 
-#: templates/paymentslip.html:74
+#: templates/paymentslip.html:75
 msgid "print all slips"
 msgstr "طباعة جميع الايصلات"
 
@@ -214,3 +222,87 @@ msgstr "لا توجد دفعات"
 #: templates/rapid_batch.html:119
 msgid "The Batch Has been Added"
 msgstr "تم اضافة الدفعة"
+
+#: templates/reportPage.html:15 templates/reportPage.html.py:52
+msgid "Choose report type:"
+msgstr "اختر نوع التقرير:"
+
+#: templates/reportPage.html:18
+msgid "Working Hours"
+msgstr "ساعات العمل"
+
+#: templates/reportPage.html:19
+msgid "Number of Products Produced"
+msgstr "عدد المنتجات التي تم إنتاجها"
+
+#: templates/reportPage.html:20
+msgid "Number of products/hour"
+msgstr "عدد الانتاج فى الساعة"
+
+#: templates/reportPage.html:21
+msgid "Salary of the Employee"
+msgstr "امضاء الموظف"
+
+#: templates/reportPage.html:22
+msgid "Attendance of the Employee"
+msgstr "امضاء الموظف"
+
+#: templates/reportPage.html:26
+msgid "Choose report date range:"
+msgstr "اختر نوع التقرير:"
+
+#: templates/reportPage.html:29
+msgid "By month"
+msgstr "شهريا"
+
+#: templates/reportPage.html:30
+msgid "By year"
+msgstr "سنويا"
+
+#: templates/reportPage.html:43
+msgid "January"
+msgstr "يناير"
+
+#: templates/reportPage.html:44
+msgid "February"
+msgstr "فبراير"
+
+#: templates/reportPage.html:45
+msgid "March"
+msgstr "مارس"
+
+#: templates/reportPage.html:46
+msgid "April"
+msgstr "ابريل"
+
+#: templates/reportPage.html:47
+msgid "May"
+msgstr "مايو"
+
+#: templates/reportPage.html:48
+msgid "June"
+msgstr "يونيو"
+
+#: templates/reportPage.html:49
+msgid "July"
+msgstr "يوليو"
+
+#: templates/reportPage.html:50
+msgid "August"
+msgstr "اغسطس"
+
+#: templates/reportPage.html:51
+msgid "September"
+msgstr "سبتمبر"
+
+#: templates/reportPage.html:53
+msgid "November"
+msgstr "نوفمبر"
+
+#: templates/reportPage.html:54
+msgid "December"
+msgstr "ديسيمبر"
+
+#: templates/reportPage.html:60
+msgid "Generate"
+msgstr "توليد"
