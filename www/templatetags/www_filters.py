@@ -19,7 +19,7 @@ def deduct(payment, deductions):
 	return int(payment) - int(deductions)
 @register.filter
 def calculate_missing_days(attendance,employee):
-    return attendance.filter(employee = employee).count() - attendance.filter(employee=employee).exclude(check_in="1900-01-01 00:00").exclude(check_out="1900-01-01 00:00").count()
+    return attendance.filter(employee = employee).count() - attendance.filter(employee=employee).exclude(check_in__isnull=True).exclude(check_out__isnull=True).count()
 @register.filter
 def change_number(n):
     n3 = []
