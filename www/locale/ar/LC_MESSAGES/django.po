@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 00:57+0200\n"
+"POT-Creation-Date: 2013-07-03 00:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,143 +27,143 @@ msgstr "طباعة وصل الدفع"
 msgid "Show Report"
 msgstr "أظهر التقارير"
 
-#: models.py:18
+#: models.py:19
 msgid "Name"
 msgstr "الاسم"
 
-#: models.py:19
+#: models.py:20
 msgid "Email"
 msgstr "البريد الالكترونى"
 
-#: models.py:20
+#: models.py:21
 msgid "Mobile"
 msgstr "الموبايل"
 
-#: models.py:21
+#: models.py:22
 msgid "SSN"
 msgstr "الرقم القومى"
 
-#: models.py:22
+#: models.py:23
 msgid "Salary"
 msgstr "الراتب الصافى"
 
-#: models.py:23
+#: models.py:24
 msgid "AccNum"
 msgstr "رقم الحساب"
 
-#: models.py:28 models.py:120 models.py:179 models.py:196 models.py:209
+#: models.py:29 models.py:118 models.py:271 models.py:364 models.py:408
 #: templates/rapid_batch.html:36 templates/rapid_batch.html.py:92
 msgid "Employee"
 msgstr "الموظف"
 
-#: models.py:29
+#: models.py:30
 msgid "Employees"
 msgstr "الموظفون"
 
-#: models.py:117 models.py:151 models.py:180 models.py:195 models.py:208
+#: models.py:115 models.py:243 models.py:272 models.py:363 models.py:407
 #: templates/rapid_batch.html:37 templates/rapid_batch.html.py:93
 msgid "Date"
 msgstr "التاريخ"
 
-#: models.py:118 models.py:141
+#: models.py:116 models.py:233
 msgid "CheckIn"
 msgstr "الدخول"
 
-#: models.py:119 models.py:142
+#: models.py:117 models.py:234
 msgid "CheckOut"
 msgstr "الخروج"
 
-#: models.py:123 models.py:140
+#: models.py:121 models.py:232
 msgid "Attendance"
 msgstr "الحضور"
 
-#: models.py:124
+#: models.py:122
 msgid "Attendances"
 msgstr "الحضور"
 
-#: models.py:145
+#: models.py:237
 msgid "AttendanceException"
 msgstr "الحضور الاستثنائى"
 
-#: models.py:146
+#: models.py:238
 msgid "AttendanceExceptions"
 msgstr "الحضور الاستثنائى"
 
-#: models.py:152
+#: models.py:244
 msgid "StartTime"
 msgstr "وقت البدء"
 
-#: models.py:153
+#: models.py:245
 msgid "EndTime"
 msgstr "نهاية الوقت"
 
-#: models.py:156
+#: models.py:248
 msgid "CompanyDowntime"
 msgstr "غير ساعات العمل في الشركة"
 
-#: models.py:157
+#: models.py:249
 msgid "CompanyDowntimes"
 msgstr "غير ساعات العمل في الشركة"
 
-#: models.py:163
+#: models.py:255
 msgid "Identifier"
 msgstr "هوية القطعة"
 
-#: models.py:164
+#: models.py:256
 msgid "description"
 msgstr "الوصف"
 
-#: models.py:165
+#: models.py:257
 msgid "Value"
 msgstr "القيمة"
 
-#: models.py:170 models.py:181 templates/rapid_batch.html:38
+#: models.py:262 models.py:273 templates/rapid_batch.html:38
 #: templates/rapid_batch.html.py:94
 msgid "Item"
 msgstr "قطعة"
 
-#: models.py:171
+#: models.py:263
 msgid "Items"
 msgstr "القطع المنتجة"
 
-#: models.py:182
+#: models.py:274
 msgid "ItemPrice"
 msgstr "سعر القطعة"
 
-#: models.py:183 templates/rapid_batch.html:40
+#: models.py:275 templates/rapid_batch.html:40
 #: templates/rapid_batch.html.py:96
 msgid "Size"
 msgstr "الحجم"
 
-#: models.py:184
+#: models.py:276
 msgid "Reason1"
 msgstr "السبب"
 
-#: models.py:187
+#: models.py:279
 msgid "Batch"
 msgstr "الدفعة"
 
-#: models.py:188
+#: models.py:280
 msgid "Batches"
 msgstr "الدفعات المنتجة"
 
-#: models.py:197 models.py:210
+#: models.py:365 models.py:409
 msgid "Amount"
 msgstr "العدد"
 
-#: models.py:200
+#: models.py:368
 msgid "Payment"
 msgstr "الدفع"
 
-#: models.py:201
+#: models.py:369
 msgid "Payments"
 msgstr "دفع الاموال"
 
-#: models.py:213
+#: models.py:412
 msgid "Loan"
 msgstr "القرض"
 
-#: models.py:214
+#: models.py:413
 msgid "Loans"
 msgstr "القروض"
 
@@ -322,6 +322,63 @@ msgstr "ديسيمبر"
 #: templates/reportPage.html:60
 msgid "Generate"
 msgstr "توليد"
+
+#~ msgid "Year"
+#~ msgstr "السنة"
+
+#~ msgid "Month"
+#~ msgstr "شهريا"
+
+#~ msgid "October"
+#~ msgstr "اكتوبر"
+
+#~ msgid "The detailed output per month is below:"
+#~ msgstr "الناتج التفصيلى شهريا:"
+
+#~ msgid "Period"
+#~ msgstr "المدة:"
+
+#~ msgid "Number"
+#~ msgstr "الرقم"
+
+#~ msgid "Bar Chart"
+#~ msgstr "مخطط شريطي"
+
+#~ msgid "Area Chart"
+#~ msgstr "مخطط الرسم البياني"
+
+#~ msgid "Line Chart"
+#~ msgstr "رسم خط"
+
+#~ msgid "Salary Report"
+#~ msgstr "تقارير الرواتب"
+
+#~ msgid "Productivity Report"
+#~ msgstr "تقارير الانتاج"
+
+#~ msgid "The Total units produced year: "
+#~ msgstr "عدد الانتاج سنويا: "
+
+#~ msgid " is "
+#~ msgstr "هو "
+
+#~ msgid " units"
+#~ msgstr "الوحدات"
+
+#~ msgid " The average output per employee is: "
+#~ msgstr "الناتج التفصيلى شهريا:"
+
+#~ msgid "The Total salaries and wages paid in: "
+#~ msgstr "مجموع المرتبات و الأجور المدفوعة فى "
+
+#~ msgid "The Total units produced for: "
+#~ msgstr "مجموع الوحدات المنتجة فى "
+
+#~ msgid " The average output is: "
+#~ msgstr "متوسط الناتج :"
+
+#~ msgid " units "
+#~ msgstr "الوحدات"
 
 #~ msgid "Print Loan Statements"
 #~ msgstr "طباعة وصل الدفع"

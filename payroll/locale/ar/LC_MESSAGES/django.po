@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 00:48+0200\n"
+"POT-Creation-Date: 2013-07-03 00:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,46 +32,50 @@ msgstr ""
 msgid "Innov Payroll"
 msgstr "جدول الرواتب - Innov"
 
-#: templates/admin/index.html:17
+#: templates/admin/index.html:18
 msgid "Import Attendence"
 msgstr "استخراج الحضور"
 
-#: templates/admin/index.html:31
+#: templates/admin/index.html:22
+msgid "Reports"
+msgstr "التقارير"
+
+#: templates/admin/index.html:35
 #, python-format
 msgid "Models available in the %(name)s application."
 msgstr ""
 
-#: templates/admin/index.html:32
+#: templates/admin/index.html:36
 #, python-format
 msgid "%(name)s"
 msgstr ""
 
-#: templates/admin/index.html:60
+#: templates/admin/index.html:64
 #: templates/admin/www/employee/change_form.html:24
 msgid "Add"
 msgstr "اضف"
 
-#: templates/admin/index.html:66
+#: templates/admin/index.html:70
 msgid "Change"
 msgstr "غير"
 
-#: templates/admin/index.html:78
+#: templates/admin/index.html:82
 msgid "You don't have permission to edit anything."
 msgstr "لا توجد لديك الصلاحية لتغير اى شىء"
 
-#: templates/admin/index.html:86
+#: templates/admin/index.html:90
 msgid "Recent Actions"
 msgstr "الاجرات الاخيرة"
 
-#: templates/admin/index.html:87
+#: templates/admin/index.html:91
 msgid "My Actions"
 msgstr "تطبيقاتى"
 
-#: templates/admin/index.html:91
+#: templates/admin/index.html:95
 msgid "None available"
 msgstr "لا يوجد"
 
-#: templates/admin/index.html:105
+#: templates/admin/index.html:109
 msgid "Unknown content"
 msgstr "المحتوى غير معروف"
 

@@ -1,3 +1,10 @@
+
+
+from www.models import *
+from django.http import HttpResponse
+import simplejson
+from django.shortcuts import render_to_response, redirect, render
+
 # Create your views here.
 # Full path and name to the csv file
 from django.core.files.storage import default_storage
@@ -27,7 +34,6 @@ from django.template import RequestContext, Template
 from django.core.urlresolvers import reverse
 from django.core.context_processors import csrf
 from django.utils import simplejson
-
 
 def index(request):
     return HttpResponse(" <a href='/admin'>Click here to got o the admin page</a>")
@@ -270,6 +276,85 @@ def products_year(request):
    	response = HttpResponse(json.dumps(total_products_array))
 
 
+def goToCompanyReports(request):
+	return render(request, 'companyReports.html')
+
+
+def view_output_yearly(request):
+	values = []
+	keys = []
+	content = ""
+	desired_year = request.GET['year']
+	Dict = company_wide_output_yearly_report(int(desired_year))
+	Dict = simplejson.dumps(Dict)
+	return HttpResponse(Dict)
+
+def company_wide_output_yearlyReport(request):
+	desired_year = request.GET['year']
+	print desired_year
+	Dict = company_wide_output_yearly_report(int(desired_year))
+	Dict = simplejson.dumps(Dict)
+	print Dict
+	return HttpResponse(Dict)
+
+
+def view_output_monthly(request):
+	values = []
+	keys = []
+	content = ""
+	desired_year = request.GET['year']
+	desired_month = request.GET['month']
+	Dict = company_wide_output_monthly_report(int(desired_year),int(desired_month))
+	Dict = simplejson.dumps(Dict)
+	return HttpResponse(Dict)
+
+
+def company_wide_output_monthlyReport(request):
+	desired_year = request.GET['year']
+	desired_month = request.GET['month']
+	Dict = company_wide_output_monthly_report(int(desired_year), int(desired_month))
+	Dict = simplejson.dumps(Dict)
+	return HttpResponse(Dict)
+
+def view_salary_yearly(request):
+	desired_year = request.GET['year']
+	Dict = company_wide_salary_report(int(desired_year))
+	Dict = simplejson.dumps(Dict)
+	return HttpResponse(Dict)
+
+def company_wide_salaryReport(request):
+	# t = "2013"
+	desired_year = request.GET['year']
+	Dict =  company_wide_salary_report(int(desired_year))
+	Dict = simplejson.dumps(Dict)
+	return HttpResponse(Dict)
+
+
+def view_company_wide_yearly_attendance(request):
+	desired_year = request.GET['year']
+	Dict = company_wide_yearly_attendance_report(desired_year)
+	return render(request,'companyReports.html', Dict)
+
+def company_wide_yearly_attendanceReport(request):
+	desired_year = request.GET['year']
+	Dict = company_wide_yearly_attendance_report(int(desired_year))
+	Dict = simplejson.dumps(Dict)
+	return HttpResponse(Dict)
+
+def view_company_wide_monthly_attendance(request):
+	desired_year = request.GET['year']
+	desired_month = request.GET['month']
+	Dict = company_wide_monthly_attendance_report(int(desired_year), int(desired_month))
+	Dict = simplejson.dumps(Dict);
+	return HttpResponse(Dict);
+
+def company_wide_monthly_attendanceReport(request):
+	desired_year = request.GET['year']
+	desired_month = request.GET['month']
+	Dict = company_wide_monthly_attendance_report(int(desired_year), int(desired_month))
+	Dict = simplejson.dumps(Dict);
+	return HttpResponse(Dict);	
+
 def upload_file(request):
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
@@ -347,7 +432,6 @@ def upload_file(request):
         form = UploadForm()
         context = {'form': form}
         return render_to_response('upload.html', context, context_instance=RequestContext(request))
-
 
 # can be deleted
 # can be deleted
