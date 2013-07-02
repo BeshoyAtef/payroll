@@ -2,7 +2,7 @@
 {% load i18n admin_static admin_views %}
 
 {% block extrastyle %}{{ block.super }}
-<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery-1.9.1.min.js" %}" ></script>
 <script type="text/javascript" src="{% static "js/jquery.easing.1.3.js" %}"></script>
 <script type="text/javascript" src="{% static "js/cufon-yui.js" %}"></script>
 <script type="text/javascript" src="{% static "js/ChunkFive_400.font.js" %}"></script>
@@ -51,7 +51,7 @@ box-shadow:1px 3px  3px 0 rgba(0,0,0,0.33);
 }">
 
             {% if model.admin_url %}
-                <center><a href="{{ model.admin_url }}"><h3>{{ model.name }}</h3></a></center>
+                <center><a href="{{ model.admin_url }}"><h3 class="{{model.name}}">{{ model.name }}</h3></a></center>
             {% else %}
                 <th scope="row">{{ model.name }}</th>
             {% endif %}
@@ -135,62 +135,29 @@ box-shadow:1px 3px  3px 0 rgba(0,0,0,0.33);
                  */
                 var config = [
                     {
-                        "name"      : "tour_1",
+                        "name"      : "Config",
                         "bgcolor"   : "black",
                         "color"     : "white",
                         "position"  : "TL",
-                        "text"      : "You can create a tour to explain the functioning of your app",
+                        "text"      : "You can configure your global settings by clicking on config to configure the chech-buffer, check-in time, check-out time and holidays",
                         "time"      : 5000
                     },
                     {
-                        "name"      : "tour_2",
+                        "name"      : "Attendance.exceptions",
                         "bgcolor"   : "black",
                         "color"     : "white",
-                        "text"      : "Give a class to the points of your walkthrough",
+                        "text"      : "here you can add, view or delete any record in your database",
                         "position"  : "BL",
                         "time"      : 5000
                     },
                     {
-                        "name"      : "tour_3",
+                        "name"      : "Employees",
                         "bgcolor"   : "black",
                         "color"     : "white",
-                        "text"      : "Customize the navigation buttons",
-                        "position"  : "BL",
-                        "time"      : 5000
-                    },
-                    {
-                        "name"      : "tour_4",
-                        "bgcolor"   : "black",
-                        "color"     : "white",
-                        "text"      : "You can also use the autoplay function where the user can just sit back and watch the whole tour",
-                        "position"  : "TL",
-                        "time"      : 5000
-                    },
-                    {
-                        "name"      : "tour_5",
-                        "bgcolor"   : "black",
-                        "color"     : "white",
-                        "text"      : "You can indicate the direction of the tooltip arrow for each tour point",
-                        "position"  : "TL",
-                        "time"      : 5000
-                    },
-                    {
-                        "name"      : "tour_6",
-                        "bgcolor"   : "#111199",
-                        "color"     : "white",
-                        "text"      : "Mark important tour points in a different color",
-                        "position"  : "BL",
-                        "time"      : 5000
-                    },
-                    {
-                        "name"      : "tour_7",
-                        "bgcolor"   : "black",
-                        "color"     : "white",
-                        "text"      : "Automatically scrolls to the right place of the website",
+                        "text"      : "Here by clicking on Employees besides adding, editing or deleting any record you can generate payement slips and reports per employee",
                         "position"  : "TL",
                         "time"      : 5000
                     }
-
                 ],
                 //define if steps should change automatically
                 autoplay    = false,
@@ -286,7 +253,7 @@ box-shadow:1px 3px  3px 0 rgba(0,0,0,0.33);
                     var bgcolor         = step_config.bgcolor;
                     var color           = step_config.color;
                     
-                    var $tooltip        = $('<div>',{
+                    var $tooltip        = $('<div class="tooltip" id="tour_tooltip"><p>'+step_config.text+'</p><span class="tooltip_arrow"></span>',{
                         id          : 'tour_tooltip',
                         className   : 'tooltip',
                         html        : '<p>'+step_config.text+'</p><span class="tooltip_arrow"></span>'
@@ -304,7 +271,7 @@ box-shadow:1px 3px  3px 0 rgba(0,0,0,0.33);
                     var tip_position    = step_config.position;
                     
                     //append the tooltip but hide it
-                    $('BODY').prepend($tooltip);
+                    $('#content-main').prepend($tooltip);
                     
                     //get some info of the element
                     var e_w             = $elem.outerWidth();
