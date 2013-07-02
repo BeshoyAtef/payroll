@@ -1,5 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load www_filters %}
+{% load i18n admin_static admin_views %}
 {% load staticfiles %}
 {% load humanize %}
 {% block extrastyle %}{{ block.super }}
@@ -114,16 +115,16 @@
                             
                             <div>
                             <ul id="activity_ul" style="list-style:none">
-                                <li id="abd" class="activity_item" value="all" onClick="show_years({% now "Y" %})">Year<span>  
+                                <li id="abd" class="activity_item" value="all" onClick="show_years({% now "Y" %})">{% trans 'Year' %}<span>  
                                 </span> </li>
                                   <li id="abd_salary" class="activity_item" value="all" onClick="show_years_salary({% now "Y" %})">Year<span>  
                                 </span> </li>
-                                <li id="navmonths"class="activity_item" value="all" onClick="show_months()">Month<span>  
+                                <li id="navmonths"class="activity_item" value="all" onClick="show_months()">{% trans 'Month' %}<span>  
                                 </span> </li>
                             </ul>
 
                             <ul id="activity_ul" style="list-style:none">
-                                <li id="abd1" class="activity_item" value="all" onClick="show_years({% now "Y" %})">Year<span>  
+                                <li id="abd1" class="activity_item" value="all" onClick="show_years({% now "Y" %})">{% trans 'Year' %}<span>  
                                 </span> </li>
                             
                             </ul>
@@ -132,20 +133,20 @@
 
                             <div id="nav_months" style="display:none;">
                             <ul id="activity_ul" style="list-style:none; padding-left:10px;">
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(1);">January<span>  
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(1);">{% trans 'January' %}<span>  
                                 </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(2);">February<span>  
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(2);">{% trans 'February' %}<span>  
                                 </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(3);">March<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(4);">April<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(5);">May<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(6);">June<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(7);">July<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(8);">August<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(9);">September<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(10);">October<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(11);">November<span> </span> </li>
-                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(12);">December<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(3);">{% trans 'March' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(4);">{% trans 'April' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(5);">{% trans 'May' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(6);">{% trans 'June' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(7);">{% trans 'July' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(8);">{% trans 'August' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(9);">{% trans 'September' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(10);">{% trans 'October' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(11);">{% trans 'November' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(12);">{% trans 'December' %}<span> </span> </li>
                             </ul>
                             </div>
                          <div id="nav_years" style="display:none;">
@@ -164,20 +165,20 @@
 
 
                     <div id="activities_area">
-                         <div><p id="reportcontent">hey</p>The detailed output per month is below:<br>
+                         <div><p id="reportcontent">hey</p>{% trans 'The detailed output per month is below:' %}<br>
                             <table>
                                 <tr id="records_list_period">
-                                    <td>Period</td>
+                                    <td>{% trans 'Period' %}</td>
                                 </tr>
                                 <tr id="records_list_output">
-                                    <td>Number</td>
+                                    <td>{% trans 'Number' %}</td>
                                 </tr>
                             </table>
                          </div>
                          <div style="padding-top: 25px;" id="barcontainer"></div>
                          <div id="linecontainer" style="padding-top: 25px;"></div>
                          <div id="areacontainer" style="padding-top: 25px;"></div>
-                         <label style="padding-left:275px;"><lbl id="barlabel" ><a onClick="showbar();">bar chart</a></lbl><lbl id="arealabel" ><a onclick="showarea();" style="padding-left:25px;">area chart</a></lbl><lbl id="linelabel"><a onclick="showline();" style="padding-left:25px;">line chart</a></lbl></label>
+                         <label style="padding-left:275px;"><lbl id="barlabel" ><a onClick="showbar();">{% trans 'Bar Chart' %}</a></lbl><lbl id="arealabel" ><a onclick="showarea();" style="padding-left:25px;">{% trans 'Area Chart' %}</a></lbl><lbl id="linelabel"><a onclick="showline();" style="padding-left:25px;">{% trans 'Line Chart' %}</a></lbl></label>
 
                     </div>
                 </div>
@@ -194,11 +195,11 @@
 <div id="report_types_button_div">
     <div class = "yearly_reports" style = "margin-top: 20px">
     
-        <button onClick="getSalaryYearly({% now "Y" %});" style = "width:350px; height:100px; font-size:20px !important;">Salary Report</button>
+        <button onClick="getSalaryYearly({% now "Y" %});" style = "width:350px; height:100px; font-size:20px !important;">{% trans 'Salary Report' %}</button>
     
 <!--         <button onClick="getAttendanceYearly({% now "Y" %});" style = "width:350px; height:100px; font-size:20px !important;" onClick>Attendance Report</button> -->
     
-        <button onClick="getOutputYearly({% now "Y" %});"  style = "width:350px; height:100px; font-size:20px !important;">Productivity Report</button>
+        <button onClick="getOutputYearly({% now "Y" %});"  style = "width:350px; height:100px; font-size:20px !important;">{% trans 'Productivity Report' %}</button>
     </div>
 </div>
 
@@ -439,7 +440,7 @@ function getOutputYearly(year){
                 array2 = []
                 $('#report_types_button_div').hide();
                 $('#report_nav_bar').show();
-                document.getElementById('reportcontent').innerHTML = 'The Total units produced year: ' + year +   ' is '+ data[1] + ' units  <br> The average output per employee is: ' + data[2] + ' units <br>' ;
+                document.getElementById('reportcontent').innerHTML = 'عدد الانتاج سنويا فى ' + year +   ' هو '+ data[1] + ' وحدة  <br> الناتج التفصيلى شهريا: ' + data[2] + ' وحدة <br>' ;
                 document.getElementById('records_list_period').innerHTML = '';
                 document.getElementById('records_list_output').innerHTML = '';
                 for(var i = 0; i<data[0].length; i++){ 
@@ -555,7 +556,7 @@ function getSalaryYearly(year){
                 array2 = []
                 $('#report_types_button_div').hide();
                 $('#report_nav_bar').show();
-                document.getElementById('reportcontent').innerHTML = 'The Total salaries and wages paid in: ' + year +   ' is '+ data[(data.length)-1];
+                document.getElementById('reportcontent').innerHTML = 'مجموع المرتبات و الأجور المدفوعة فى ' + year +   ' هو '+ data[(data.length)-1];
                 document.getElementById('records_list_period').innerHTML = '';
                 document.getElementById('records_list_output').innerHTML = '';
                 for(var i = 0; i<data.length-1; i++){ 
@@ -585,7 +586,7 @@ function getSalaryYearly(year){
                             array2 = []
                             $('#report_types_button_div').hide();
                             $('#report_nav_bar').show();
-                            document.getElementById('reportcontent').innerHTML = 'The Total salaries and wages paid in: ' + year +   ' is '+ data[(data.length)-1];
+                            document.getElementById('reportcontent').innerHTML = 'مجموع المرتبات و الأجور المدفوعة فى ' + year +   ' هو '+ data[(data.length)-1];
                             // document.getElementById('records_list_period').innerHTML = '';
                             // document.getElementById('records_list_output').innerHTML = '';
                             for(var i = 0; i<data.length-1; i++){ 
@@ -681,8 +682,8 @@ function getOutputMonthly(month){
                 avg = Object.keys(data[32]);
                 $('#report_types_button_div').hide();
                 $('#report_nav_bar').show();
-                document.getElementById('reportcontent').innerHTML = 'The Total units produced for: ' + month +   ' is '
-                +data[31][total[0]] + ' units  <br> The average output is: ' + data[32][avg[0]] + ' units <br>';
+                document.getElementById('reportcontent').innerHTML = 'مجموع الوحدات المنتجة فى ' + month +   ' هو '
+                +data[31][total[0]] + ' وحدة  <br> متوسط الناتج: ' + data[32][avg[0]] + ' وحدة <br>';
                 iteratable = data.length - 2;
                 for(var i = 0; i<iteratable; i++){
                     var t = Object.keys(data[i]);

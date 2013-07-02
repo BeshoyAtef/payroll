@@ -44,6 +44,14 @@ def import_attendance(request):
 def view_reports(request):
     return HttpResponse(" <h1>Welcome to thereports page</h1> ")
 
+def switch_lang(request):
+    if request.session['django_language'] == 'en': 
+        request.session['django_language'] = 'ar'
+    else:
+        request.session['django_language'] = 'en'
+    return redirect('index.html')
+
+
 #Mohamed Awad
 #this def calculates the employee average prductivity per month
 #the def takes as request the desired month and year the admin is wishing to look for

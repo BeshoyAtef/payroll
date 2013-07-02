@@ -1,5 +1,6 @@
 import os
 import datetime
+gettext = lambda s: s
 
 # Django settings for payroll project.
 def relative_project_path(*x):
@@ -39,7 +40,18 @@ TIME_ZONE = 'Africa/Cairo'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = (
+    ( 'ar', gettext( 'Arabic' ) ), 
+    ( 'en', gettext( 'English' ) ), 
+)
+
+LOCALE_PATHS = ( 
+    os.path.join( os.path.dirname( __file__ ), 'locale' ), 
+)
+
+LANGUAGES_BIDI = ( "ar", )
 
 SITE_ID = 1
 
@@ -102,7 +114,8 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
@@ -179,6 +192,6 @@ CONSTANCE_CONFIG = {
     'CHECK-IN_TIME': (datetime.time(10, 0), 'The time where the Company Starts working Daily'),
     'CHECK-Out_TIME': (datetime.time(20, 0), 'The time where the Company working ends Daily'),
     'CHECK-Buffer': (datetime.time(11, 0), 'The Allowed Buffer to be late'),
-    'holidays': (datetime.date(2013, 6, 2), 'this is holidays '),
+    'Holidays': (datetime.date(2013, 6, 2), 'this is holidays '),
 
 }

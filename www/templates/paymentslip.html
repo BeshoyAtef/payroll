@@ -2,6 +2,8 @@
 {% load www_filters %}
 {% load staticfiles %}
 {% load humanize %}
+{% load i18n admin_static admin_views %}
+
 {% block extrastyle %}{{ block.super }}
 <link href="{% static "css/paymentslipsdisplay.css" %}" rel="stylesheet" media="screen">
 <link href="{% static "css/paymentslipsprint.css" %}" rel="stylesheet" media="print">
@@ -13,14 +15,13 @@
 {% endblock %}
 {% block content%}
 
-<title>payment slips for {{ month|month_name }}
- </title>
+<title>{% trans 'payment slips for' %} {{ month|month_name }} </title>
 
 
 
 <body>
 {% block branding %}
-<h1 id="non-printable">payment slips for {{ month|month_name }}</h1>
+<h1 id="non-printable">{% trans 'payment slips for' %} {{ month|month_name }}</h1>
 {% endblock %}
 	
 	 {% for payment in slips_list %}
@@ -29,20 +30,20 @@
 	<div>
 	<div class="sliptop">
 	
-		<label class="name_modification">Employee name: {{payment.employee.name}}</label>
-		<label>Month & Year: {{payment.date|month_name}}</label>
+		<label class="name_modification">{% trans 'Employee name' %}: {{payment.employee.name}}</label>
+		<label>{% trans 'Month & Year' %}: {{payment.date|month_name}}</label>
 	</div>
 	<div class="wrapper_content">
 		<div class="earnings">
-			<label class="left_label"> Earnings:</label>
+			<label class="left_label"> {% trans 'Earnings' %}:</label>
 			<label id="1" class="right_label"> {{payment.amount}}</label>
 		</div>
 		<div class="earnings">
-			<label class="left_label"> Deductions</label>
+			<label class="left_label"> {% trans 'Deductions' %}</label>
 			<label id="2" class="right_label">0</label>
 		</div>
 		<div class="earnings">
-			<label class="left_label"> Net Salary</label>
+			<label class="left_label"> {% trans 'Net Salary' %}</label>
 			<label class="right_label">{{ payment.amount|deduct:payment.amount }}</label>
 		</div>
 
@@ -53,7 +54,7 @@
 	</div>
 	<div class="numtext">
 			<label class="paymenttext">{{payment.amount|change_number}} LE </label>
-			<label class="attendance-exception">The number of days without checkin/out:{{attendance|calculate_missing_days:payment.employee}}</label>
+			<label class="attendance-exception">{% trans 'The number of days without checkin/out' %}:{{attendance|calculate_missing_days:payment.employee}}</label>
 	</div>
 			
 		 
@@ -63,15 +64,15 @@
 	<div class="footer">
 		<label>Date</label>
 		<br>
-		<label class="left_sign">Signature of the employee</label>
-		<label class="">Director</label>
+		<label class="left_sign">{% trans 'Signature of the employee' %}</label>
+		<label class="">{% trans 'Director' %}</label>
 		<hr align="left" width="700" size="1" noshade="noshade"/>  
 	</div>
 	</div>
 	</div>
 	{% endfor %}
 	<div id="non-printable">
-		<a href="javascript:window.print()" onclick="print();">print all slips</a>
+		<a href="javascript:window.print()" onclick="print();">{% trans 'print all slips' %}</a>
 	</div>
 </body>
 {% endblock %}
