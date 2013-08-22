@@ -1,0 +1,384 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-03 00:49+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: admin.py:31
+msgid "Print payment slips"
+msgstr "طباعة وصل الدفع"
+
+#: admin.py:40
+msgid "Show Report"
+msgstr "أظهر التقارير"
+
+#: models.py:19
+msgid "Name"
+msgstr "الاسم"
+
+#: models.py:20
+msgid "Email"
+msgstr "البريد الالكترونى"
+
+#: models.py:21
+msgid "Mobile"
+msgstr "الموبايل"
+
+#: models.py:22
+msgid "SSN"
+msgstr "الرقم القومى"
+
+#: models.py:23
+msgid "Salary"
+msgstr "الراتب الصافى"
+
+#: models.py:24
+msgid "AccNum"
+msgstr "رقم الحساب"
+
+#: models.py:29 models.py:118 models.py:271 models.py:364 models.py:408
+#: templates/rapid_batch.html:36 templates/rapid_batch.html.py:92
+msgid "Employee"
+msgstr "الموظف"
+
+#: models.py:30
+msgid "Employees"
+msgstr "الموظفون"
+
+#: models.py:115 models.py:243 models.py:272 models.py:363 models.py:407
+#: templates/rapid_batch.html:37 templates/rapid_batch.html.py:93
+msgid "Date"
+msgstr "التاريخ"
+
+#: models.py:116 models.py:233
+msgid "CheckIn"
+msgstr "الدخول"
+
+#: models.py:117 models.py:234
+msgid "CheckOut"
+msgstr "الخروج"
+
+#: models.py:121 models.py:232
+msgid "Attendance"
+msgstr "الحضور"
+
+#: models.py:122
+msgid "Attendances"
+msgstr "الحضور"
+
+#: models.py:237
+msgid "AttendanceException"
+msgstr "الحضور الاستثنائى"
+
+#: models.py:238
+msgid "AttendanceExceptions"
+msgstr "الحضور الاستثنائى"
+
+#: models.py:244
+msgid "StartTime"
+msgstr "وقت البدء"
+
+#: models.py:245
+msgid "EndTime"
+msgstr "نهاية الوقت"
+
+#: models.py:248
+msgid "CompanyDowntime"
+msgstr "غير ساعات العمل في الشركة"
+
+#: models.py:249
+msgid "CompanyDowntimes"
+msgstr "غير ساعات العمل في الشركة"
+
+#: models.py:255
+msgid "Identifier"
+msgstr "هوية القطعة"
+
+#: models.py:256
+msgid "description"
+msgstr "الوصف"
+
+#: models.py:257
+msgid "Value"
+msgstr "القيمة"
+
+#: models.py:262 models.py:273 templates/rapid_batch.html:38
+#: templates/rapid_batch.html.py:94
+msgid "Item"
+msgstr "قطعة"
+
+#: models.py:263
+msgid "Items"
+msgstr "القطع المنتجة"
+
+#: models.py:274
+msgid "ItemPrice"
+msgstr "سعر القطعة"
+
+#: models.py:275 templates/rapid_batch.html:40
+#: templates/rapid_batch.html.py:96
+msgid "Size"
+msgstr "الحجم"
+
+#: models.py:276
+msgid "Reason1"
+msgstr "السبب"
+
+#: models.py:279
+msgid "Batch"
+msgstr "الدفعة"
+
+#: models.py:280
+msgid "Batches"
+msgstr "الدفعات المنتجة"
+
+#: models.py:365 models.py:409
+msgid "Amount"
+msgstr "العدد"
+
+#: models.py:368
+msgid "Payment"
+msgstr "الدفع"
+
+#: models.py:369
+msgid "Payments"
+msgstr "دفع الاموال"
+
+#: models.py:412
+msgid "Loan"
+msgstr "القرض"
+
+#: models.py:413
+msgid "Loans"
+msgstr "القروض"
+
+#: templates/loanslips.html:78
+msgid "Date:"
+msgstr "التاريخ:"
+
+#: templates/loanslips.html:79
+msgid "Employee Name:"
+msgstr "اسم الموظف:"
+
+#: templates/loanslips.html:80
+msgid "Loan Amount:"
+msgstr "العدد:"
+
+#: templates/loanslips.html:81
+msgid "Employee Signature:"
+msgstr "امضاء الموظف:"
+
+#: templates/loanslips.html:82 templates/paymentslip.html:68
+msgid "Director"
+msgstr "المدير:"
+
+#: templates/paymentslip.html:18 templates/paymentslip.html.py:24
+msgid "payment slips for"
+msgstr "وصلات الدفع"
+
+#: templates/paymentslip.html:33
+msgid "Employee name"
+msgstr "اسم الموظف:"
+
+#: templates/paymentslip.html:34
+msgid "Month & Year"
+msgstr "السنة و اليوم:"
+
+#: templates/paymentslip.html:38
+msgid "Earnings"
+msgstr "الايرادات"
+
+#: templates/paymentslip.html:42
+msgid "Deductions"
+msgstr "الخصومات"
+
+#: templates/paymentslip.html:46
+msgid "Net Salary"
+msgstr "الراتب الصافى"
+
+#: templates/paymentslip.html:57
+msgid "The number of days without checkin/out"
+msgstr "عدد ايام الغياب"
+
+#: templates/paymentslip.html:67
+msgid "Signature of the employee"
+msgstr "امضاء الموظف"
+
+#: templates/paymentslip.html:75
+msgid "print all slips"
+msgstr "طباعة جميع الايصلات"
+
+#: templates/rapid_batch.html:39 templates/rapid_batch.html.py:95
+msgid "Price"
+msgstr "السعر"
+
+#: templates/rapid_batch.html:41
+msgid "Add a Reason"
+msgstr "اضف السبب"
+
+#: templates/rapid_batch.html:112
+msgid "No Batches Avaiable"
+msgstr "لا توجد دفعات"
+
+#: templates/rapid_batch.html:118
+msgid "The Batch Has been Added"
+msgstr "تم اضافة الدفعة"
+
+#: templates/reportPage.html:15 templates/reportPage.html.py:52
+msgid "Choose report type:"
+msgstr "اختر نوع التقرير:"
+
+#: templates/reportPage.html:18
+msgid "Working Hours"
+msgstr "ساعات العمل"
+
+#: templates/reportPage.html:19
+msgid "Number of Products Produced"
+msgstr "عدد المنتجات التي تم إنتاجها"
+
+#: templates/reportPage.html:20
+msgid "Number of products/hour"
+msgstr "عدد الانتاج فى الساعة"
+
+#: templates/reportPage.html:21
+msgid "Salary of the Employee"
+msgstr "امضاء الموظف"
+
+#: templates/reportPage.html:22
+msgid "Attendance of the Employee"
+msgstr "امضاء الموظف"
+
+#: templates/reportPage.html:26
+msgid "Choose report date range:"
+msgstr "اختر نوع التقرير:"
+
+#: templates/reportPage.html:29
+msgid "By month"
+msgstr "شهريا"
+
+#: templates/reportPage.html:30
+msgid "By year"
+msgstr "سنويا"
+
+#: templates/reportPage.html:43
+msgid "January"
+msgstr "يناير"
+
+#: templates/reportPage.html:44
+msgid "February"
+msgstr "فبراير"
+
+#: templates/reportPage.html:45
+msgid "March"
+msgstr "مارس"
+
+#: templates/reportPage.html:46
+msgid "April"
+msgstr "ابريل"
+
+#: templates/reportPage.html:47
+msgid "May"
+msgstr "مايو"
+
+#: templates/reportPage.html:48
+msgid "June"
+msgstr "يونيو"
+
+#: templates/reportPage.html:49
+msgid "July"
+msgstr "يوليو"
+
+#: templates/reportPage.html:50
+msgid "August"
+msgstr "اغسطس"
+
+#: templates/reportPage.html:51
+msgid "September"
+msgstr "سبتمبر"
+
+#: templates/reportPage.html:53
+msgid "November"
+msgstr "نوفمبر"
+
+#: templates/reportPage.html:54
+msgid "December"
+msgstr "ديسيمبر"
+
+#: templates/reportPage.html:60
+msgid "Generate"
+msgstr "توليد"
+
+#~ msgid "Year"
+#~ msgstr "السنة"
+
+#~ msgid "Month"
+#~ msgstr "شهريا"
+
+#~ msgid "October"
+#~ msgstr "اكتوبر"
+
+#~ msgid "The detailed output per month is below:"
+#~ msgstr "الناتج التفصيلى شهريا:"
+
+#~ msgid "Period"
+#~ msgstr "المدة:"
+
+#~ msgid "Number"
+#~ msgstr "الرقم"
+
+#~ msgid "Bar Chart"
+#~ msgstr "مخطط شريطي"
+
+#~ msgid "Area Chart"
+#~ msgstr "مخطط الرسم البياني"
+
+#~ msgid "Line Chart"
+#~ msgstr "رسم خط"
+
+#~ msgid "Salary Report"
+#~ msgstr "تقارير الرواتب"
+
+#~ msgid "Productivity Report"
+#~ msgstr "تقارير الانتاج"
+
+#~ msgid "The Total units produced year: "
+#~ msgstr "عدد الانتاج سنويا: "
+
+#~ msgid " is "
+#~ msgstr "هو "
+
+#~ msgid " units"
+#~ msgstr "الوحدات"
+
+#~ msgid " The average output per employee is: "
+#~ msgstr "الناتج التفصيلى شهريا:"
+
+#~ msgid "The Total salaries and wages paid in: "
+#~ msgstr "مجموع المرتبات و الأجور المدفوعة فى "
+
+#~ msgid "The Total units produced for: "
+#~ msgstr "مجموع الوحدات المنتجة فى "
+
+#~ msgid " The average output is: "
+#~ msgstr "متوسط الناتج :"
+
+#~ msgid " units "
+#~ msgstr "الوحدات"
+
+#~ msgid "Print Loan Statements"
+#~ msgstr "طباعة وصل الدفع"

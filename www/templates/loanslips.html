@@ -1,6 +1,6 @@
 {% extends "admin/base_site.html" %}
 {% load www_filters %}
-{% load staticfiles %}
+{% load i18n admin_static admin_views %}{% load staticfiles %}
 {% load humanize %}
 {% block extrastyle %}{{ block.super }}
 {% endblock %}
@@ -75,11 +75,11 @@ font-size: 16pt;
 <div class="wrapper">
 	
 	<div class="watermark ">Innov Development</div>
-	<div class="content p">Date: {% now "jS F Y " %}</div>
-	<div class="content p">Employee name: {{loan.employee.name}}</div>
-	<div class="content p">Loan amount: {{loan.amount}}</div>
-	<div class="content p">Employee Signature: </div>
-	<div class="content p">Director: </div>
+	<div class="content p">{% trans 'Date:' %} {% now "jS F Y " %}</div>
+	<div class="content p">{% trans 'Employee Name:' %} {{loan.employee.name}}</div>
+	<div class="content p">{% trans 'Loan Amount:' %} {{loan.amount}}</div>
+	<div class="content p">{% trans 'Employee Signature:' %} </div>
+	<div class="content p">{% trans 'Director' %} </div>
 
 </div>
 
