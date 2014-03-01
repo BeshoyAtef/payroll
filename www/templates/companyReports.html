@@ -1,0 +1,780 @@
+{% extends "admin/base_site.html" %}
+{% load www_filters %}
+{% load i18n admin_static admin_views %}
+{% load staticfiles %}
+{% load humanize %}
+{% block extrastyle %}{{ block.super }}
+<script type="text/javascript" src="{% static "js/jquery-1.9.1.min.js" %}" ></script>
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/companyReports.js" %}"></script>
+<script type="text/javascript" src="{% static "js/highcharts.js" %}"></script>
+<style type="text/css">
+#ActivityGlobalContainer {
+            clear: both;
+            padding-right: 205px;
+            width: 981px;
+            margin: 0 auto;
+            position: relative;
+            zoom: 1;
+            line-height: 1.28;
+            text-align: left;
+            direction: ltr;
+            height: 100%;
+        }
+        #content {
+            min-height: 100px;
+            margin: 0;
+            outline: none;
+            padding: 0;
+            width: auto;
+            height: auto;
+        }
+        #activity_right_col{
+            margin-right: -5px;
+            width: 122px;
+            margin-top: 0px;
+            float: right;
+            padding-right: 0px;
+            word-wrap: break-word;
+            height: auto;
+        }
+        #activity_content_area{
+            position: relative;
+            width: 236px !important;
+            float: left;
+            margin-right: 0px;
+            height: auto;
+        }
+        #activity_selection{
+            margin: auto;
+            width: 150px;
+            z-index: 2;
+            float: left;
+            /*position: fixed !important;*/
+            display: block;
+            height: auto;
+            /*background-color: #BCD2EE;*/
+        }
+        #activity_selections{
+            width: 161px;
+            height: 375px;
+            direction: ltr;
+            overflow: hidden;
+            position: relative;
+            margin-right: 5px;
+            margin-top: 10px;
+            display: block;
+            font-size: 11px;
+            height: auto;
+        }
+        #activity_ul{
+            font-size: 14px;
+            line-height: 1.28;
+        }
+        .activity_item{
+            margin-bottom: 15px;
+            padding-right: 20px;
+            margin-left: -10px;
+            width: 100%;
+            display: list-item;
+            color: #333;
+            height: 100%;
+            list-style: none;
+        }
+        #activities_area{
+            min-height: 682px;
+            width: 687px;
+            display: block;
+            padding-left: 250px;
+            margin-top: 10px;
+            /*padding-left: 35px;*/
+        }
+            li.activity_item:hover {
+                cursor: pointer;
+            background-color: #c9dbf1 !important;
+        }
+</style>
+
+{% endblock %}
+{% block content%}
+<title>Company Reports </title>
+<label id="current_year" style="display:none;">{% now "Y" %}</label>
+<div id="report_nav_bar">
+    <div id="ActivityGlobalContainer">
+        <div id="activity_content">
+            <div id="activity_content_column">
+
+                <div id="activity_right_col">
+              
+                </div>
+                <div id="activity_content_area">
+                    <div id="non-attendance">
+                    <div id="activity_selection">
+                        <div style="font-family: tahoma,verdana; font-size:25px; line-height:1.5; border-bottom:thin;"></div>
+                        <div id="activity_selections">
+                            
+                            <div>
+                            <ul id="activity_ul" style="list-style:none">
+                                <li id="abd" class="activity_item" value="all" onClick="show_years({% now "Y" %})">{% trans 'Year' %}<span>  
+                                </span> </li>
+                                  <li id="abd_salary" class="activity_item" value="all" onClick="show_years_salary({% now "Y" %})">Year<span>  
+                                </span> </li>
+                                <li id="navmonths"class="activity_item" value="all" onClick="show_months()">{% trans 'Month' %}<span>  
+                                </span> </li>
+                            </ul>
+
+                            <ul id="activity_ul" style="list-style:none">
+                                <li id="abd1" class="activity_item" value="all" onClick="show_years({% now "Y" %})">{% trans 'Year' %}<span>  
+                                </span> </li>
+                            
+                            </ul>
+                            </div>
+
+
+                            <div id="nav_months" style="display:none;">
+                            <ul id="activity_ul" style="list-style:none; padding-left:10px;">
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(1);">{% trans 'January' %}<span>  
+                                </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(2);">{% trans 'February' %}<span>  
+                                </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(3);">{% trans 'March' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(4);">{% trans 'April' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(5);">{% trans 'May' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(6);">{% trans 'June' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(7);">{% trans 'July' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(8);">{% trans 'August' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(9);">{% trans 'September' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(10);">{% trans 'October' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(11);">{% trans 'November' %}<span> </span> </li>
+                                <li id="all_li"class="activity_item" value="all" onClick="getOutputMonthly(12);">{% trans 'December' %}<span> </span> </li>
+                            </ul>
+                            </div>
+                         <div id="nav_years" style="display:none;">
+                            <ul id="listyear" style="padding-left:10px;">
+                            </ul>
+
+                            </div>
+                        </div>
+
+                           
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div id="activities_area">
+                         <div><p id="reportcontent">hey</p>{% trans 'The detailed output per month is below:' %}<br>
+                            <table>
+                                <tr id="records_list_period">
+                                    <td>{% trans 'Period' %}</td>
+                                </tr>
+                                <tr id="records_list_output">
+                                    <td>{% trans 'Number' %}</td>
+                                </tr>
+                            </table>
+                         </div>
+                         <div style="padding-top: 25px;" id="barcontainer"></div>
+                         <div id="linecontainer" style="padding-top: 25px;"></div>
+                         <div id="areacontainer" style="padding-top: 25px;"></div>
+                         <label style="padding-left:275px;"><lbl id="barlabel" ><a onClick="showbar();">{% trans 'Bar Chart' %}</a></lbl><lbl id="arealabel" ><a onclick="showarea();" style="padding-left:25px;">{% trans 'Area Chart' %}</a></lbl><lbl id="linelabel"><a onclick="showline();" style="padding-left:25px;">{% trans 'Line Chart' %}</a></lbl></label>
+
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>  
+                
+    </div>
+    </div> 
+        
+
+<center>
+<div id="report_types_button_div">
+    <div class = "yearly_reports" style = "margin-top: 20px">
+    
+        <button onClick="getSalaryYearly({% now "Y" %});" style = "width:350px; height:100px; font-size:20px !important;">{% trans 'Salary Report' %}</button>
+    
+<!--         <button onClick="getAttendanceYearly({% now "Y" %});" style = "width:350px; height:100px; font-size:20px !important;" onClick>Attendance Report</button> -->
+    
+        <button onClick="getOutputYearly({% now "Y" %});"  style = "width:350px; height:100px; font-size:20px !important;">{% trans 'Productivity Report' %}</button>
+    </div>
+</div>
+
+<div class = "report" style = "visibility:hidden;" >
+    {% for dict in Dict %}
+        
+    {% endfor %}
+
+</div>
+</center>
+<script>
+$('#abd_salary').show();
+$('#abd1').hide();
+$('#report_nav_bar').hide();
+    var current_year = $('#current_year').text();
+    var selected_year = 0;
+    var year_to_be_used = 0;
+    $('#barcontainer').hide();
+    $('#areacontainer').hide();
+    $('#linelabel').hide();
+    function showbar(){
+        $('#areacontainer').hide();
+        $('#linecontainer').hide();
+        $('#barcontainer').show();
+        $('#arealabel').show();
+        $('#linelabel').show();
+        $('#barlabel').hide();
+    }
+    function showline(){
+        $('#areacontainer').hide();
+      
+        $('#barcontainer').hide();
+        $('#linecontainer').show();
+        $('#arealabel').show();
+        $('#linelabel').hide();
+        $('#barlabel').show();
+    }
+    function showarea(){
+        $('#areacontainer').show();
+        $('#linecontainer').hide();
+        $('#barcontainer').hide();
+        $('#arealabel').hide();
+        $('#linelabel').show();
+        $('#barlabel').show();
+    }
+    function show_months(){
+        $('#nav_months').show();
+        $('#abd').hide();
+        $('#abd').show();
+    }
+    function show_months(date){
+        $('#navmonths').show();
+        $('#ab_d').hide();
+        $('#ab_d').show();
+    }
+    function createCallback(t){
+        return function(){
+            getOutputYearly(t);
+                        }
+                    }
+    function createCallback_salary(t){
+    return function(){
+        getSalaryYearly(t);
+                    }
+                }
+    function show_years(year){
+        $('#nav_months').hide();
+        var t;
+        var years = [];
+        year = parseInt(year);
+        var str = '';
+        for(var i=0; i < 10; i++){
+            io = parseInt(i);
+            t = year-io
+            str = '<li class=\'activity_item\' id=\'li' + i + '\'>' + t + '</li>';
+            $("#listyear").append(str);
+            $('#li'+i).click(createCallback(t));    
+            $('#navmonths').hide();
+            var input_to_solve = 'Older'
+            $('#nav_years').show();
+        }
+        str = '<li class=\'activity_item\'>' + input_to_solve + '</li>';
+        $("#listyear").append(str);
+        $('#li'+i).click(createCallback(1995));
+    }
+function show_years_salary(year){
+        $('#nav_months').hide();
+        $('#abd_1').hide();
+        var t;
+        var years = [];
+        year = parseInt(year);
+        var str = '';
+        for(var i=0; i < 10; i++){
+            io = parseInt(i);
+            t = year-io
+            str = '<li class=\'activity_item\' id=\'li' + i + '\'>' + t + '</li>';
+            $("#listyear").append(str);
+            $('#li'+i).click(createCallback_salary(t));    
+            $('#navmonths').hide();
+            var input_to_solve = 'Older'
+            
+        }
+        str = '<li class=\'activity_item\'>' + input_to_solve + '</li>';
+        $("#listyear").append(str);
+        $('#li'+i).click(createCallback_salary(1995));
+        $('#nav_years').show();
+    }
+function getAttendanceYearly(year){
+    selected_year = year;
+    $("#non-attendance").hide();
+    $('#attendance').show();
+    var array_of_values = [];
+    var array_of_keys = new Array(); 
+        $.ajax({
+            url: '/getAttendanceYearly/',
+            dataType: 'json',
+            method : 'GET',
+            data: {
+            "year" : year,
+            },
+            success: function (data) {
+                array1 = []
+                array2 = []
+                $('#report_types_button_div').hide();
+                $('#report_nav_bar').show();
+                document.getElementById('reportcontent').innerHTML = 'The Total absence hours by employees in year : ' + year +   ' is '+ data[12] + ' units  <br> The average absence hours per employee is: ' + data[13] + ' units <br>' ;
+                document.getElementById('records_list_period').innerHTML = '';
+                document.getElementById('records_list_output').innerHTML = '';
+                for(var i = 0; i<data.length-2; i++){ 
+                    array1.push(Object.keys(data[i]));
+                }
+                for(var i = 0; i<array1.length; i++){
+                    var x = array1[i];
+                    var t = data[i][x];
+                    array2.push(t);
+                }
+                for(var i = 0; i < array1.length; i++){
+                    $("#records_list_period").append('<td>'+array1[i]+'</td>');
+                    $("#records_list_output").append('<td>'+array2[i]+'</td>');
+                }
+          
+                var array_of_keys = []
+                var array_of_values = []
+                var dataArrayFinal = Array();
+                    $.ajax({
+                        url: '/getOutputYearly/',
+                        dataType: 'json',
+                        data: {
+                        "year" : year,
+                        },
+                        success: function (data) {
+                            data = data[0]
+                            for(var i = 0; i<data.length; i++){
+                                array_of_keys.push(Object.keys(data[i]));
+                            }
+                            for(var i = 0; i<array_of_keys.length; i++){
+                                var x = array_of_keys[i].toString();
+                                array_of_values.push(parseInt(data[i][x]));
+                            }
+                            for(j=0;j<array_of_keys.length;j++) { 
+                                var temp = new Array(array_of_keys[j],array_of_values[j]); 
+                                dataArrayFinal[j] = temp;     
+                            }
+                            $('#barcontainer').highcharts({
+                            chart: {
+                                    type: 'column'
+                                },
+                                xAxis: {
+                                    categories: array_of_keys
+                                },
+                                    yAxis: {
+                                    title: {
+                                    text: ''
+                                        }
+                                    },
+                                    series: [{
+                                        name: 'EMployee Graph',
+                                        data: array_of_values
+                                        }]
+                            });
+                            $('#areacontainer').highcharts({
+                            chart: {
+                                    type: 'area'
+                                },
+                                xAxis: {
+                                    categories: array_of_keys
+                                },
+                                    yAxis: {
+                                    title: {
+                                    text: ''
+                                        }
+                                    },
+                                    series: [{
+                                        name: 'EMployee Graph',
+                                        data: array_of_values
+                                        }]
+                            });
+                            $('#linecontainer').highcharts({
+                            chart: {
+                                    type: 'line'
+                                },
+                                xAxis: {
+                                    categories: array_of_keys
+                                },
+                                    yAxis: {
+                                    title: {
+                                    text: ''
+                                        }
+                                    },
+                                    series: [{
+                                        name: 'EMployee Graph',
+                                        data: array_of_values
+                                        }]
+                            });
+                            
+                            $('#nav_months').show();
+                            }
+                    });
+                }
+            });
+    }
+function getOutputYearly(year){
+    $('#abd').hide();
+    $('#abd1').show();
+
+    selected_year = year;
+    var array_of_values = [];
+    var array_of_keys = new Array(); 
+        $.ajax({
+            url: '/view_output_yearly/',
+            dataType: 'json',
+            method : 'GET',
+            data: {
+            "year" : year,
+            },
+            success: function (data) {
+                array1 = []
+                array2 = []
+                $('#report_types_button_div').hide();
+                $('#report_nav_bar').show();
+                document.getElementById('reportcontent').innerHTML = 'عدد الانتاج سنويا فى ' + year +   ' هو '+ data[1] + ' وحدة  <br> الناتج التفصيلى شهريا: ' + data[2] + ' وحدة <br>' ;
+                document.getElementById('records_list_period').innerHTML = '';
+                document.getElementById('records_list_output').innerHTML = '';
+                for(var i = 0; i<data[0].length; i++){ 
+                    var t = Object.keys(data[0][i]);
+                    array1.push(t[0]);
+                }
+                for(var i = 0; i<array1.length; i++){
+                    var x = array1[i];
+                    var t = data[0][i][x];
+                    array2.push(data[0][i][x]);
+                }
+                for(var i = 0; i < array1.length; i++){
+                    $("#records_list_period").append('<td>'+array1[i]+'</td>');
+                    $("#records_list_output").append('<td>'+array2[i]+'</td>');
+                }
+                var array_of_keys = []
+                var array_of_values = []
+                var dataArrayFinal = Array();
+                    $.ajax({
+                        url: '/getOutputYearly/',
+                        dataType: 'json',
+                        data: {
+                        "year" : year,
+                        },
+                        success: function (data) {
+                            data = data[0]
+                            for(var i = 0; i<data.length; i++){
+                                array_of_keys.push(Object.keys(data[i]));
+                            }
+                            for(var i = 0; i<array_of_keys.length; i++){
+                                var x = array_of_keys[i].toString();
+                                array_of_values.push(parseInt(data[i][x]));
+                            }
+                            for(j=0;j<array_of_keys.length;j++) { 
+                                var temp = new Array(array_of_keys[j],array_of_values[j]); 
+                                dataArrayFinal[j] = temp;     
+                            }
+                            $('#barcontainer').highcharts({
+                            chart: {
+                                    type: 'column'
+                                },
+                                xAxis: {
+                                    categories: array_of_keys
+                                },
+                                    yAxis: {
+                                    title: {
+                                    text: ''
+                                        }
+                                    },
+                                    series: [{
+                                        name: 'EMployee Graph',
+                                        data: array_of_values
+                                        }]
+                            });
+                            $('#areacontainer').highcharts({
+                            chart: {
+                                    type: 'area'
+                                },
+                                xAxis: {
+                                    categories: array_of_keys
+                                },
+                                    yAxis: {
+                                    title: {
+                                    text: ''
+                                        }
+                                    },
+                                    series: [{
+                                        name: 'EMployee Graph',
+                                        data: array_of_values
+                                        }]
+                            });
+                            $('#linecontainer').highcharts({
+                            chart: {
+                                    type: 'line'
+                                },
+                                xAxis: {
+                                    categories: array_of_keys
+                                },
+                                    yAxis: {
+                                    title: {
+                                    text: ''
+                                        }
+                                    },
+                                    series: [{
+                                        name: 'EMployee Graph',
+                                        data: array_of_values
+                                        }]
+                            });
+                            
+                            $('#nav_months').show();
+                            }
+                    });
+                }
+            });
+    }
+function getSalaryYearly(year){
+    selected_year = year;
+    var array_of_values = [];
+    $('#navmonths').hide();
+    $('#navyears').hide();
+    $('#abd').hide();
+    $('#abd_salary').show();
+    var array_of_keys = new Array(); 
+        $.ajax({
+            url: '/view_salary_yearly/',
+            dataType: 'json',
+            method : 'GET',
+            data: {
+            "year" : year,
+            },
+            success: function (data) { 
+                array1 = []
+                array2 = []
+                $('#report_types_button_div').hide();
+                $('#report_nav_bar').show();
+                document.getElementById('reportcontent').innerHTML = 'مجموع المرتبات و الأجور المدفوعة فى ' + year +   ' هو '+ data[(data.length)-1];
+                document.getElementById('records_list_period').innerHTML = '';
+                document.getElementById('records_list_output').innerHTML = '';
+                for(var i = 0; i<data.length-1; i++){ 
+                    array1.push(Object.keys(data[i])[0]);
+                }
+     for(var i = 0; i<array1.length; i++){
+                    var x = array1[i];
+                    var t = data[i][x];
+                    array2.push(t);
+                }
+                for(var i = 0; i < array1.length; i++){
+                    $("#records_list_period").append('<td>'+array1[i]+'</td>');
+                    $("#records_list_output").append('<td>'+array2[i]+'</td>');
+                }
+                var s = document.getElementById('records_list_output').html;
+    array_of_keys = []
+                var array_of_values = []
+                var dataArrayFinal = Array();
+                    $.ajax({
+                        url: '/view_salary_report/',
+                        dataType: 'json',
+                        data: {
+                        "year" : year,
+                        },
+                        success: function (data) {
+                            array1 = []
+                            array2 = []
+                            $('#report_types_button_div').hide();
+                            $('#report_nav_bar').show();
+                            document.getElementById('reportcontent').innerHTML = 'مجموع المرتبات و الأجور المدفوعة فى ' + year +   ' هو '+ data[(data.length)-1];
+                            // document.getElementById('records_list_period').innerHTML = '';
+                            // document.getElementById('records_list_output').innerHTML = '';
+                            for(var i = 0; i<data.length-1; i++){ 
+                                array1.push(Object.keys(data[i])[0]);
+                            }
+                             for(var i = 0; i<array1.length; i++){
+                                var x = array1[i];
+                                var t = data[i][x];
+                                array2.push(t);
+                            }
+
+                          
+                            $('#barcontainer').highcharts({
+                            chart: {
+                                    type: 'column'
+                                },
+                                xAxis: {
+                                    categories: array1
+                                },
+                                    yAxis: {
+                                    title: {
+                                    text: ''
+                                        }
+                                    },
+                                    series: [{
+                                        name: 'EMployee Graph',
+                                        data: array2
+                                        }]
+                            });
+                            $('#areacontainer').highcharts({
+                            chart: {
+                                    type: 'area'
+                                },
+                                xAxis: {
+                                    categories: array1
+                                },
+                                    yAxis: {
+                                    title: {
+                                    text: ''
+                                        }
+                                    },
+                                    series: [{
+                                        name: 'EMployee Graph',
+                                        data: array2
+                                        }]
+                            });
+                            $('#linecontainer').highcharts({
+                            chart: {
+                                    type: 'line'
+                                },
+                                xAxis: {
+                                    categories: array1
+                                },
+                                    yAxis: {
+                                    title: {
+                                    text: ''
+                                        }
+                                    },
+                                    series: [{
+                                        name: 'EMployee Graph',
+                                        data: array2
+                                        }]
+                            });
+                            
+                            // $('#nav_months').show();
+                            }
+                    });
+                }
+            });
+    }
+function getOutputMonthly(month){
+    var array_of_values = [];
+    var array_of_keys = new Array();
+    if(selected_year == 0){
+        year_to_be_used = current_year;
+    }
+    else{
+        year_to_be_used = selected_year;
+    }
+        $.ajax({
+            url: '/view_output_monthly/',
+            dataType: 'json',
+            data: {
+                "month" : month,
+                "year" : year_to_be_used,
+            },
+                success: function (data) { 
+                document.getElementById('records_list_period').innerHTML = '';
+                document.getElementById('records_list_output').innerHTML = '';
+                array1 = []
+                array2 = []
+                total = Object.keys(data[31]);
+                avg = Object.keys(data[32]);
+                $('#report_types_button_div').hide();
+                $('#report_nav_bar').show();
+                document.getElementById('reportcontent').innerHTML = 'مجموع الوحدات المنتجة فى ' + month +   ' هو '
+                +data[31][total[0]] + ' وحدة  <br> متوسط الناتج: ' + data[32][avg[0]] + ' وحدة <br>';
+                iteratable = data.length - 2;
+                for(var i = 0; i<iteratable; i++){
+                    var t = Object.keys(data[i]);
+                    array1.push(t[0]);
+                }
+                for(var i = 0; i<iteratable; i++){
+                    var x = array1[i];
+                    array2.push(parseInt(data[i][x]));
+                }
+                for (var i = 0; i < iteratable; i++){
+                    $("#records_list_period").append('<td>'+array1[i]+'</td>');
+                    $("#records_list_output").append('<td>'+array2[i]+'</td>');
+                }
+                var array_of_keys = []
+                var array_of_values = []
+                var dataArrayFinal = Array();
+                    $.ajax({
+                        url: '/getOutputMonthly/',
+                        dataType: 'json',
+                        data: {
+                            "year" :year_to_be_used,
+                            "month" : month,
+                        },
+                        success: function (data) {
+                            iteratable = data.length - 2;
+                            for(var i = 0; i<iteratable; i++){
+                                array_of_keys.push(Object.keys(data[i]));
+                            }
+                            for(var i = 0; i<array_of_keys.length; i++){
+                                var x = array_of_keys[i].toString();
+                                array_of_values.push(parseInt(data[i][x]));
+                            }
+                            for(j=0;j<array_of_keys.length;j++) { 
+                                var temp = new Array(array_of_keys[j],array_of_values[j]); 
+                                dataArrayFinal[j] = temp;     
+                            }
+                            $('#barcontainer').highcharts({
+                            chart: {
+                                type: 'column'
+                                },
+                            xAxis: {
+                                categories: array_of_keys
+                                },
+                            yAxis: {
+                                title: {
+                                text: ''
+                                    }
+                                },
+                            series: [{
+                                name: 'Employee Graph',
+                                data: array_of_values
+                                }]
+                            });
+                        }
+                    });
+                }
+            });
+    }
+</script>
+
+
+<script type="text/javascript">
+    var csrftoken = getCookie('csrftoken');
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+</script>
+
+{% endblock %}

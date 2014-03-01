@@ -94,16 +94,16 @@
         <div class="container">
             <div class="item">
                 {% if attendance_list %}
-                <h3>Attendance of {{adminform.form.instance.name}}</h3>
+                <h3>{% trans "Attendance of" %} {{adminform.form.instance.name}}</h3>
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Employee</th>
-                            <th>Date</th>
-                            <th>check_in</th>
-                            <th>check_out</th>
-                            <th>Add Exption</th>
+                            <th>{% trans 'Innov Payroll' %}Id</th>
+                            <th>{% trans 'Employee' %}</th>
+                            <th>{% trans 'Date' %}</th>
+                            <th>{% trans 'check_in' %}</th>
+                            <th>{% trans 'check_out' %}</th>
+                            <th>{% trans 'Add Exption' %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -121,22 +121,22 @@
                 </table>
                 {% else %}
                 <div class="alert alert-error" style="margin-bottom: 0px;">
-                    <p>No Attendance Avaiable for {{adminform.form.instance.name}}</p>
+                    <p>{% trans 'No Attendance Avaiable for' %} {{adminform.form.instance.name}}</p>
                 </div>
                 {% endif %}
             </div>
             <div class="item">
                 {% if batch_list %}
-                <h3>Batches of {{adminform.form.instance.name}}</h3>
+                <h3>{% trans 'Batches of' %} {{adminform.form.instance.name}}</h3>
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Employee</th>
-                            <th>Date</th>
-                            <th>Item</th>
-                            <th>Price</th>
-                            <th>Size</th>
+                            <th>{% trans 'Id' %}</th>
+                            <th>{% trans 'Employee'%}</th>
+                            <th>{% trans 'Date' %}</th>
+                            <th>{% trans 'Item' %}</th>
+                            <th>{% trans 'Price'%}</th>
+                            <th>{% trans 'Size' %}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -154,7 +154,7 @@
                 </table>
                 {% else %}
                 <div class="alert alert-error" style="margin-bottom: 0px;">
-                    <p>No Batches Avaiable for {{adminform.form.instance.name}}</p>
+                    <p>{% trans 'No Batches Avaiable for' %} {{adminform.form.instance.name}}</p>
                 </div>
                 {% endif %}
             </div>

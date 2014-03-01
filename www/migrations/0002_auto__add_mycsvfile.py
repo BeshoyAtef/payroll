@@ -8,15 +8,21 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Batch.reason'
-        db.add_column(u'www_batch', 'reason',
-                      self.gf('django.db.models.fields.CharField')(default='none', max_length=100),
-                      keep_default=False)
+        # Adding model 'MyCsvFile'
+        db.create_table(u'www_mycsvfile', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('Ac_No', self.gf('django.db.models.fields.IntegerField')()),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('time', self.gf('django.db.models.fields.CharField')(max_length=20)),
+            ('finger_Print', self.gf('django.db.models.fields.CharField')(max_length=15)),
+            ('machine', self.gf('django.db.models.fields.IntegerField')()),
+        ))
+        db.send_create_signal(u'www', ['MyCsvFile'])
 
 
     def backwards(self, orm):
-        # Deleting field 'Batch.reason'
-        db.delete_column(u'www_batch', 'reason')
+        # Deleting model 'MyCsvFile'
+        db.delete_table(u'www_mycsvfile')
 
 
     models = {
@@ -24,7 +30,7 @@ class Migration(SchemaMigration):
             'Meta': {'model_name': 'Attendance'},
             'check_in': ('django.db.models.fields.DateTimeField', [], {}),
             'check_out': ('django.db.models.fields.DateTimeField', [], {}),
-            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 18, 0, 0)'}),
+            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 17, 0, 0)'}),
             'employee': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['www.Employee']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
@@ -37,17 +43,16 @@ class Migration(SchemaMigration):
         },
         u'www.batch': {
             'Meta': {'model_name': 'Batch'},
-            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 18, 0, 0)'}),
+            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 17, 0, 0)'}),
             'employee': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['www.Employee']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'item': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['www.Item']"}),
             'item_price': ('django.db.models.fields.IntegerField', [], {}),
-            'reason': ('django.db.models.fields.CharField', [], {'default': "'none'", 'max_length': '100'}),
             'size': ('django.db.models.fields.IntegerField', [], {'default': '0'})
         },
         u'www.companydowntime': {
             'Meta': {'model_name': 'CompanyDowntime'},
-            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 18, 0, 0)'}),
+            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 17, 0, 0)'}),
             'end_time': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'start_time': ('django.db.models.fields.DateTimeField', [], {})
@@ -71,14 +76,23 @@ class Migration(SchemaMigration):
         u'www.loan': {
             'Meta': {'model_name': 'Loan'},
             'amount': ('django.db.models.fields.IntegerField', [], {}),
-            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 18, 0, 0)'}),
+            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 17, 0, 0)'}),
             'employee': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['www.Employee']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
+        u'www.mycsvfile': {
+            'Ac_No': ('django.db.models.fields.IntegerField', [], {}),
+            'Meta': {'ordering': "['Ac_No']", 'model_name': 'MyCsvFile'},
+            'finger_Print': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'machine': ('django.db.models.fields.IntegerField', [], {}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'time': ('django.db.models.fields.CharField', [], {'max_length': '20'})
         },
         u'www.payment': {
             'Meta': {'model_name': 'Payment'},
             'amount': ('django.db.models.fields.IntegerField', [], {}),
-            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 18, 0, 0)'}),
+            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 17, 0, 0)'}),
             'employee': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['www.Employee']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         }

@@ -1,0 +1,208 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-03 00:04+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: settings.py:46
+msgid "Arabic"
+msgstr ""
+
+#: settings.py:47
+msgid "English"
+msgstr ""
+
+#: templates/admin/index.html:13
+#: templates/admin/www/employee/change_form.html:101
+msgid "Innov Payroll"
+msgstr "جدول الرواتب - Innov"
+
+#: templates/admin/index.html:18
+msgid "Import Attendence"
+msgstr "استخراج الحضور"
+
+#: templates/admin/index.html:22
+msgid "Reports"
+msgstr "التقارير"
+
+#: templates/admin/index.html:35
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr ""
+
+#: templates/admin/index.html:36
+#, python-format
+msgid "%(name)s"
+msgstr ""
+
+#: templates/admin/index.html:64
+#: templates/admin/www/employee/change_form.html:24
+msgid "Add"
+msgstr "اضف"
+
+#: templates/admin/index.html:70
+msgid "Change"
+msgstr "غير"
+
+#: templates/admin/index.html:82
+msgid "You don't have permission to edit anything."
+msgstr "لا توجد لديك الصلاحية لتغير اى شىء"
+
+#: templates/admin/index.html:90
+msgid "Recent Actions"
+msgstr "الاجرات الاخيرة"
+
+#: templates/admin/index.html:91
+msgid "My Actions"
+msgstr "تطبيقاتى"
+
+#: templates/admin/index.html:95
+msgid "None available"
+msgstr "لا يوجد"
+
+#: templates/admin/index.html:109
+msgid "Unknown content"
+msgstr "المحتوى غير معروف"
+
+#: templates/admin/www/batch/change_list.html:63
+#: templates/admin/www/employee/change_form.html:21
+msgid "Home"
+msgstr "الصفحة الاساسية"
+
+#: templates/admin/www/batch/change_list.html:101
+#: templates/admin/www/employee/change_form.html:102
+#: templates/admin/www/employee/change_form.html:135
+msgid "Employee"
+msgstr "الموظف"
+
+#: templates/admin/www/batch/change_list.html:102
+#: templates/admin/www/employee/change_form.html:103
+#: templates/admin/www/employee/change_form.html:136
+msgid "Date"
+msgstr "التاريخ"
+
+#: templates/admin/www/batch/change_list.html:103
+#: templates/admin/www/employee/change_form.html:137
+msgid "Item"
+msgstr "القطعة"
+
+#: templates/admin/www/batch/change_list.html:104
+#: templates/admin/www/employee/change_form.html:138
+msgid "Price"
+msgstr "السعر"
+
+#: templates/admin/www/batch/change_list.html:105
+#: templates/admin/www/employee/change_form.html:139
+msgid "Size"
+msgstr "الحجم"
+
+#: templates/admin/www/batch/change_list.html:106
+msgid "Add a Reason"
+msgstr "اضف السبب"
+
+#: templates/admin/www/batch/change_list.html:137
+msgid "Add batch"
+msgstr "اضف الدفعة"
+
+#: templates/admin/www/batch/change_list.html:181
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: templates/admin/www/batch/change_list.html:190
+#: templates/admin/www/employee/change_form.html:51
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/admin/www/batch/change_list.html:201
+msgid "Filter"
+msgstr "حدد"
+
+#: templates/admin/www/batch/change_list.html:240
+msgid "Add batches"
+msgstr "اضف الدفعات"
+
+#: templates/admin/www/employee/change_form.html:37
+msgid "History"
+msgstr "التاريخ"
+
+#: templates/admin/www/employee/change_form.html:39
+msgid "View on site"
+msgstr "عرض على الموقع"
+
+#: templates/admin/www/employee/change_form.html:97
+msgid "Attendance of"
+msgstr "الحضور لى"
+
+#: templates/admin/www/employee/change_form.html:104
+msgid "check_in"
+msgstr "دخول العمل"
+
+#: templates/admin/www/employee/change_form.html:105
+msgid "check_out"
+msgstr "خروج من العمل"
+
+#: templates/admin/www/employee/change_form.html:106
+msgid "Add Exption"
+msgstr "اضف استسناء"
+
+#: templates/admin/www/employee/change_form.html:124
+msgid "No Attendance Avaiable for"
+msgstr "لا يوجد حضور ا"
+
+#: templates/admin/www/employee/change_form.html:130
+msgid "Batches of"
+msgstr "دفعات ال"
+
+#: templates/admin/www/employee/change_form.html:134
+msgid "Id"
+msgstr "الهوية"
+
+#: templates/admin/www/employee/change_form.html:157
+msgid "No Batches Avaiable for"
+msgstr "لا يوجد دفع متوفرة ل"
+
+#: templates/admin/www/employee/paymentslip.html:34
+msgid "Number of payment slips generated"
+msgstr "عدد ايصبلت الدفع"
+
+#: templates/admin/www/employee/paymentslip.html:35
+msgid "Number of emplyees whom there payment slips are not ready are"
+msgstr "عدد الموظفين بدون ايصال الدفع"
+
+#: templates/admin/www/employee/paymentslip.html:39
+msgid "The employees whose payment slips are not ready are"
+msgstr "كشف الموظفين الذين بدون ايصال دفع"
+
+#: templates/admin/www/employee/paymentslip.html:52
+msgid "Month"
+msgstr "شهر"
+
+#: templates/admin/www/employee/paymentslip.html:53
+msgid "Pay to"
+msgstr "ادفغ ل"
+
+#: templates/admin/www/employee/paymentslip.html:55
+msgid "Amount to be paid"
+msgstr "القيمة المتوقع دفعها"
+
+#: templates/admin/www/employee/paymentslip.html:59
+msgid "print all slips"
+msgstr "اطبع كل الايصلات"

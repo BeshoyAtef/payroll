@@ -1,0 +1,87 @@
+{% extends "admin/base_site.html" %}
+{% load www_filters %}
+{% load i18n admin_static admin_views %}{% load staticfiles %}
+{% load humanize %}
+{% block extrastyle %}{{ block.super }}
+{% endblock %}
+{% block content %}
+<style type="text/css" media="screen">
+.watermark{
+position: absolute;
+opacity: 0.15;
+font-size: 5em;
+width: 100%;
+margin-left: 50px;
+margin-top: 174px;
+z-index: 1000;
+transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+-webkit-transform: rotate(14deg);
+	}
+.wrapper{
+	vertical-align: centre;
+	width: 710px;
+	/*margin-left: 400px;*/
+	margin-top: 30px;
+	
+border-top: 3px solid black;
+border-left: 3px solid black;
+border-right: 3px solid black;
+}
+.content{
+	/*text-align: center;*/
+	padding: 10px;
+	border-bottom: 3px solid black;
+}
+.p {
+font-size: 16pt;
+}
+</style>
+
+<style type="text/css" media="print">
+.watermark{
+position: absolute;
+opacity: 0.15;
+font-size: 4em;
+width: 100%;
+margin-left: 113px;
+margin-top: 144px;
+z-index: 1000;
+transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+-webkit-transform: rotate(17deg);
+	}
+.wrapper{
+	margin-left: 0px;
+	margin-top: 30px;
+	height:322px;
+border-top: 3px solid black;
+
+}
+.content{
+	/*text-align: center;*/
+	padding: 10px;
+	border-bottom: 3px solid black;
+	border-left: 3px solid black;
+border-right: 3px solid black;
+}
+.p {
+font-size: 16pt;
+}
+</style>
+
+
+{% for loan in list_of_loans %}
+<div class="wrapper">
+	
+	<div class="watermark ">Innov Development</div>
+	<div class="content p">{% trans 'Date:' %} {% now "jS F Y " %}</div>
+	<div class="content p">{% trans 'Employee Name:' %} {{loan.employee.name}}</div>
+	<div class="content p">{% trans 'Loan Amount:' %} {{loan.amount}}</div>
+	<div class="content p">{% trans 'Employee Signature:' %} </div>
+	<div class="content p">{% trans 'Director' %} </div>
+
+</div>
+
+{% endfor %}
+{% endblock %}

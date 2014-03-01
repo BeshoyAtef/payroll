@@ -31,12 +31,12 @@ body {
 
 <body>
 	<div id="non-printable">
-	<h3>Number of payment slips generated: {{ slips_list|list_length }}</h3>
-	<h3>Number of emplyees whom there payment slips are not ready are: {{ list_of_exceptions|list_length }}</h3>
+	<h3>{% trans 'Number of payment slips generated' %}: {{ slips_list|list_length }}</h3>
+	<h3>{% trans 'Number of emplyees whom there payment slips are not ready are' %}: {{ list_of_exceptions|list_length }}</h3>
 	</div>
 {% if list_of_exceptions %}
 <div id="non-printable">
-	<label>The employees whose payment slips are not ready are:</label>
+	<label>{% trans 'The employees whose payment slips are not ready are' %}:</label>
 <ul>
 
 	{% for employee in list_of_exceptions %}
@@ -49,13 +49,13 @@ body {
 <div id="non-printable"><h4>Slips ready for printing are found below: </h4></div>
 	{% for payment in slips_list %}
 	<div class="">
-		<label>Month: {{payment.date|month_name}}</label>
-		<label><br>Pay to: {{payment.employee.name}}</label>
+		<label>{% trans 'Month' %}: {{payment.date|month_name}}</label>
+		<label><br>{% trans 'Pay to' %}: {{payment.employee.name}}</label>
 		<br>
-		<label>Amount to be paid: {{payment.amount}}</label>
+		<label>{% trans 'Amount to be paid' %}: {{payment.amount}}</label>
 		<br><br><label>authorized by: </label>
 	</div>
 	{% endfor %}
-	<div id="non-printable"><a href="javascript:window.print()" onClick="print();">print all slips</a></div>
+	<div id="non-printable"><a href="javascript:window.print()" onClick="print();">{% trans 'print all slips' %}</a></div>
 </body>
 </html>

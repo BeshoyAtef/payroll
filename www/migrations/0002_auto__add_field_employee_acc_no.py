@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Batch.reason'
-        db.add_column(u'www_batch', 'reason',
-                      self.gf('django.db.models.fields.CharField')(default='none', max_length=100),
+        # Adding field 'Employee.acc_no'
+        db.add_column(u'www_employee', 'acc_no',
+                      self.gf('django.db.models.fields.IntegerField')(default=0),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'Batch.reason'
-        db.delete_column(u'www_batch', 'reason')
+        # Deleting field 'Employee.acc_no'
+        db.delete_column(u'www_employee', 'acc_no')
 
 
     models = {
@@ -42,7 +42,6 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'item': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['www.Item']"}),
             'item_price': ('django.db.models.fields.IntegerField', [], {}),
-            'reason': ('django.db.models.fields.CharField', [], {'default': "'none'", 'max_length': '100'}),
             'size': ('django.db.models.fields.IntegerField', [], {'default': '0'})
         },
         u'www.companydowntime': {
@@ -54,6 +53,7 @@ class Migration(SchemaMigration):
         },
         u'www.employee': {
             'Meta': {'model_name': 'Employee'},
+            'acc_no': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '254'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'mobile': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
