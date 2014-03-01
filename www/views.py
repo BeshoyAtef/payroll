@@ -370,6 +370,7 @@ def upload_file(request):
             
             dic = {}
             for row in dataReader:
+            	print row
                 if row[0] != 'Ac-No': # Ignore the header row, import everything else
                     account_number = row[0]
                     stime = row[2]

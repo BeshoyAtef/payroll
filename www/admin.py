@@ -6,7 +6,6 @@ import datetime
 from datetime import date
 from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponseRedirect, HttpResponse
-from admin_views.admin import AdminViews
 from django.utils.translation import ugettext_lazy as _
 
 def print_loan_statements(modeladmin, request, queryset):

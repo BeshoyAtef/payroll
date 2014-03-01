@@ -27,7 +27,7 @@ class Migration(SchemaMigration):
 
     models = {
         u'www.attendance': {
-            'Meta': {'object_name': 'Attendance'},
+            'Meta': {'model_name': 'Attendance'},
             'check_in': ('django.db.models.fields.DateTimeField', [], {}),
             'check_out': ('django.db.models.fields.DateTimeField', [], {}),
             'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 17, 0, 0)'}),
@@ -35,14 +35,14 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         u'www.attendanceexception': {
-            'Meta': {'object_name': 'AttendanceException'},
+            'Meta': {'model_name': 'AttendanceException'},
             'attendance': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['www.Attendance']"}),
             'check_in': ('django.db.models.fields.DateTimeField', [], {}),
             'check_out': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         u'www.batch': {
-            'Meta': {'object_name': 'Batch'},
+            'Meta': {'model_name': 'Batch'},
             'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 17, 0, 0)'}),
             'employee': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['www.Employee']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -51,14 +51,14 @@ class Migration(SchemaMigration):
             'size': ('django.db.models.fields.IntegerField', [], {'default': '0'})
         },
         u'www.companydowntime': {
-            'Meta': {'object_name': 'CompanyDowntime'},
+            'Meta': {'model_name': 'CompanyDowntime'},
             'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 17, 0, 0)'}),
             'end_time': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'start_time': ('django.db.models.fields.DateTimeField', [], {})
         },
         u'www.employee': {
-            'Meta': {'object_name': 'Employee'},
+            'Meta': {'model_name': 'Employee'},
             'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '254'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'mobile': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
@@ -67,14 +67,14 @@ class Migration(SchemaMigration):
             'ssn': ('django.db.models.fields.IntegerField', [], {'default': '0'})
         },
         u'www.item': {
-            'Meta': {'object_name': 'Item'},
+            'Meta': {'model_name': 'Item'},
             'description': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'identifier': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '100'}),
             'value': ('django.db.models.fields.IntegerField', [], {'default': '0'})
         },
         u'www.loan': {
-            'Meta': {'object_name': 'Loan'},
+            'Meta': {'model_name': 'Loan'},
             'amount': ('django.db.models.fields.IntegerField', [], {}),
             'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 17, 0, 0)'}),
             'employee': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['www.Employee']"}),
@@ -82,7 +82,7 @@ class Migration(SchemaMigration):
         },
         u'www.mycsvfile': {
             'Ac_No': ('django.db.models.fields.IntegerField', [], {}),
-            'Meta': {'ordering': "['Ac_No']", 'object_name': 'MyCsvFile'},
+            'Meta': {'ordering': "['Ac_No']", 'model_name': 'MyCsvFile'},
             'finger_Print': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'machine': ('django.db.models.fields.IntegerField', [], {}),
@@ -90,7 +90,7 @@ class Migration(SchemaMigration):
             'time': ('django.db.models.fields.CharField', [], {'max_length': '20'})
         },
         u'www.payment': {
-            'Meta': {'object_name': 'Payment'},
+            'Meta': {'model_name': 'Payment'},
             'amount': ('django.db.models.fields.IntegerField', [], {}),
             'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 6, 17, 0, 0)'}),
             'employee': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['www.Employee']"}),

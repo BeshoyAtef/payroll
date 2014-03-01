@@ -26,9 +26,8 @@ class Employee(models.Model):
     REQUIRED_FIELDS = ['name']
 
     class Meta:
-       verbose_name = _('Employee')
-       verbose_name_plural = _('Employees')
-
+        verbose_name = _('Employee')
+        verbose_name_plural = _('Employees')
     def __unicode__(self):
         return self.name+"-"+str(self.mobile)
 
