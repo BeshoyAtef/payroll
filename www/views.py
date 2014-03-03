@@ -36,7 +36,7 @@ from django.core.context_processors import csrf
 from django.utils import simplejson
 
 def index(request):
-    return HttpResponse(" <a href='/admin'>Click here to got o the admin page</a>")
+    return redirect('/admin')
 
 def import_attendance(request):
     return HttpResponse(" <h1>Welcome to the Attendance upload page</h1> ")
@@ -45,10 +45,11 @@ def view_reports(request):
     return HttpResponse(" <h1>Welcome to thereports page</h1> ")
 
 def switch_lang(request):
-    if request.session['django_language'] == 'en': 
-        request.session['django_language'] = 'ar'
-    else:
-        request.session['django_language'] = 'en'
+    request.session['django_language'] = 'en'
+    # if request.session['django_language'] == 'en': 
+    #     request.session['django_language'] = 'ar'
+    # else:
+    #     request.session['django_language'] = 'en'
     return redirect('index.html')
 
 
@@ -371,7 +372,7 @@ def upload_file(request):
             dic = {}
             for row in dataReader:
             	print row
-                if row[0] != 'Ac-No': # Ignore the header row, import everything else
+                if row[0] != 'Ac-No' and row[0] != None : # Ignore the header row, import everything else
                     account_number = row[0]
                     stime = row[2]
                     if account_number not in dic:
@@ -398,9 +399,7 @@ def upload_file(request):
                     stime = datetime.datetime.strptime(stime, "%m/%d/%Y %H:%M" )
                     
                     if stime.date() == check_in.date():
-                        check_out = stime
-                        
-                    
+                        check_out = stime                       
 
                     else:
                         
@@ -412,8 +411,8 @@ def upload_file(request):
                             attend.save()
                             check_in = stime
                             check_out= None
-                        else:
-                            return HttpResponse ("file has been read")
+                        # else:
+                        #     return HttpResponse ("file has been read")
                 if not Attendance.objects.filter(check_in=check_in,check_out=check_out,employee=employee).exists():
 
                     attend = Attendance()
@@ -423,8 +422,8 @@ def upload_file(request):
                     attend.save()
                     check_in = stime
                     check_out= None
-                else:
-                    return HttpResponse ("file has been read")
+                # else:
+                #     return HttpResponse ("file has been read")
 
             return HttpResponse('sucess')
         else :

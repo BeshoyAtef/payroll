@@ -116,6 +116,16 @@ class Attendance(models.Model):
     employee = models.ForeignKey(Employee)
     reason = models.CharField(max_length=100,default="",null=True)
     is_exeption = models.BooleanField(default=False)
+    STATUS_CHOICES = (
+        ('L', 'Late'),
+        ('OT', 'Overtime'),
+        ('LE', 'Leave Early'),
+        ('M', 'Missing'),
+        ('G', 'Good'),
+    )
+    status = models.CharField(max_length=3,
+                                      choices=STATUS_CHOICES,
+                                      default='M')
 
     class Meta:
        verbose_name = _('Attendance')

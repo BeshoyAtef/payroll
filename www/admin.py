@@ -92,6 +92,7 @@ admin.site.register(Payment,PaymentAdmin)
 admin.site.register(Loan,LoanAdmin)
 admin.site.register(CompanyDowntime)
 admin.site.register(AttendanceException)
+admin.site.register(Attendance)
 #remove unneeded items 
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
